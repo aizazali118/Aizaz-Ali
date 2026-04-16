@@ -13,7 +13,7 @@ const plans = {
   wordpress: [
     {
       name: 'Starter',
-      price: '$99',
+      price: '$199',
       desc: 'Perfect for personal blogs, portfolios, and small informational websites.',
       features: [
         '3–5 Page Website',
@@ -29,7 +29,7 @@ const plans = {
     },
     {
       name: 'Professional',
-      price: '$249',
+      price: '$699',
       desc: 'Ideal for businesses needing a full site with e-commerce and advanced features.',
       features: [
         'Up to 10 Pages',
@@ -46,7 +46,7 @@ const plans = {
     },
     {
       name: 'Enterprise',
-      price: '$499',
+      price: '$2,999',
       desc: 'Custom theme development and full e-commerce solution built from scratch.',
       features: [
         'Custom Theme Development',
@@ -65,7 +65,7 @@ const plans = {
   shopify: [
     {
       name: 'Starter',
-      price: '$149',
+      price: '$200',
       desc: 'Quick store setup with a professional theme and essential configuration.',
       features: [
         'Shopify Store Setup',
@@ -81,7 +81,7 @@ const plans = {
     },
     {
       name: 'Professional',
-      price: '$349',
+      price: '$499',
       desc: 'A fully customised Shopify store optimised to convert visitors into customers.',
       features: [
         'Custom Theme Design',
@@ -98,7 +98,7 @@ const plans = {
     },
     {
       name: 'Enterprise',
-      price: '$699',
+      price: '$2,599',
       desc: 'Fully custom Liquid theme with advanced integrations and ongoing support.',
       features: [
         'Full Custom Liquid Theme',
@@ -117,7 +117,7 @@ const plans = {
   frontend: [
     {
       name: 'Starter',
-      price: '$199',
+      price: '$500',
       desc: 'A beautiful, fast landing page built with React and Tailwind CSS.',
       features: [
         'Single Page React App',
@@ -133,7 +133,7 @@ const plans = {
     },
     {
       name: 'Professional',
-      price: '$499',
+      price: '$3,999',
       desc: 'Multi-page React application with advanced animations and API integration.',
       features: [
         'Multi-Page React App',
@@ -150,7 +150,7 @@ const plans = {
     },
     {
       name: 'Enterprise',
-      price: '$999',
+      price: '$5,699',
       desc: 'Full Next.js application with SSR, authentication, and database integration.',
       features: [
         'Next.js with SSR / SSG',

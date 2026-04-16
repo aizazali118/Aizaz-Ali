@@ -17,48 +17,45 @@ body {
 @media (pointer: coarse) { body { cursor: auto; } }
 
 /* ══════════════════════════════════════════
-   CURSOR — glowing dot + gradient ring + trail
+   CURSOR — magnetic dot + glow ring (desktop only)
 ══════════════════════════════════════════ */
 .cursor-dot {
   position: fixed;
   top: 0; left: 0;
-  width: 10px; height: 10px;
+  width: 7px; height: 7px;
   border-radius: 50%;
-  background: #6c63ff;
+  background: #fff;
   pointer-events: none;
   z-index: 9999;
   transform: translate(-50%, -50%);
-  box-shadow:
-    0 0 6px  2px rgba(108,99,255,0.9),
-    0 0 18px 4px rgba(108,99,255,0.55),
-    0 0 40px 8px rgba(108,99,255,0.25);
-  transition: width 0.2s, height 0.2s, opacity 0.2s;
+  mix-blend-mode: difference;
+  transition: opacity 0.15s, transform 0.1s;
 }
 .cursor-dot.hidden { opacity: 0; transform: translate(-50%,-50%) scale(0); }
 
 .cursor-ring {
   position: fixed;
   top: 0; left: 0;
-  width: 46px; height: 46px;
+  width: 42px; height: 42px;
   border-radius: 50%;
   pointer-events: none;
   z-index: 9998;
   transform: translate(-50%, -50%);
-  border: 1.5px solid transparent;
-  background:
-    linear-gradient(#fff,#fff) padding-box,
-    linear-gradient(135deg, #6c63ff, #a78bfa, #06b6d4) border-box;
-  transition: width 0.35s cubic-bezier(.34,1.56,.64,1),
-              height 0.35s cubic-bezier(.34,1.56,.64,1),
-              background 0.3s;
+  border: 1.5px solid rgba(108,99,255,0.55);
+  background: rgba(108,99,255,0.06);
+  backdrop-filter: blur(1px);
+  transition: width 0.45s cubic-bezier(.34,1.56,.64,1),
+              height 0.45s cubic-bezier(.34,1.56,.64,1),
+              background 0.3s, border-color 0.3s,
+              box-shadow 0.3s;
   display: flex; align-items: center; justify-content: center;
   overflow: hidden;
 }
 .cursor-ring.hovered {
-  width: 80px; height: 80px;
-  background:
-    linear-gradient(rgba(108,99,255,0.12), rgba(108,99,255,0.12)) padding-box,
-    linear-gradient(135deg, #6c63ff, #a78bfa, #06b6d4) border-box;
+  width: 78px; height: 78px;
+  background: rgba(108,99,255,0.12);
+  border-color: rgba(108,99,255,0.85);
+  box-shadow: 0 0 22px rgba(108,99,255,0.35), 0 0 50px rgba(108,99,255,0.15);
 }
 .cursor-ring .cursor-label {
   font-size: 9px;
@@ -73,17 +70,29 @@ body {
 }
 .cursor-ring.hovered .cursor-label { opacity: 1; }
 
+/* Magnetic glow aura */
+.cursor-aura {
+  position: fixed;
+  top: 0; left: 0;
+  width: 120px; height: 120px;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9996;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(circle, rgba(108,99,255,0.10) 0%, transparent 70%);
+  filter: blur(8px);
+  transition: opacity 0.3s;
+}
+
 /* Trail dots */
 .cursor-trail {
   position: fixed;
   top: 0; left: 0;
-  width: 6px; height: 6px;
   border-radius: 50%;
   pointer-events: none;
   z-index: 9997;
   transform: translate(-50%, -50%);
-  background: #a78bfa;
-  transition: opacity 0.1s;
+  background: rgba(108,99,255,0.55);
 }
 
 /* ══════════════════════════════════════════

@@ -2,8 +2,9 @@ import { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FiExternalLink, FiGithub } from 'react-icons/fi';
+import { FiExternalLink, FiGithub, FiArrowRight } from 'react-icons/fi';
 import { FaWordpress, FaShopify, FaReact } from 'react-icons/fa';
+import { SiFiverr, SiUpwork } from 'react-icons/si';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -200,6 +201,39 @@ export default function Portfolio() {
           >
             Let's Work Together
           </button>
+
+          {/* Portfolio profile links */}
+          <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
+            <p className="text-xs text-gray-400 uppercase tracking-widest font-semibold">View full portfolio on</p>
+            <div className="flex items-center gap-3">
+              <a
+                href="https://www.fiverr.com/s/dDa9lqa"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group inline-flex items-center gap-2.5 px-5 py-2.5 rounded-full border-2 font-bold text-sm transition-all duration-250 hover:scale-105 active:scale-95"
+                style={{ borderColor: '#1dbf73', color: '#1dbf73' }}
+                onMouseEnter={e => { e.currentTarget.style.background = '#1dbf73'; e.currentTarget.style.color = '#fff'; }}
+                onMouseLeave={e => { e.currentTarget.style.background = ''; e.currentTarget.style.color = '#1dbf73'; }}
+              >
+                <SiFiverr size={16} />
+                Fiverr
+                <FiArrowRight size={13} className="group-hover:translate-x-1 transition-transform" />
+              </a>
+              <a
+                href="https://www.upwork.com/freelancers/~01db2b03b5a7f36be8"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group inline-flex items-center gap-2.5 px-5 py-2.5 rounded-full border-2 font-bold text-sm transition-all duration-250 hover:scale-105 active:scale-95"
+                style={{ borderColor: '#14a800', color: '#14a800' }}
+                onMouseEnter={e => { e.currentTarget.style.background = '#14a800'; e.currentTarget.style.color = '#fff'; }}
+                onMouseLeave={e => { e.currentTarget.style.background = ''; e.currentTarget.style.color = '#14a800'; }}
+              >
+                <SiUpwork size={16} />
+                Upwork
+                <FiArrowRight size={13} className="group-hover:translate-x-1 transition-transform" />
+              </a>
+            </div>
+          </div>
         </div>
       </div>
     </section>
