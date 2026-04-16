@@ -147,7 +147,7 @@ export default function About() {
 
             {/* Skill bars */}
             <div ref={skillsRef} className="space-y-4">
-              <h4 className="text-sm font-semibold text-gray-400 uppercase tracking-wider mb-5">
+              <h4 className="text-sm font-semibold text-gray-400 uppercase tracking-wider">
                 Skill Proficiency
               </h4>
               {skills.map(({ name, pct }) => (
@@ -162,6 +162,32 @@ export default function About() {
                   </div>
                 </div>
               ))}
+            </div>
+          </div>
+
+          {/* ── Mobile-only image (between skills & experience) ── */}
+          <div className="lg:hidden flex justify-center">
+            <div className="relative w-56">
+              {/* Soft glow */}
+              <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-48 h-48 rounded-full pointer-events-none"
+                style={{
+                  background: 'radial-gradient(circle, rgba(108,99,255,0.20) 0%, transparent 70%)',
+                  filter: 'blur(28px)',
+                }}
+              />
+              <img
+                src="/about-us.png"
+                alt="Aizaz Ali Afridi"
+                className="relative w-full h-auto select-none"
+                style={{ filter: 'drop-shadow(0 16px 40px rgba(108,99,255,0.28)) drop-shadow(0 4px 16px rgba(0,0,0,0.08))' }}
+              />
+              {/* Open to work badge */}
+              <div className="absolute top-4 left-1/2 -translate-x-1/2 bg-white rounded-xl px-3 py-1.5
+                shadow-lg border border-gray-100 text-xs font-bold text-primary
+                flex items-center gap-1.5 whitespace-nowrap">
+                <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
+                Open to work
+              </div>
             </div>
           </div>
 
