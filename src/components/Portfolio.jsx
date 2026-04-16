@@ -1,0 +1,207 @@
+import { useEffect, useRef, useState } from 'react';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { motion, AnimatePresence } from 'framer-motion';
+import { FiExternalLink, FiGithub } from 'react-icons/fi';
+import { FaWordpress, FaShopify, FaReact } from 'react-icons/fa';
+
+gsap.registerPlugin(ScrollTrigger);
+
+const categories = ['All', 'WordPress', 'Shopify', 'React'];
+
+const projects = [
+  {
+    id: 1,
+    title: 'Luxury E-Commerce Store',
+    cat: 'WordPress',
+    tech: ['WordPress', 'WooCommerce', 'Elementor'],
+    desc: 'A high-end fashion store with custom WooCommerce checkout and product animations.',
+    color: '#21759b',
+    icon: FaWordpress,
+    liveUrl: '#',
+    bg: 'from-blue-100 to-cyan-100',
+  },
+  {
+    id: 2,
+    title: 'Health & Wellness Shop',
+    cat: 'Shopify',
+    tech: ['Shopify', 'Liquid', 'Custom Theme'],
+    desc: 'Fully custom Shopify theme with subscription products and loyalty programme.',
+    color: '#96bf48',
+    icon: FaShopify,
+    liveUrl: '#',
+    bg: 'from-green-100 to-emerald-100',
+  },
+  {
+    id: 3,
+    title: 'SaaS Dashboard',
+    cat: 'React',
+    tech: ['React', 'Tailwind', 'GSAP'],
+    desc: 'An animated analytics dashboard with real-time charts and dark mode support.',
+    color: '#6c63ff',
+    icon: FaReact,
+    liveUrl: '#',
+    bg: 'from-purple-100 to-violet-100',
+  },
+  {
+    id: 4,
+    title: 'Real Estate Platform',
+    cat: 'WordPress',
+    tech: ['WordPress', 'Custom Plugin', 'ACF'],
+    desc: 'Property listing portal with advanced search, map integration and agent portal.',
+    color: '#21759b',
+    icon: FaWordpress,
+    liveUrl: '#',
+    bg: 'from-sky-100 to-blue-100',
+  },
+  {
+    id: 5,
+    title: 'Fashion Drop Store',
+    cat: 'Shopify',
+    tech: ['Shopify', 'Liquid', 'Klaviyo'],
+    desc: 'Limited-drop streetwear brand with countdown timers and email capture flows.',
+    color: '#96bf48',
+    icon: FaShopify,
+    liveUrl: '#',
+    bg: 'from-lime-100 to-green-100',
+  },
+  {
+    id: 6,
+    title: 'Agency Portfolio',
+    cat: 'React',
+    tech: ['React', 'Framer Motion', 'Three.js'],
+    desc: 'Creative agency website with 3D elements, scroll animations and WebGL backgrounds.',
+    color: '#6c63ff',
+    icon: FaReact,
+    liveUrl: '#',
+    bg: 'from-fuchsia-100 to-purple-100',
+  },
+];
+
+export default function Portfolio() {
+  const sectionRef = useRef(null);
+  const headRef    = useRef(null);
+  const [filter, setFilter] = useState('All');
+
+  const filtered = filter === 'All' ? projects : projects.filter(p => p.cat === filter);
+
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      gsap.from(headRef.current, {
+        scrollTrigger: { trigger: headRef.current, start: 'top 85%' },
+        y: 50, opacity: 0, duration: 0.9, ease: 'power4.out',
+      });
+    }, sectionRef);
+    return () => ctx.revert();
+  }, []);
+
+  return (
+    <section id="portfolio" ref={sectionRef} className="py-24 overflow-hidden" style={{ background: 'rgba(255,255,255,0.90)' }}>
+      <div className="max-w-6xl mx-auto px-6">
+        {/* Header */}
+        <div ref={headRef} className="text-center mb-12">
+          <p className="text-accent text-sm font-semibold tracking-widest uppercase mb-3">Recent Work</p>
+          <h2 className="text-4xl md:text-5xl font-display font-black text-primary">
+            My <span className="gradient-text">Portfolio</span>
+          </h2>
+          <p className="mt-4 text-gray-500 max-w-xl mx-auto">
+            A selection of projects I've built for clients across industries.
+          </p>
+          <div className="mt-4 mx-auto section-line animate" />
+        </div>
+
+        {/* Filter tabs */}
+        <div className="flex flex-wrap justify-center gap-3 mb-10">
+          {categories.map((cat) => (
+            <button
+              key={cat}
+              onClick={() => setFilter(cat)}
+              className={`px-5 py-2 rounded-full text-sm font-semibold transition-all duration-250 ${
+                filter === cat
+                  ? 'bg-accent text-white shadow-lg shadow-accent/30 scale-105'
+                  : 'bg-gray-100 text-gray-500 hover:bg-gray-200'
+              }`}
+            >
+              {cat}
+            </button>
+          ))}
+        </div>
+
+        {/* Grid */}
+        <motion.div layout className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <AnimatePresence mode="popLayout">
+            {filtered.map((p) => (
+              <motion.div
+                key={p.id}
+                layout
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.9 }}
+                transition={{ duration: 0.35, ease: [0.34, 1.56, 0.64, 1] }}
+                className="port-card group relative rounded-3xl overflow-hidden border border-gray-100 shadow-sm hover:shadow-xl hover:shadow-black/10 transition-shadow duration-400"
+              >
+                {/* Card image / graphic */}
+                <div className={`relative h-52 bg-gradient-to-br ${p.bg} flex items-center justify-center overflow-hidden`}>
+                  <p.icon size={72} color={p.color} className="opacity-20 float2" />
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <p.icon size={48} color={p.color} className="drop-shadow-lg" />
+                  </div>
+
+                  {/* Overlay on hover */}
+                  <div className="port-overlay absolute inset-0 bg-black/60 flex items-center justify-center gap-4">
+                    <a
+                      href={p.liveUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="w-10 h-10 rounded-full bg-white flex items-center justify-center text-primary hover:bg-accent hover:text-white transition-colors"
+                    >
+                      <FiExternalLink size={16} />
+                    </a>
+                    <a
+                      href="#"
+                      className="w-10 h-10 rounded-full bg-white flex items-center justify-center text-primary hover:bg-accent hover:text-white transition-colors"
+                    >
+                      <FiGithub size={16} />
+                    </a>
+                  </div>
+                </div>
+
+                {/* Card body */}
+                <div className="p-5 bg-white">
+                  <div className="flex items-start justify-between mb-2">
+                    <h3 className="font-display font-bold text-primary text-base">{p.title}</h3>
+                    <span
+                      className="text-xs font-semibold px-2 py-0.5 rounded-full border"
+                      style={{ color: p.color, borderColor: p.color + '40', backgroundColor: p.color + '10' }}
+                    >
+                      {p.cat}
+                    </span>
+                  </div>
+                  <p className="text-xs text-gray-400 leading-relaxed mb-4">{p.desc}</p>
+                  <div className="flex flex-wrap gap-1.5">
+                    {p.tech.map((t) => (
+                      <span key={t} className="text-xs bg-gray-50 border border-gray-100 text-gray-500 px-2 py-0.5 rounded-md">
+                        {t}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </motion.div>
+            ))}
+          </AnimatePresence>
+        </motion.div>
+
+        {/* CTA */}
+        <div className="text-center mt-14">
+          <p className="text-gray-400 mb-4">Want to see more work or discuss a project?</p>
+          <button
+            onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
+            className="inline-flex items-center gap-2 px-8 py-3.5 rounded-full bg-accent text-white font-bold shadow-xl shadow-accent/30 hover:bg-accent/90 hover:scale-105 active:scale-95 transition-all duration-200"
+          >
+            Let's Work Together
+          </button>
+        </div>
+      </div>
+    </section>
+  );
+}

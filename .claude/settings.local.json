@@ -1,0 +1,17 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm run:*)",
+      "Bash(npm install:*)",
+      "Bash(ls c:/Users/aaiza/Downloads/*.jpg c:/Users/aaiza/Downloads/*.jpeg)",
+      "Bash(npx vite:*)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:5175)",
+      "Bash(start http://localhost:5175)",
+      "Bash(node -e \"require\\('jimp'\\)\")",
+      "Bash(npx tsc:*)",
+      "Bash(gh auth *)",
+      "Bash(git -C /c/Users/aaiza/Downloads/myportfolio rev-parse --show-toplevel)",
+      "Bash(git config *)"
+    ]
+  }
+}
