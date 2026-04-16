@@ -2,8 +2,10 @@ import { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FaWordpress, FaShopify, FaReact } from 'react-icons/fa';
-import { FiCheck, FiArrowRight, FiCode, FiLayers } from 'react-icons/fi';
+import { FiCheck, FiArrowRight, FiCode, FiLayers, FiChevronDown } from 'react-icons/fi';
 import { MdOutlineDesignServices, MdSpeed, MdSupportAgent } from 'react-icons/md';
+
+const isTouch = typeof window !== 'undefined' && window.matchMedia('(pointer: coarse)').matches;
 
 const services = [
   {
@@ -69,9 +71,10 @@ const extras = [
   { icon: MdSupportAgent, title: 'Ongoing Support',   desc: 'Post-launch maintenance, updates, and dedicated support.'    },
 ];
 
-/* ── Mouse-tracking 3-D tilt ── */
+/* ── Mouse-tracking 3-D tilt (desktop only) ── */
 function useTilt(ref) {
   useEffect(() => {
+    if (isTouch) return;
     const el = ref.current;
     if (!el) return;
     const move = (e) => {
@@ -87,6 +90,7 @@ function useTilt(ref) {
   }, [ref]);
 }
 
+/* ── Desktop marquee card ── */
 function ServiceCard({ s, onHover, onLeave }) {
   const cardRef = useRef(null);
   useTilt(cardRef);
@@ -101,7 +105,6 @@ function ServiceCard({ s, onHover, onLeave }) {
       onHoverStart={() => onHover(s)}
       onHoverEnd={onLeave}
     >
-      {/* Badge */}
       {s.badge && (
         <motion.span
           animate={{ scale: [1, 1.09, 1] }}
@@ -112,14 +115,10 @@ function ServiceCard({ s, onHover, onLeave }) {
           {s.badge}
         </motion.span>
       )}
-
-      {/* Number watermark */}
       <div className="absolute top-3 right-4 font-black select-none pointer-events-none"
         style={{ fontSize: 56, lineHeight: 1, color: s.iconColor, opacity: 0.07 }}>
         {String(services.indexOf(s) + 1).padStart(2, '0')}
       </div>
-
-      {/* Icon */}
       <motion.div
         className="w-14 h-14 rounded-2xl flex items-center justify-center mb-4 shadow"
         style={{ background: s.iconColor + '20' }}
@@ -128,10 +127,8 @@ function ServiceCard({ s, onHover, onLeave }) {
       >
         <s.icon size={26} color={s.iconColor} />
       </motion.div>
-
       <h3 className="text-lg font-display font-black text-primary mb-1">{s.title}</h3>
       <p className="text-[10px] font-bold uppercase tracking-widest mb-3" style={{ color: s.accent }}>{s.tagline}</p>
-
       <ul className="space-y-1.5">
         {s.features.slice(0, 4).map((f) => (
           <li key={f} className="flex items-center gap-1.5 text-xs text-gray-600">
@@ -140,7 +137,6 @@ function ServiceCard({ s, onHover, onLeave }) {
           </li>
         ))}
       </ul>
-
       <button
         onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
         className="group inline-flex items-center gap-1.5 text-xs font-bold mt-4 hover:gap-2.5 transition-all duration-200"
@@ -152,18 +148,89 @@ function ServiceCard({ s, onHover, onLeave }) {
   );
 }
 
+/* ── Mobile accordion card ── */
+function MobileServiceCard({ s, index }) {
+  const [open, setOpen] = useState(false);
+  return (
+    <div className={`bg-gradient-to-br ${s.gradient} border border-white/60 rounded-2xl overflow-hidden shadow-sm`}>
+      {/* Header row — always visible */}
+      <button
+        className="w-full flex items-center gap-3 p-4 text-left"
+        onClick={() => setOpen(!open)}
+        aria-expanded={open}
+      >
+        {s.badge && (
+          <span
+            className="absolute text-white text-[9px] font-bold px-2 py-0.5 rounded-full"
+            style={{ background: s.badge === 'New' ? 'linear-gradient(135deg,#ec4899,#a78bfa)' : 'linear-gradient(135deg,#6c63ff,#06b6d4)', top: 8, left: 8 }}
+          >
+            {s.badge}
+          </span>
+        )}
+        <div
+          className="w-11 h-11 rounded-xl flex items-center justify-center flex-shrink-0"
+          style={{ background: s.iconColor + '22' }}
+        >
+          <s.icon size={22} color={s.iconColor} />
+        </div>
+        <div className="flex-1 min-w-0">
+          <h3 className="font-black text-primary text-sm leading-tight">{s.title}</h3>
+          <p className="text-[10px] font-bold uppercase tracking-wider mt-0.5" style={{ color: s.accent }}>{s.tagline}</p>
+        </div>
+        <FiChevronDown
+          size={18}
+          className="flex-shrink-0 transition-transform duration-300"
+          style={{ color: s.accent, transform: open ? 'rotate(180deg)' : 'rotate(0deg)' }}
+        />
+      </button>
+
+      {/* Expandable detail */}
+      <AnimatePresence initial={false}>
+        {open && (
+          <motion.div
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: 'auto', opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.3, ease: [0.33, 1, 0.68, 1] }}
+            className="overflow-hidden"
+          >
+            <div className="px-4 pb-5 pt-1 border-t border-white/40">
+              <p className="text-xs text-gray-500 leading-relaxed mb-3">{s.desc}</p>
+              <ul className="space-y-1.5 mb-4">
+                {s.features.map((f) => (
+                  <li key={f} className="flex items-center gap-2 text-xs text-gray-600">
+                    <FiCheck size={11} style={{ color: s.accent }} className="flex-shrink-0" />
+                    {f}
+                  </li>
+                ))}
+              </ul>
+              <button
+                onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
+                className="inline-flex items-center gap-1.5 text-xs font-bold py-2 px-4 rounded-full text-white"
+                style={{ background: s.accent }}
+              >
+                Get a Quote <FiArrowRight size={12} />
+              </button>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+}
+
 export default function Services() {
   const trackRef   = useRef(null);
   const tweenRef   = useRef(null);
   const extrasRef  = useRef(null);
   const [hovered, setHovered] = useState(null);
 
-  /* ── Infinite marquee ── */
+  /* ── Desktop: Infinite marquee ── */
   useEffect(() => {
+    if (isTouch) return;
     const track = trackRef.current;
     if (!track) return;
 
-    // Half width = one complete set of cards
     const getHalf = () => track.scrollWidth / 2;
 
     tweenRef.current = gsap.to(track, {
@@ -176,13 +243,11 @@ export default function Services() {
       },
     });
 
-    // Pause on hover
     const pause = () => tweenRef.current?.pause();
     const play  = () => tweenRef.current?.play();
     track.addEventListener('mouseenter', pause);
     track.addEventListener('mouseleave', play);
 
-    // Extras entrance
     gsap.from(extrasRef.current?.querySelectorAll('.e-card'), {
       scrollTrigger: { trigger: extrasRef.current, start: 'top 85%' },
       y: 40, opacity: 0, duration: 0.6, ease: 'power3.out', stagger: 0.12,
@@ -211,82 +276,95 @@ export default function Services() {
           My <span className="gradient-text">Services</span>
         </h2>
         <p className="mt-3 text-gray-400 text-sm max-w-sm mx-auto">
-          Full-stack digital solutions — hover a card to see details
+          {isTouch ? 'Tap a card to see full details' : 'Full-stack digital solutions — hover a card to see details'}
         </p>
         <div className="mt-4 mx-auto section-line animate" />
       </motion.div>
 
-      {/* ── Infinite marquee loop ── */}
-      <div className="overflow-hidden">
-        {/* Doubled cards for seamless loop */}
-        <div
-          ref={trackRef}
-          className="flex gap-5 will-change-transform"
-          style={{ width: 'max-content', paddingLeft: '1.5rem' }}
-        >
-          {[...services, ...services].map((s, i) => (
-            <ServiceCard
-              key={`${s.title}-${i}`}
-              s={s}
-              onHover={(svc) => setHovered(svc)}
-              onLeave={() => setHovered(null)}
-            />
+      {/* ══ MOBILE: accordion list ══ */}
+      {isTouch ? (
+        <div className="px-5 space-y-3 max-w-lg mx-auto">
+          {services.map((s, i) => (
+            <motion.div
+              key={s.title}
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: i * 0.07 }}
+            >
+              <MobileServiceCard s={s} index={i} />
+            </motion.div>
           ))}
         </div>
-      </div>
-
-      {/* ── Hovered service detail panel ── */}
-      <div className="max-w-6xl mx-auto px-6 mt-10" style={{ minHeight: 120 }}>
-        <AnimatePresence mode="wait">
-          {hovered ? (
-            <motion.div
-              key={hovered.title}
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -16 }}
-              transition={{ duration: 0.3 }}
-              className="bg-white rounded-3xl p-8 border shadow-lg flex flex-col md:flex-row gap-8 items-start"
-              style={{ borderColor: hovered.accent + '30', boxShadow: `0 12px 40px ${hovered.accent}18` }}
+      ) : (
+        /* ══ DESKTOP: infinite marquee ══ */
+        <>
+          <div className="overflow-hidden">
+            <div
+              ref={trackRef}
+              className="flex gap-5 will-change-transform"
+              style={{ width: 'max-content', paddingLeft: '1.5rem' }}
             >
-              {/* Left: icon + name */}
-              <div className="flex items-center gap-4 flex-shrink-0">
-                <div className="w-14 h-14 rounded-2xl flex items-center justify-center shadow-md"
-                  style={{ background: hovered.iconColor + '20' }}>
-                  <hovered.icon size={28} color={hovered.iconColor} />
-                </div>
-                <div>
-                  <h3 className="text-xl font-display font-black text-primary">{hovered.title}</h3>
-                  <p className="text-xs font-bold uppercase tracking-widest" style={{ color: hovered.accent }}>{hovered.tagline}</p>
-                </div>
-              </div>
+              {[...services, ...services].map((s, i) => (
+                <ServiceCard
+                  key={`${s.title}-${i}`}
+                  s={s}
+                  onHover={(svc) => setHovered(svc)}
+                  onLeave={() => setHovered(null)}
+                />
+              ))}
+            </div>
+          </div>
 
-              {/* Middle: description */}
-              <p className="text-sm text-gray-500 leading-relaxed flex-1 mt-1">{hovered.desc}</p>
-
-              {/* Right: all features */}
-              <ul className="space-y-1.5 flex-shrink-0">
-                {hovered.features.map((f) => (
-                  <li key={f} className="flex items-center gap-2 text-xs text-gray-600">
-                    <FiCheck size={12} style={{ color: hovered.accent }} className="flex-shrink-0" />
-                    {f}
-                  </li>
-                ))}
-              </ul>
-            </motion.div>
-          ) : (
-            <motion.p
-              key="hint"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.3 }}
-              className="text-center text-xs text-gray-300 tracking-widest uppercase mt-2"
-            >
-              ↑ Hover any card for full details
-            </motion.p>
-          )}
-        </AnimatePresence>
-      </div>
+          {/* Hover detail panel */}
+          <div className="max-w-6xl mx-auto px-6 mt-10" style={{ minHeight: 120 }}>
+            <AnimatePresence mode="wait">
+              {hovered ? (
+                <motion.div
+                  key={hovered.title}
+                  initial={{ opacity: 0, y: 16 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -16 }}
+                  transition={{ duration: 0.3 }}
+                  className="bg-white rounded-3xl p-8 border shadow-lg flex flex-col md:flex-row gap-8 items-start"
+                  style={{ borderColor: hovered.accent + '30', boxShadow: `0 12px 40px ${hovered.accent}18` }}
+                >
+                  <div className="flex items-center gap-4 flex-shrink-0">
+                    <div className="w-14 h-14 rounded-2xl flex items-center justify-center shadow-md"
+                      style={{ background: hovered.iconColor + '20' }}>
+                      <hovered.icon size={28} color={hovered.iconColor} />
+                    </div>
+                    <div>
+                      <h3 className="text-xl font-display font-black text-primary">{hovered.title}</h3>
+                      <p className="text-xs font-bold uppercase tracking-widest" style={{ color: hovered.accent }}>{hovered.tagline}</p>
+                    </div>
+                  </div>
+                  <p className="text-sm text-gray-500 leading-relaxed flex-1 mt-1">{hovered.desc}</p>
+                  <ul className="space-y-1.5 flex-shrink-0">
+                    {hovered.features.map((f) => (
+                      <li key={f} className="flex items-center gap-2 text-xs text-gray-600">
+                        <FiCheck size={12} style={{ color: hovered.accent }} className="flex-shrink-0" />
+                        {f}
+                      </li>
+                    ))}
+                  </ul>
+                </motion.div>
+              ) : (
+                <motion.p
+                  key="hint"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.3 }}
+                  className="text-center text-xs text-gray-300 tracking-widest uppercase mt-2"
+                >
+                  ↑ Hover any card for full details
+                </motion.p>
+              )}
+            </AnimatePresence>
+          </div>
+        </>
+      )}
 
       {/* ── Extras strip ── */}
       <div className="max-w-6xl mx-auto px-6 mt-16">

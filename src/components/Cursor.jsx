@@ -3,7 +3,11 @@ import gsap from 'gsap';
 
 const TRAIL_COUNT = 6;
 
+// Don't show custom cursor on touch / mobile devices
+const isTouch = typeof window !== 'undefined' && window.matchMedia('(pointer: coarse)').matches;
+
 export default function Cursor() {
+  if (isTouch) return null;
   const dotRef   = useRef(null);
   const ringRef  = useRef(null);
   const labelRef = useRef(null);

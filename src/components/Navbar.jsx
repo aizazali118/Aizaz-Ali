@@ -8,8 +8,9 @@ const links = [
   { label: 'Home',      href: 'home',      num: '01' },
   { label: 'About',     href: 'about',     num: '02' },
   { label: 'Services',  href: 'services',  num: '03' },
-  { label: 'Portfolio', href: 'portfolio', num: '04' },
-  { label: 'Contact',   href: 'contact',   num: '05' },
+  { label: 'Pricing',   href: 'pricing',   num: '04' },
+  { label: 'Portfolio', href: 'portfolio', num: '05' },
+  { label: 'Contact',   href: 'contact',   num: '06' },
 ];
 
 const scrollTo = (id, cb) => {
