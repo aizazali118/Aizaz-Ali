@@ -281,18 +281,18 @@ export default function Pricing() {
         </motion.div>
 
         {/* ── Category Tabs ── */}
-        <div className="flex justify-center mb-10">
-          <div className="inline-flex bg-white rounded-2xl p-1.5 shadow-md border border-gray-100 gap-1">
+        <div className="flex justify-center mb-10 px-4">
+          <div className="flex w-full max-w-xs sm:w-auto bg-white rounded-2xl p-1.5 shadow-md border border-gray-100 gap-1">
             {categories.map(({ key, label, Icon, color }) => (
               <button
                 key={key}
                 onClick={() => setActive(key)}
-                className={`relative flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-bold transition-all duration-300 ${
+                className={`flex-1 flex items-center justify-center gap-1.5 px-3 sm:px-5 py-2.5 rounded-xl text-sm font-bold transition-all duration-300 ${
                   active === key ? 'text-white shadow-lg' : 'text-gray-500 hover:text-gray-800'
                 }`}
                 style={active === key ? { background: color } : {}}
               >
-                <Icon size={16} />
+                <Icon size={15} />
                 {label}
               </button>
             ))}
