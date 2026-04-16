@@ -5,8 +5,12 @@ const TRAIL_COUNT = 5;
 const MAGNETIC_RADIUS = 72;   // px — pull starts within this distance from element center
 const MAGNETIC_STRENGTH = 0.38; // 0–1 how hard the ring is pulled
 
-// Desktop only
-const isTouch = typeof window !== 'undefined' && window.matchMedia('(pointer: coarse)').matches;
+// Desktop only — triple-check: media query + touch events + touch points
+const isTouch = typeof window !== 'undefined' && (
+  window.matchMedia('(pointer: coarse)').matches ||
+  'ontouchstart' in window ||
+  navigator.maxTouchPoints > 0
+);
 
 export default function Cursor() {
   if (isTouch) return null;

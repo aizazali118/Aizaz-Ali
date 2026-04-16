@@ -115,7 +115,7 @@ export default function About() {
         </div>
 
         {/* ── Grid: [bio+skills] | [highlights+exp] | [image RIGHT] ── */}
-        <div className="grid lg:grid-cols-[1fr_1fr_300px] gap-10 items-end">
+        <div className="grid lg:grid-cols-[1fr_1fr_300px] gap-6 lg:gap-10 lg:items-end">
 
           {/* ── Col 1: Bio + skills ── */}
           <div ref={textRef}>
@@ -164,22 +164,22 @@ export default function About() {
               ))}
             </div>
 
-            {/* ── Mobile-only image — inside Col 1 so grid gap doesn't double-space ── */}
-            <div className="lg:hidden flex justify-center mt-8">
-              <div className="relative w-52">
-                <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-44 h-44 rounded-full pointer-events-none"
+            {/* ── Mobile-only image — inside Col 1, clipped to remove transparent PNG padding ── */}
+            <div className="lg:hidden flex justify-center mt-4">
+              <div className="relative w-48 overflow-hidden" style={{ maxHeight: '260px' }}>
+                <div className="absolute inset-x-0 bottom-0 h-28 pointer-events-none"
                   style={{
-                    background: 'radial-gradient(circle, rgba(108,99,255,0.20) 0%, transparent 70%)',
-                    filter: 'blur(28px)',
+                    background: 'radial-gradient(ellipse at center bottom, rgba(108,99,255,0.18) 0%, transparent 70%)',
+                    filter: 'blur(16px)',
                   }}
                 />
                 <img
                   src="/about-us.png"
                   alt="Aizaz Ali Afridi"
-                  className="relative w-full h-auto select-none"
-                  style={{ filter: 'drop-shadow(0 16px 40px rgba(108,99,255,0.28)) drop-shadow(0 4px 16px rgba(0,0,0,0.08))' }}
+                  className="relative w-full h-auto select-none object-top"
+                  style={{ filter: 'drop-shadow(0 12px 32px rgba(108,99,255,0.26)) drop-shadow(0 3px 12px rgba(0,0,0,0.07))' }}
                 />
-                <div className="absolute top-3 left-1/2 -translate-x-1/2 bg-white rounded-xl px-3 py-1.5
+                <div className="absolute top-2 left-1/2 -translate-x-1/2 bg-white rounded-xl px-3 py-1.5
                   shadow-lg border border-gray-100 text-xs font-bold text-primary
                   flex items-center gap-1.5 whitespace-nowrap">
                   <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
@@ -208,7 +208,7 @@ export default function About() {
             </div>
 
             {/* Experience timeline */}
-            <div className="mt-8 space-y-4">
+            <div className="mt-5 space-y-4">
               <h4 className="text-sm font-semibold text-gray-400 uppercase tracking-wider">Experience</h4>
               {[
                 { year: '2025 – 2026',  role: 'WP & Shopify Freelance Developer', company: 'Self-Employed / Agency / Remote'   },
