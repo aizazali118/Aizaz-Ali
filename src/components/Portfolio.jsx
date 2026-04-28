@@ -39,10 +39,10 @@ const projects = [
     cat: 'React',
     tech: ['React', 'Tailwind', 'GSAP'],
     desc: 'An animated analytics dashboard with real-time charts and dark mode support.',
-    color: '#6c63ff',
+    color: '#7cb26e',
     icon: FaReact,
     liveUrl: '#',
-    bg: 'from-purple-100 to-violet-100',
+    bg: 'from-green-100 to-emerald-100',
   },
   {
     id: 4,
@@ -72,10 +72,10 @@ const projects = [
     cat: 'React',
     tech: ['React', 'Framer Motion', 'Three.js'],
     desc: 'Creative agency website with 3D elements, scroll animations and WebGL backgrounds.',
-    color: '#6c63ff',
+    color: '#7cb26e',
     icon: FaReact,
     liveUrl: '#',
-    bg: 'from-fuchsia-100 to-purple-100',
+    bg: 'from-green-100 to-teal-100',
   },
 ];
 

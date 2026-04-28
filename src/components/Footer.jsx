@@ -2,6 +2,7 @@ import { FaWordpress, FaShopify, FaReact, FaWhatsapp } from 'react-icons/fa';
 import { SiFiverr, SiUpwork } from 'react-icons/si';
 import { FiArrowUp, FiMail } from 'react-icons/fi';
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 
 const scrollTop = () => window.scrollTo({ top: 0, behavior: 'smooth' });
 const scrollTo  = (id) => document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
@@ -13,7 +14,7 @@ export default function Footer() {
       <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-accent to-transparent" />
       <div className="absolute inset-0 pointer-events-none">
         <div className="float1 absolute top-10 right-20 w-40 h-40 rounded-full bg-accent/5 blur-2xl" />
-        <div className="float2 absolute bottom-10 left-10 w-32 h-32 rounded-full bg-purple-500/5 blur-2xl" />
+        <div className="float2 absolute bottom-10 left-10 w-32 h-32 rounded-full bg-accent/5 blur-2xl" />
       </div>
 
       <div className="relative max-w-6xl mx-auto px-6 py-16">
@@ -39,7 +40,7 @@ export default function Footer() {
                 { icon: SiFiverr,   href: 'https://www.fiverr.com/s/dDa9lqa', bg: '#1dbf73' },
                 { icon: SiUpwork,   href: 'https://www.upwork.com/freelancers/~01db2b03b5a7f36be8', bg: '#14a800' },
                 { icon: FaWhatsapp, href: 'https://wa.me/923359574017', bg: '#25d366' },
-                { icon: FiMail,     href: 'mailto:aaizaz519@gmail.com', bg: '#6c63ff' },
+                { icon: FiMail,     href: 'mailto:aaizaz519@gmail.com', bg: '#7cb26e' },
               ].map(({ icon: Icon, href, bg }, i) => (
                 <a
                   key={i}
@@ -70,6 +71,11 @@ export default function Footer() {
                   </button>
                 </li>
               ))}
+              <li>
+                <Link to="/blog" className="text-sm text-white/70 hover:text-accent transition-colors capitalize">
+                  Blog
+                </Link>
+              </li>
             </ul>
           </div>
 

@@ -9,7 +9,6 @@ export default function Preloader({ onDone }) {
   const [visible,   setVisible]   = useState(true);
   const intervalRef = useRef(null);
 
-  /* ── progress counter ── */
   useEffect(() => {
     let p = 0;
     intervalRef.current = setInterval(() => {
@@ -18,17 +17,15 @@ export default function Preloader({ onDone }) {
       setProgress(Math.floor(p));
       if (p >= 100) {
         clearInterval(intervalRef.current);
-        // brief pause at 100%, then exit
         setTimeout(() => {
           setVisible(false);
-          setTimeout(onDone, 1100);   // fire after curtain finishes
+          setTimeout(onDone, 1100);
         }, 600);
       }
     }, 90);
     return () => clearInterval(intervalRef.current);
   }, [onDone]);
 
-  /* ── role cycler ── */
   useEffect(() => {
     const id = setInterval(() => setRoleIdx(i => (i + 1) % ROLES.length), 900);
     return () => clearInterval(id);
@@ -42,16 +39,18 @@ export default function Preloader({ onDone }) {
           initial={{ opacity: 1 }}
           exit={{ y: '-100%', transition: { duration: 0.9, ease: [0.76, 0, 0.24, 1] } }}
           className="fixed inset-0 z-[9999] flex flex-col items-center justify-center overflow-hidden select-none"
-          style={{ background: 'linear-gradient(145deg, #06040f 0%, #0d0b1a 50%, #040a12 100%)' }}
+          style={{ background: 'linear-gradient(145deg, #040a04 0%, #0a120a 50%, #041004 100%)' }}
+          role="status"
+          aria-label="Loading portfolio"
         >
-          {/* ── ambient glow blobs ── */}
+          {/* ambient glow blobs */}
           <motion.div
             animate={{ scale: [1, 1.2, 1], opacity: [0.15, 0.28, 0.15] }}
             transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
             className="absolute pointer-events-none"
             style={{
               width: 600, height: 600, borderRadius: '50%',
-              background: 'radial-gradient(circle, rgba(108,99,255,0.30) 0%, transparent 65%)',
+              background: 'radial-gradient(circle, rgba(124,178,110,0.30) 0%, transparent 65%)',
               filter: 'blur(30px)', top: '20%', left: '50%', transform: 'translate(-50%,-50%)',
             }}
           />
@@ -61,12 +60,12 @@ export default function Preloader({ onDone }) {
             className="absolute pointer-events-none"
             style={{
               width: 400, height: 400, borderRadius: '50%',
-              background: 'radial-gradient(circle, rgba(6,182,212,0.20) 0%, transparent 65%)',
+              background: 'radial-gradient(circle, rgba(90,154,74,0.20) 0%, transparent 65%)',
               filter: 'blur(40px)', bottom: '15%', right: '10%',
             }}
           />
 
-          {/* ── floating code bits in background ── */}
+          {/* floating code bits */}
           {['<div/>', 'const', '=>', '{...}', 'npm i', '.php', 'flex', 'async'].map((w, i) => (
             <motion.span
               key={w}
@@ -74,7 +73,7 @@ export default function Preloader({ onDone }) {
               style={{
                 left: `${10 + i * 11}%`,
                 top: `${15 + (i % 3) * 25}%`,
-                color: `rgba(${i % 2 === 0 ? '108,99,255' : '6,182,212'},0.18)`,
+                color: `rgba(${i % 2 === 0 ? '124,178,110' : '90,154,74'},0.18)`,
               }}
               animate={{ y: [-8, 8, -8], opacity: [0.1, 0.25, 0.1] }}
               transition={{ duration: 3 + i * 0.4, repeat: Infinity, delay: i * 0.3 }}
@@ -83,9 +82,8 @@ export default function Preloader({ onDone }) {
             </motion.span>
           ))}
 
-          {/* ── profile photo + rings ── */}
+          {/* profile photo + rings */}
           <div className="relative mb-8 flex items-center justify-center">
-            {/* pulse rings */}
             {[1, 2, 3].map((n) => (
               <motion.div
                 key={n}
@@ -100,12 +98,11 @@ export default function Preloader({ onDone }) {
               className="absolute rounded-full"
               style={{
                 width: 122, height: 122, padding: 3,
-                background: 'linear-gradient(135deg, #6c63ff, #a78bfa, #06b6d4)',
+                background: 'linear-gradient(135deg, #5a9a4a, #7cb26e, #a3c89a)',
               }}
               animate={{ rotate: 360 }}
               transition={{ duration: 5, repeat: Infinity, ease: 'linear' }}
             />
-            {/* photo — circular clip */}
             <motion.div
               initial={{ scale: 0, opacity: 0, y: 16 }}
               animate={{ scale: 1, opacity: 1, y: 0 }}
@@ -114,19 +111,19 @@ export default function Preloader({ onDone }) {
               style={{
                 width: 116, height: 116,
                 border: '3px solid transparent',
-                boxShadow: '0 0 28px rgba(108,99,255,0.55), 0 0 60px rgba(108,99,255,0.2)',
-                background: 'linear-gradient(#0d0b1a, #0d0b1a) padding-box, linear-gradient(135deg, #6c63ff, #a78bfa, #06b6d4) border-box',
+                boxShadow: '0 0 28px rgba(124,178,110,0.55), 0 0 60px rgba(124,178,110,0.2)',
+                background: 'linear-gradient(#0a120a, #0a120a) padding-box, linear-gradient(135deg, #5a9a4a, #7cb26e, #a3c89a) border-box',
               }}
             >
               <img
                 src="/profile.png"
-                alt="Aizaz Ali Afridi"
+                alt="Aizaz Ali Afridi — WordPress, Shopify & React Developer"
                 className="w-full h-full object-cover object-top"
               />
             </motion.div>
           </div>
 
-          {/* ── name ── */}
+          {/* name */}
           <div className="overflow-hidden mb-1">
             <motion.h1
               initial={{ y: 60, opacity: 0 }}
@@ -134,7 +131,7 @@ export default function Preloader({ onDone }) {
               transition={{ duration: 0.7, delay: 0.4, ease: [0.33, 1, 0.68, 1] }}
               className="text-4xl md:text-5xl font-display font-black text-center"
               style={{
-                background: 'linear-gradient(135deg, #6c63ff 0%, #a78bfa 45%, #06b6d4 100%)',
+                background: 'linear-gradient(135deg, #5a9a4a 0%, #7cb26e 45%, #a3c89a 100%)',
                 WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text',
               }}
             >
@@ -142,7 +139,7 @@ export default function Preloader({ onDone }) {
             </motion.h1>
           </div>
 
-          {/* ── animated role label ── */}
+          {/* animated role label */}
           <div className="h-6 overflow-hidden mb-10">
             <AnimatePresence mode="wait">
               <motion.p
@@ -152,20 +149,20 @@ export default function Preloader({ onDone }) {
                 exit={{ y: -20, opacity: 0 }}
                 transition={{ duration: 0.35 }}
                 className="text-center text-sm font-semibold tracking-widest uppercase"
-                style={{ color: 'rgba(108,99,255,0.8)' }}
+                style={{ color: 'rgba(124,178,110,0.8)' }}
               >
                 {ROLES[roleIdx]}
               </motion.p>
             </AnimatePresence>
           </div>
 
-          {/* ── progress bar ── */}
+          {/* progress bar */}
           <div className="w-56 flex flex-col items-center gap-3">
             <div className="w-full h-[3px] rounded-full overflow-hidden"
               style={{ background: 'rgba(255,255,255,0.07)' }}>
               <motion.div
                 className="h-full rounded-full"
-                style={{ background: 'linear-gradient(90deg, #6c63ff, #a78bfa, #06b6d4)' }}
+                style={{ background: 'linear-gradient(90deg, #5a9a4a, #7cb26e, #a3c89a)' }}
                 initial={{ width: '0%' }}
                 animate={{ width: `${progress}%` }}
                 transition={{ duration: 0.25, ease: 'linear' }}
@@ -182,14 +179,14 @@ export default function Preloader({ onDone }) {
               </motion.span>
               <span
                 className="text-[11px] font-mono font-bold"
-                style={{ color: '#a78bfa' }}
+                style={{ color: '#a3c89a' }}
               >
                 {progress}%
               </span>
             </div>
           </div>
 
-          {/* ── bottom signature ── */}
+          {/* bottom signature */}
           <motion.p
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}

@@ -37,8 +37,8 @@ const services = [
     tagline: 'React & modern web apps',
     desc: 'Blazing-fast React/Next.js web applications with stunning animations, full responsiveness, and clean, maintainable code.',
     features: ['React / Next.js Applications', 'Custom UI Components', 'GSAP & Framer Motion Animations', 'Tailwind CSS Styling', 'REST API & GraphQL Integration', 'Performance & SEO Optimisation'],
-    gradient: 'from-[#f0eeff] to-[#e2d9ff]',
-    accent: '#6c63ff',
+    gradient: 'from-[#edf7eb] to-[#d4f0ce]',
+    accent: '#7cb26e',
     badge: null,
   },
   {
@@ -110,7 +110,7 @@ function ServiceCard({ s, onHover, onLeave }) {
           animate={{ scale: [1, 1.09, 1] }}
           transition={{ duration: 2, repeat: Infinity }}
           className="absolute -top-3 left-5 text-white text-[10px] font-bold px-2.5 py-0.5 rounded-full shadow"
-          style={{ background: s.badge === 'New' ? 'linear-gradient(135deg,#ec4899,#a78bfa)' : 'linear-gradient(135deg,#6c63ff,#06b6d4)' }}
+          style={{ background: s.badge === 'New' ? 'linear-gradient(135deg,#ec4899,#f97316)' : 'linear-gradient(135deg,#5a9a4a,#7cb26e)' }}
         >
           {s.badge}
         </motion.span>
@@ -162,7 +162,7 @@ function MobileServiceCard({ s, index }) {
         {s.badge && (
           <span
             className="absolute text-white text-[9px] font-bold px-2 py-0.5 rounded-full"
-            style={{ background: s.badge === 'New' ? 'linear-gradient(135deg,#ec4899,#a78bfa)' : 'linear-gradient(135deg,#6c63ff,#06b6d4)', top: 8, left: 8 }}
+            style={{ background: s.badge === 'New' ? 'linear-gradient(135deg,#ec4899,#f97316)' : 'linear-gradient(135deg,#5a9a4a,#7cb26e)', top: 8, left: 8 }}
           >
             {s.badge}
           </span>

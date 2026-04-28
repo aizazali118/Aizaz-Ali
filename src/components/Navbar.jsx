@@ -1,39 +1,50 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { FiX } from 'react-icons/fi';
 import { SiFiverr, SiUpwork } from 'react-icons/si';
 import { FaWhatsapp } from 'react-icons/fa';
+import Logo from './Logo';
 
 const links = [
-  { label: 'Home',      href: 'home',      num: '01' },
-  { label: 'About',     href: 'about',     num: '02' },
-  { label: 'Services',  href: 'services',  num: '03' },
-  { label: 'Pricing',   href: 'pricing',   num: '04' },
-  { label: 'Portfolio', href: 'portfolio', num: '05' },
-  { label: 'Contact',   href: 'contact',   num: '06' },
+  { label: 'Home',      href: 'home',      num: '01', scroll: true  },
+  { label: 'About',     href: 'about',     num: '02', scroll: true  },
+  { label: 'Services',  href: 'services',  num: '03', scroll: true  },
+  { label: 'Portfolio', href: 'portfolio', num: '04', scroll: true  },
+  { label: 'Blog',      href: '/blog',     num: '05', scroll: false },
+  { label: 'Contact',   href: 'contact',   num: '06', scroll: true  },
 ];
-
-const scrollTo = (id, cb) => {
-  document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
-  if (cb) cb();
-};
 
 export default function Navbar() {
   const [open,     setOpen]     = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [active,   setActive]   = useState('home');
+  const navigate   = useNavigate();
+  const location   = useLocation();
 
-  /* lock body scroll when menu is open */
+  const scrollTo = (id, cb) => {
+    if (location.pathname !== '/') {
+      navigate('/');
+      setTimeout(() => {
+        document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+        if (cb) cb();
+      }, 300);
+    } else {
+      document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+      if (cb) cb();
+    }
+  };
+
   useEffect(() => {
     document.body.style.overflow = open ? 'hidden' : '';
     return () => { document.body.style.overflow = ''; };
   }, [open]);
 
-  /* scroll spy */
   useEffect(() => {
     const onScroll = () => {
       setScrolled(window.scrollY > 50);
       for (let i = links.length - 1; i >= 0; i--) {
+        if (!links[i].scroll) continue;
         const el = document.getElementById(links[i].href);
         if (el && window.scrollY >= el.offsetTop - 140) {
           setActive(links[i].href);
@@ -44,6 +55,11 @@ export default function Navbar() {
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
+
+  const isActive = (l) => {
+    if (!l.scroll) return location.pathname.startsWith('/blog');
+    return active === l.href && location.pathname === '/';
+  };
 
   return (
     <>
@@ -61,57 +77,53 @@ export default function Navbar() {
         <div className="max-w-6xl mx-auto px-6 flex items-center justify-between">
 
           {/* ── Logo ── */}
-          <button
-            onClick={() => scrollTo('home')}
-            className="flex items-center gap-1 group"
-          >
-            <span
-              className="text-2xl font-display font-black tracking-tight"
-              style={{
-                background: 'linear-gradient(135deg, #6c63ff 0%, #a78bfa 60%, #06b6d4 100%)',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-                backgroundClip: 'text',
-              }}
-            >
-              Aizaz
-            </span>
-            <span className="text-2xl font-display font-black text-gray-800">.</span>
-            <motion.span
-              className="w-1.5 h-1.5 rounded-full bg-accent ml-0.5 mb-3"
-              animate={{ scale: [1, 1.4, 1] }}
-              transition={{ duration: 2, repeat: Infinity }}
-            />
+          <button onClick={() => scrollTo('home')} className="flex items-center gap-2 group" aria-label="Go to homepage">
+            <Logo />
           </button>
 
           {/* ── Desktop Links ── */}
           <ul className="hidden md:flex items-center gap-7 list-none">
             {links.map((l) => (
               <li key={l.href}>
-                <button
-                  onClick={() => scrollTo(l.href)}
-                  className={`relative text-sm font-semibold transition-colors duration-200 pb-1 ${
-                    active === l.href
-                      ? 'text-accent'
-                      : 'text-gray-500 hover:text-gray-900'
-                  }`}
-                >
-                  {l.label}
-                  {active === l.href && (
-                    <motion.span
-                      layoutId="nav-underline"
-                      className="absolute bottom-0 left-0 right-0 h-0.5 rounded-full bg-accent"
-                      transition={{ type: 'spring', stiffness: 380, damping: 30 }}
-                    />
-                  )}
-                </button>
+                {l.scroll ? (
+                  <button
+                    onClick={() => scrollTo(l.href)}
+                    className={`relative text-sm font-semibold transition-colors duration-200 pb-1 ${
+                      isActive(l) ? 'text-accent' : 'text-gray-500 hover:text-gray-900'
+                    }`}
+                  >
+                    {l.label}
+                    {isActive(l) && (
+                      <motion.span
+                        layoutId="nav-underline"
+                        className="absolute bottom-0 left-0 right-0 h-0.5 rounded-full bg-accent"
+                        transition={{ type: 'spring', stiffness: 380, damping: 30 }}
+                      />
+                    )}
+                  </button>
+                ) : (
+                  <Link
+                    to={l.href}
+                    className={`relative text-sm font-semibold transition-colors duration-200 pb-1 ${
+                      isActive(l) ? 'text-accent' : 'text-gray-500 hover:text-gray-900'
+                    }`}
+                  >
+                    {l.label}
+                    {isActive(l) && (
+                      <motion.span
+                        layoutId="nav-underline"
+                        className="absolute bottom-0 left-0 right-0 h-0.5 rounded-full bg-accent"
+                        transition={{ type: 'spring', stiffness: 380, damping: 30 }}
+                      />
+                    )}
+                  </Link>
+                )}
               </li>
             ))}
           </ul>
 
           {/* ── Desktop CTA + Mobile Hamburger ── */}
           <div className="flex items-center gap-3">
-            {/* Desktop hire me */}
             <button
               onClick={() => scrollTo('contact')}
               className="hidden md:inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-accent text-white text-sm font-bold shadow-lg shadow-accent/30 hover:bg-accent/90 hover:scale-105 active:scale-95 transition-all duration-200"
@@ -119,7 +131,6 @@ export default function Navbar() {
               Hire Me
             </button>
 
-            {/* ── Hamburger (mobile) ── */}
             <button
               onClick={() => setOpen(true)}
               className="md:hidden flex flex-col gap-[5px] justify-center items-center w-10 h-10 rounded-xl bg-gray-100 hover:bg-gray-200 transition-colors"
@@ -137,7 +148,6 @@ export default function Navbar() {
       <AnimatePresence>
         {open && (
           <>
-            {/* Backdrop */}
             <motion.div
               key="backdrop"
               initial={{ opacity: 0 }}
@@ -148,7 +158,6 @@ export default function Navbar() {
               onClick={() => setOpen(false)}
             />
 
-            {/* Menu panel */}
             <motion.div
               key="menu-panel"
               initial={{ x: '100%' }}
@@ -156,27 +165,17 @@ export default function Navbar() {
               exit={{ x: '100%' }}
               transition={{ duration: 0.45, ease: [0.76, 0, 0.24, 1] }}
               className="fixed top-0 right-0 h-full w-[85vw] max-w-sm z-[120] flex flex-col overflow-hidden"
-              style={{ background: 'linear-gradient(145deg, #0a0a0a 0%, #13111c 60%, #0f0a1e 100%)' }}
+              style={{ background: 'linear-gradient(145deg, #0a0a0a 0%, #0a120a 60%, #040d04 100%)' }}
             >
-              {/* Decorative blobs inside menu */}
+              {/* Decorative blobs */}
               <div className="absolute top-0 right-0 w-64 h-64 rounded-full pointer-events-none"
-                style={{ background: 'radial-gradient(circle, rgba(108,99,255,0.25) 0%, transparent 70%)', filter: 'blur(40px)' }} />
+                style={{ background: 'radial-gradient(circle, rgba(124,178,110,0.25) 0%, transparent 70%)', filter: 'blur(40px)' }} />
               <div className="absolute bottom-20 left-0 w-48 h-48 rounded-full pointer-events-none"
-                style={{ background: 'radial-gradient(circle, rgba(6,182,212,0.15) 0%, transparent 70%)', filter: 'blur(40px)' }} />
+                style={{ background: 'radial-gradient(circle, rgba(90,154,74,0.15) 0%, transparent 70%)', filter: 'blur(40px)' }} />
 
               {/* Header row */}
               <div className="relative flex items-center justify-between px-8 pt-8 pb-6 border-b border-white/10">
-                <span
-                  className="text-2xl font-display font-black"
-                  style={{
-                    background: 'linear-gradient(135deg, #6c63ff, #a78bfa, #06b6d4)',
-                    WebkitBackgroundClip: 'text',
-                    WebkitTextFillColor: 'transparent',
-                    backgroundClip: 'text',
-                  }}
-                >
-                  Aizaz.
-                </span>
+                <Logo dark />
                 <motion.button
                   onClick={() => setOpen(false)}
                   whileTap={{ scale: 0.9 }}
@@ -188,7 +187,7 @@ export default function Navbar() {
               </div>
 
               {/* Nav links */}
-              <nav className="relative flex-1 flex flex-col justify-center px-8 gap-1">
+              <nav className="relative flex-1 flex flex-col justify-center px-8 gap-1" aria-label="Mobile navigation">
                 {links.map((l, i) => (
                   <motion.div
                     key={l.href}
@@ -197,41 +196,53 @@ export default function Navbar() {
                     exit={{ x: 60, opacity: 0 }}
                     transition={{ duration: 0.4, delay: i * 0.07, ease: [0.33, 1, 0.68, 1] }}
                   >
-                    <button
-                      onClick={() => { scrollTo(l.href); setOpen(false); }}
-                      className="group w-full flex items-center gap-5 py-4 border-b border-white/8 hover:border-accent/40 transition-all duration-300"
-                    >
-                      <span className="text-xs font-mono text-accent/60 group-hover:text-accent transition-colors w-6">
-                        {l.num}
-                      </span>
-                      <span className={`text-3xl font-display font-black tracking-tight transition-all duration-300 ${
-                        active === l.href
-                          ? 'text-transparent bg-clip-text'
-                          : 'text-white/80 group-hover:text-white'
+                    {l.scroll ? (
+                      <button
+                        onClick={() => { scrollTo(l.href); setOpen(false); }}
+                        className="group w-full flex items-center gap-5 py-4 border-b border-white/8 hover:border-accent/40 transition-all duration-300"
+                      >
+                        <span className="text-xs font-mono text-accent/60 group-hover:text-accent transition-colors w-6">{l.num}</span>
+                        <span className={`text-3xl font-display font-black tracking-tight transition-all duration-300 ${
+                          isActive(l) ? 'text-transparent bg-clip-text' : 'text-white/80 group-hover:text-white'
                         }`}
-                        style={active === l.href ? {
-                          background: 'linear-gradient(135deg, #6c63ff, #a78bfa)',
-                          WebkitBackgroundClip: 'text',
-                          WebkitTextFillColor: 'transparent',
-                          backgroundClip: 'text',
-                        } : {}}
+                          style={isActive(l) ? {
+                            background: 'linear-gradient(135deg, #7cb26e, #a3c89a)',
+                            WebkitBackgroundClip: 'text',
+                            WebkitTextFillColor: 'transparent',
+                            backgroundClip: 'text',
+                          } : {}}
+                        >
+                          {l.label}
+                        </span>
+                        <span className="ml-auto text-accent/0 group-hover:text-accent/80 transition-colors text-xl">→</span>
+                      </button>
+                    ) : (
+                      <Link
+                        to={l.href}
+                        onClick={() => setOpen(false)}
+                        className="group w-full flex items-center gap-5 py-4 border-b border-white/8 hover:border-accent/40 transition-all duration-300"
                       >
-                        {l.label}
-                      </span>
-                      <motion.span
-                        className="ml-auto text-accent/0 group-hover:text-accent/80 transition-colors text-xl"
-                        initial={false}
-                        animate={active === l.href ? { x: 0, opacity: 1 } : { x: -8, opacity: 0 }}
-                        transition={{ duration: 0.2 }}
-                      >
-                        →
-                      </motion.span>
-                    </button>
+                        <span className="text-xs font-mono text-accent/60 group-hover:text-accent transition-colors w-6">{l.num}</span>
+                        <span className={`text-3xl font-display font-black tracking-tight transition-all duration-300 ${
+                          isActive(l) ? 'text-transparent bg-clip-text' : 'text-white/80 group-hover:text-white'
+                        }`}
+                          style={isActive(l) ? {
+                            background: 'linear-gradient(135deg, #7cb26e, #a3c89a)',
+                            WebkitBackgroundClip: 'text',
+                            WebkitTextFillColor: 'transparent',
+                            backgroundClip: 'text',
+                          } : {}}
+                        >
+                          {l.label}
+                        </span>
+                        <span className="ml-auto text-accent/0 group-hover:text-accent/80 transition-colors text-xl">→</span>
+                      </Link>
+                    )}
                   </motion.div>
                 ))}
               </nav>
 
-              {/* Bottom: CTA + socials */}
+              {/* Bottom CTA + socials */}
               <motion.div
                 initial={{ y: 30, opacity: 0 }}
                 animate={{ y: 0,  opacity: 1 }}
@@ -242,19 +253,18 @@ export default function Navbar() {
                 <button
                   onClick={() => { scrollTo('contact'); setOpen(false); }}
                   className="w-full py-4 rounded-2xl text-white font-bold text-base shadow-xl mb-6 transition-all active:scale-95"
-                  style={{ background: 'linear-gradient(135deg, #6c63ff, #a78bfa)' }}
+                  style={{ background: 'linear-gradient(135deg, #5a9a4a, #7cb26e)' }}
                 >
                   Hire Me →
                 </button>
 
-                {/* Social icons */}
                 <div className="flex items-center justify-between">
                   <p className="text-xs text-white/30 font-medium uppercase tracking-widest">Find me on</p>
                   <div className="flex gap-3">
                     {[
-                      { Icon: SiFiverr,   href: 'https://www.fiverr.com/s/dDa9lqa',                       bg: '#1dbf73', label: 'Fiverr'    },
-                      { Icon: SiUpwork,   href: 'https://www.upwork.com/freelancers/~01db2b03b5a7f36be8', bg: '#14a800', label: 'Upwork'    },
-                      { Icon: FaWhatsapp, href: 'https://wa.me/923359574017',                              bg: '#25d366', label: 'WhatsApp'  },
+                      { Icon: SiFiverr,   href: 'https://www.fiverr.com/s/dDa9lqa',                       bg: '#1dbf73', label: 'Fiverr'   },
+                      { Icon: SiUpwork,   href: 'https://www.upwork.com/freelancers/~01db2b03b5a7f36be8', bg: '#14a800', label: 'Upwork'   },
+                      { Icon: FaWhatsapp, href: 'https://wa.me/923359574017',                              bg: '#25d366', label: 'WhatsApp' },
                     ].map(({ Icon, href, bg, label }) => (
                       <a
                         key={label}

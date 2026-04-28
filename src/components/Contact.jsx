@@ -14,7 +14,7 @@ const contactInfo = [
     label: 'Email',
     value: 'aaizaz519@gmail.com',
     href: 'mailto:aaizaz519@gmail.com',
-    color: '#6c63ff',
+    color: '#7cb26e',
   },
   {
     icon: FiPhone,
@@ -249,7 +249,7 @@ export default function Contact() {
             </div>
 
             {/* Quick facts */}
-            <div className="bg-gradient-to-br from-accent/5 to-purple-50 rounded-2xl p-5 border border-accent/10">
+            <div className="bg-gradient-to-br from-accent/5 to-green-50 rounded-2xl p-5 border border-accent/10">
               <h4 className="font-bold text-primary text-sm mb-3">Why Work With Me?</h4>
               <ul className="space-y-2">
                 {[

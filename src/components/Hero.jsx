@@ -98,8 +98,7 @@ export default function Hero() {
       id="home"
       ref={sectionRef}
       className="relative min-h-screen flex items-center overflow-hidden"
-      style={{ background: 'rgba(255,255,255,0.88)' }}
-      style={{ perspective: '800px' }}
+      style={{ background: 'rgba(255,255,255,0.88)', perspective: '800px' }}
     >
       {/* ── Mouse-tracking spotlight ── */}
       <div
@@ -108,7 +107,7 @@ export default function Hero() {
         style={{
           width: 600, height: 600,
           borderRadius: '50%',
-          background: 'radial-gradient(circle, rgba(108,99,255,0.13) 0%, rgba(167,139,250,0.07) 40%, transparent 70%)',
+          background: 'radial-gradient(circle, rgba(124,178,110,0.13) 0%, rgba(163,200,154,0.07) 40%, transparent 70%)',
           transform: 'translate(-50%,-50%)',
           filter: 'blur(0px)',
           zIndex: 1,
@@ -121,10 +120,10 @@ export default function Hero() {
         <div className="float2 absolute bottom-24 left-8  w-56 h-56 rounded-full bg-gradient-to-tr from-purple-300/12 to-accent/8 blur-3xl" />
         <div className="float3 absolute top-1/3 right-1/3 w-48 h-48 rounded-full bg-gradient-to-r from-cyan-300/8 to-accent/6 blur-3xl" />
         {/* Dot grid */}
-        <svg className="absolute inset-0 w-full h-full opacity-[0.04]" xmlns="http://www.w3.org/2000/svg">
+        <svg className="absolute inset-0 w-full h-full opacity-[0.04]" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
           <defs>
             <pattern id="g" x="0" y="0" width="28" height="28" patternUnits="userSpaceOnUse">
-              <circle cx="2" cy="2" r="1.5" fill="#6c63ff" />
+              <circle cx="2" cy="2" r="1.5" fill="#7cb26e" />
             </pattern>
           </defs>
           <rect width="100%" height="100%" fill="url(#g)" />
@@ -269,18 +268,18 @@ export default function Hero() {
           style={{ perspective: '600px' }}
         >
           {/* Card */}
-          <div className="relative bg-gradient-to-br from-white via-purple-50/40 to-cyan-50/40 rounded-3xl p-8 border border-gray-100/80 shadow-2xl shadow-accent/8">
+          <div className="relative bg-gradient-to-br from-white via-green-50/40 to-emerald-50/40 rounded-3xl p-8 border border-gray-100/80 shadow-2xl shadow-accent/8">
 
             {/* Profile photo — transparent PNG floats on gradient card */}
             <div className="relative w-40 h-44 mx-auto mb-3 flex items-end justify-center">
               {/* Glow halo behind photo */}
               <div className="absolute inset-0 rounded-full"
-                style={{ background: 'radial-gradient(circle at 50% 60%, rgba(108,99,255,0.18) 0%, transparent 70%)', filter: 'blur(12px)' }} />
+                style={{ background: 'radial-gradient(circle at 50% 60%, rgba(124,178,110,0.18) 0%, transparent 70%)', filter: 'blur(12px)' }} />
               <img
                 src="/profile.png"
                 alt="Aizaz Ali Afridi"
                 className="relative w-full h-full object-contain object-bottom drop-shadow-2xl"
-                style={{ filter: 'drop-shadow(0 8px 24px rgba(108,99,255,0.25))' }}
+                style={{ filter: 'drop-shadow(0 8px 24px rgba(124,178,110,0.25))' }}
               />
             </div>
 
@@ -357,7 +356,7 @@ export default function Hero() {
           transition={{ duration: 1.4, repeat: Infinity }}
           className="w-5 h-9 rounded-full border-2 border-gray-200 flex items-start justify-center pt-1.5"
         >
-          <div className="w-1 h-2.5 rounded-full bg-gradient-to-b from-accent to-purple-400" />
+          <div className="w-1 h-2.5 rounded-full bg-gradient-to-b from-accent to-accent-light" />
         </motion.div>
       </motion.div>
     </section>

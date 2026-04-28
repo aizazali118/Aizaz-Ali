@@ -169,7 +169,7 @@ export default function About() {
               <div className="relative w-48 overflow-hidden" style={{ maxHeight: '260px' }}>
                 <div className="absolute inset-x-0 bottom-0 h-28 pointer-events-none"
                   style={{
-                    background: 'radial-gradient(ellipse at center bottom, rgba(108,99,255,0.18) 0%, transparent 70%)',
+                    background: 'radial-gradient(ellipse at center bottom, rgba(124,178,110,0.18) 0%, transparent 70%)',
                     filter: 'blur(16px)',
                   }}
                 />
@@ -177,7 +177,7 @@ export default function About() {
                   src="/about-us.png"
                   alt="Aizaz Ali Afridi"
                   className="relative w-full h-auto select-none object-top"
-                  style={{ filter: 'drop-shadow(0 12px 32px rgba(108,99,255,0.26)) drop-shadow(0 3px 12px rgba(0,0,0,0.07))' }}
+                  style={{ filter: 'drop-shadow(0 12px 32px rgba(124,178,110,0.26)) drop-shadow(0 3px 12px rgba(0,0,0,0.07))' }}
                 />
                 <div className="absolute top-2 left-1/2 -translate-x-1/2 bg-white rounded-xl px-3 py-1.5
                   shadow-lg border border-gray-100 text-xs font-bold text-primary
@@ -247,7 +247,7 @@ export default function About() {
               className="absolute bottom-0 left-1/2 -translate-x-1/2 pointer-events-none rounded-full"
               style={{
                 width: 340, height: 340,
-                background: 'radial-gradient(circle, rgba(108,99,255,0.22) 0%, rgba(167,139,250,0.10) 45%, transparent 70%)',
+                background: 'radial-gradient(circle, rgba(124,178,110,0.22) 0%, rgba(163,200,154,0.10) 45%, transparent 70%)',
                 filter: 'blur(36px)',
                 zIndex: 0,
               }}
@@ -261,7 +261,7 @@ export default function About() {
               style={{
                 display: 'block',
                 height: 'auto',
-                filter: 'drop-shadow(0 20px 50px rgba(108,99,255,0.30)) drop-shadow(0 4px 20px rgba(0,0,0,0.10))',
+                filter: 'drop-shadow(0 20px 50px rgba(124,178,110,0.30)) drop-shadow(0 4px 20px rgba(0,0,0,0.10))',
               }}
               whileHover={{ scale: 1.03 }}
               transition={{ type: 'spring', stiffness: 180, damping: 20 }}
