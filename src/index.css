@@ -13,8 +13,9 @@ body {
   overflow-x: hidden;
   cursor: none;
 }
-/* re-enable cursor on touch */
+/* Re-enable normal cursor on touch devices and admin pages */
 @media (pointer: coarse) { body { cursor: auto; } }
+body.admin-page { cursor: auto; }
 
 /* ══════════════════════════════════════════
    CURSOR — magnetic dot + glow ring (desktop only)

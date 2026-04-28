@@ -2,7 +2,6 @@ require('dotenv').config();
 const express    = require('express');
 const cors       = require('cors');
 const helmet     = require('helmet');
-const path       = require('path');
 
 const authRoutes    = require('./routes/auth');
 const postsRoutes   = require('./routes/posts');
@@ -24,10 +23,6 @@ app.use(cors({
 /* ── Body parser ── */
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
-
-/* ── Serve uploaded files ── */
-const UPLOAD_DIR = path.resolve(process.env.UPLOAD_DIR || './uploads');
-app.use('/uploads', express.static(UPLOAD_DIR));
 
 /* ── API Routes ── */
 app.use('/api/auth',    authRoutes);
