@@ -1,39 +1,24 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Link, useNavigate, useLocation } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { FiX } from 'react-icons/fi';
 import { SiFiverr, SiUpwork } from 'react-icons/si';
 import { FaWhatsapp } from 'react-icons/fa';
 import Logo from './Logo';
 
 const links = [
-  { label: 'Home',      href: 'home',      num: '01', scroll: true  },
-  { label: 'About',     href: 'about',     num: '02', scroll: true  },
-  { label: 'Services',  href: 'services',  num: '03', scroll: true  },
-  { label: 'Portfolio', href: 'portfolio', num: '04', scroll: true  },
-  { label: 'Blog',      href: '/blog',     num: '05', scroll: false },
-  { label: 'Contact',   href: 'contact',   num: '06', scroll: true  },
+  { label: 'Home',      to: '/',          num: '01' },
+  { label: 'About',     to: '/about',     num: '02' },
+  { label: 'Services',  to: '/services',  num: '03' },
+  { label: 'Portfolio', to: '/portfolio', num: '04' },
+  { label: 'Blog',      to: '/blog',      num: '05' },
+  { label: 'Contact',   to: '/contact',   num: '06' },
 ];
 
 export default function Navbar() {
   const [open,     setOpen]     = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [active,   setActive]   = useState('home');
-  const navigate   = useNavigate();
-  const location   = useLocation();
-
-  const scrollTo = (id, cb) => {
-    if (location.pathname !== '/') {
-      navigate('/');
-      setTimeout(() => {
-        document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
-        if (cb) cb();
-      }, 300);
-    } else {
-      document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
-      if (cb) cb();
-    }
-  };
+  const location = useLocation();
 
   useEffect(() => {
     document.body.style.overflow = open ? 'hidden' : '';
@@ -41,24 +26,14 @@ export default function Navbar() {
   }, [open]);
 
   useEffect(() => {
-    const onScroll = () => {
-      setScrolled(window.scrollY > 50);
-      for (let i = links.length - 1; i >= 0; i--) {
-        if (!links[i].scroll) continue;
-        const el = document.getElementById(links[i].href);
-        if (el && window.scrollY >= el.offsetTop - 140) {
-          setActive(links[i].href);
-          break;
-        }
-      }
-    };
+    const onScroll = () => setScrolled(window.scrollY > 50);
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  const isActive = (l) => {
-    if (!l.scroll) return location.pathname.startsWith('/blog');
-    return active === l.href && location.pathname === '/';
+  const isActive = (to) => {
+    if (to === '/') return location.pathname === '/';
+    return location.pathname.startsWith(to);
   };
 
   return (
@@ -73,68 +48,53 @@ export default function Navbar() {
             ? 'bg-white/95 backdrop-blur-xl shadow-lg shadow-black/6 py-3'
             : 'bg-transparent py-5'
         }`}
+        aria-label="Main navigation"
       >
         <div className="max-w-6xl mx-auto px-6 flex items-center justify-between">
 
           {/* ── Logo ── */}
-          <button onClick={() => scrollTo('home')} className="flex items-center gap-2 group" aria-label="Go to homepage">
+          <Link to="/" aria-label="Go to homepage">
             <Logo />
-          </button>
+          </Link>
 
           {/* ── Desktop Links ── */}
           <ul className="hidden md:flex items-center gap-7 list-none">
             {links.map((l) => (
-              <li key={l.href}>
-                {l.scroll ? (
-                  <button
-                    onClick={() => scrollTo(l.href)}
-                    className={`relative text-sm font-semibold transition-colors duration-200 pb-1 ${
-                      isActive(l) ? 'text-accent' : 'text-gray-500 hover:text-gray-900'
-                    }`}
-                  >
-                    {l.label}
-                    {isActive(l) && (
-                      <motion.span
-                        layoutId="nav-underline"
-                        className="absolute bottom-0 left-0 right-0 h-0.5 rounded-full bg-accent"
-                        transition={{ type: 'spring', stiffness: 380, damping: 30 }}
-                      />
-                    )}
-                  </button>
-                ) : (
-                  <Link
-                    to={l.href}
-                    className={`relative text-sm font-semibold transition-colors duration-200 pb-1 ${
-                      isActive(l) ? 'text-accent' : 'text-gray-500 hover:text-gray-900'
-                    }`}
-                  >
-                    {l.label}
-                    {isActive(l) && (
-                      <motion.span
-                        layoutId="nav-underline"
-                        className="absolute bottom-0 left-0 right-0 h-0.5 rounded-full bg-accent"
-                        transition={{ type: 'spring', stiffness: 380, damping: 30 }}
-                      />
-                    )}
-                  </Link>
-                )}
+              <li key={l.to}>
+                <Link
+                  to={l.to}
+                  className={`relative text-sm font-semibold transition-colors duration-200 pb-1 ${
+                    isActive(l.to) ? 'text-accent' : 'text-gray-500 hover:text-gray-900'
+                  }`}
+                  aria-current={isActive(l.to) ? 'page' : undefined}
+                >
+                  {l.label}
+                  {isActive(l.to) && (
+                    <motion.span
+                      layoutId="nav-underline"
+                      className="absolute bottom-0 left-0 right-0 h-0.5 rounded-full bg-accent"
+                      transition={{ type: 'spring', stiffness: 380, damping: 30 }}
+                    />
+                  )}
+                </Link>
               </li>
             ))}
           </ul>
 
           {/* ── Desktop CTA + Mobile Hamburger ── */}
           <div className="flex items-center gap-3">
-            <button
-              onClick={() => scrollTo('contact')}
+            <Link
+              to="/contact"
               className="hidden md:inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-accent text-white text-sm font-bold shadow-lg shadow-accent/30 hover:bg-accent/90 hover:scale-105 active:scale-95 transition-all duration-200"
             >
               Hire Me
-            </button>
+            </Link>
 
             <button
               onClick={() => setOpen(true)}
               className="md:hidden flex flex-col gap-[5px] justify-center items-center w-10 h-10 rounded-xl bg-gray-100 hover:bg-gray-200 transition-colors"
               aria-label="Open menu"
+              aria-expanded={open}
             >
               <span className="block w-5 h-[2px] bg-gray-700 rounded-full" />
               <span className="block w-5 h-[2px] bg-gray-700 rounded-full" />
@@ -166,14 +126,15 @@ export default function Navbar() {
               transition={{ duration: 0.45, ease: [0.76, 0, 0.24, 1] }}
               className="fixed top-0 right-0 h-full w-[85vw] max-w-sm z-[120] flex flex-col overflow-hidden"
               style={{ background: 'linear-gradient(145deg, #0a0a0a 0%, #0a120a 60%, #040d04 100%)' }}
+              role="dialog"
+              aria-modal="true"
+              aria-label="Navigation menu"
             >
-              {/* Decorative blobs */}
               <div className="absolute top-0 right-0 w-64 h-64 rounded-full pointer-events-none"
                 style={{ background: 'radial-gradient(circle, rgba(124,178,110,0.25) 0%, transparent 70%)', filter: 'blur(40px)' }} />
               <div className="absolute bottom-20 left-0 w-48 h-48 rounded-full pointer-events-none"
                 style={{ background: 'radial-gradient(circle, rgba(90,154,74,0.15) 0%, transparent 70%)', filter: 'blur(40px)' }} />
 
-              {/* Header row */}
               <div className="relative flex items-center justify-between px-8 pt-8 pb-6 border-b border-white/10">
                 <Logo dark />
                 <motion.button
@@ -186,63 +147,41 @@ export default function Navbar() {
                 </motion.button>
               </div>
 
-              {/* Nav links */}
               <nav className="relative flex-1 flex flex-col justify-center px-8 gap-1" aria-label="Mobile navigation">
                 {links.map((l, i) => (
                   <motion.div
-                    key={l.href}
+                    key={l.to}
                     initial={{ x: 60, opacity: 0 }}
                     animate={{ x: 0, opacity: 1 }}
                     exit={{ x: 60, opacity: 0 }}
                     transition={{ duration: 0.4, delay: i * 0.07, ease: [0.33, 1, 0.68, 1] }}
                   >
-                    {l.scroll ? (
-                      <button
-                        onClick={() => { scrollTo(l.href); setOpen(false); }}
-                        className="group w-full flex items-center gap-5 py-4 border-b border-white/8 hover:border-accent/40 transition-all duration-300"
-                      >
-                        <span className="text-xs font-mono text-accent/60 group-hover:text-accent transition-colors w-6">{l.num}</span>
-                        <span className={`text-3xl font-display font-black tracking-tight transition-all duration-300 ${
-                          isActive(l) ? 'text-transparent bg-clip-text' : 'text-white/80 group-hover:text-white'
+                    <Link
+                      to={l.to}
+                      onClick={() => setOpen(false)}
+                      className="group w-full flex items-center gap-5 py-4 border-b border-white/8 hover:border-accent/40 transition-all duration-300"
+                      aria-current={isActive(l.to) ? 'page' : undefined}
+                    >
+                      <span className="text-xs font-mono text-accent/60 group-hover:text-accent transition-colors w-6">{l.num}</span>
+                      <span
+                        className={`text-3xl font-display font-black tracking-tight transition-all duration-300 ${
+                          isActive(l.to) ? 'text-transparent bg-clip-text' : 'text-white/80 group-hover:text-white'
                         }`}
-                          style={isActive(l) ? {
-                            background: 'linear-gradient(135deg, #7cb26e, #a3c89a)',
-                            WebkitBackgroundClip: 'text',
-                            WebkitTextFillColor: 'transparent',
-                            backgroundClip: 'text',
-                          } : {}}
-                        >
-                          {l.label}
-                        </span>
-                        <span className="ml-auto text-accent/0 group-hover:text-accent/80 transition-colors text-xl">→</span>
-                      </button>
-                    ) : (
-                      <Link
-                        to={l.href}
-                        onClick={() => setOpen(false)}
-                        className="group w-full flex items-center gap-5 py-4 border-b border-white/8 hover:border-accent/40 transition-all duration-300"
+                        style={isActive(l.to) ? {
+                          background: 'linear-gradient(135deg, #7cb26e, #a3c89a)',
+                          WebkitBackgroundClip: 'text',
+                          WebkitTextFillColor: 'transparent',
+                          backgroundClip: 'text',
+                        } : {}}
                       >
-                        <span className="text-xs font-mono text-accent/60 group-hover:text-accent transition-colors w-6">{l.num}</span>
-                        <span className={`text-3xl font-display font-black tracking-tight transition-all duration-300 ${
-                          isActive(l) ? 'text-transparent bg-clip-text' : 'text-white/80 group-hover:text-white'
-                        }`}
-                          style={isActive(l) ? {
-                            background: 'linear-gradient(135deg, #7cb26e, #a3c89a)',
-                            WebkitBackgroundClip: 'text',
-                            WebkitTextFillColor: 'transparent',
-                            backgroundClip: 'text',
-                          } : {}}
-                        >
-                          {l.label}
-                        </span>
-                        <span className="ml-auto text-accent/0 group-hover:text-accent/80 transition-colors text-xl">→</span>
-                      </Link>
-                    )}
+                        {l.label}
+                      </span>
+                      <span className="ml-auto text-accent/0 group-hover:text-accent/80 transition-colors text-xl">→</span>
+                    </Link>
                   </motion.div>
                 ))}
               </nav>
 
-              {/* Bottom CTA + socials */}
               <motion.div
                 initial={{ y: 30, opacity: 0 }}
                 animate={{ y: 0,  opacity: 1 }}
@@ -250,13 +189,14 @@ export default function Navbar() {
                 transition={{ delay: 0.38, duration: 0.4 }}
                 className="relative px-8 py-8 border-t border-white/10"
               >
-                <button
-                  onClick={() => { scrollTo('contact'); setOpen(false); }}
-                  className="w-full py-4 rounded-2xl text-white font-bold text-base shadow-xl mb-6 transition-all active:scale-95"
+                <Link
+                  to="/contact"
+                  onClick={() => setOpen(false)}
+                  className="block w-full py-4 rounded-2xl text-white font-bold text-base text-center shadow-xl mb-6 transition-all active:scale-95"
                   style={{ background: 'linear-gradient(135deg, #5a9a4a, #7cb26e)' }}
                 >
                   Hire Me →
-                </button>
+                </Link>
 
                 <div className="flex items-center justify-between">
                   <p className="text-xs text-white/30 font-medium uppercase tracking-widest">Find me on</p>
