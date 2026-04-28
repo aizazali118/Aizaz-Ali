@@ -8,8 +8,8 @@
 html { scroll-behavior: smooth; overflow-x: hidden; }
 body {
   font-family: 'Inter', system-ui, sans-serif;
-  background: #ffffff;
-  color: #0a0a0a;
+  background: #0a0a0a;
+  color: #e8e8e8;
   overflow-x: hidden;
   cursor: none;
 }

@@ -28,11 +28,14 @@ const BlogPage      = lazy(() => import('./pages/BlogPage'));
 const BlogPostPage  = lazy(() => import('./pages/BlogPostPage'));
 
 /* ── Admin panel (code-split) ── */
-const AdminLogin      = lazy(() => import('./pages/admin/AdminLogin'));
-const AdminLayout     = lazy(() => import('./pages/admin/AdminLayout'));
-const AdminDashboard  = lazy(() => import('./pages/admin/AdminDashboard'));
-const AdminPosts      = lazy(() => import('./pages/admin/AdminPosts'));
-const AdminPostEditor = lazy(() => import('./pages/admin/AdminPostEditor'));
+const AdminLogin        = lazy(() => import('./pages/admin/AdminLogin'));
+const AdminLayout       = lazy(() => import('./pages/admin/AdminLayout'));
+const AdminDashboard    = lazy(() => import('./pages/admin/AdminDashboard'));
+const AdminPosts        = lazy(() => import('./pages/admin/AdminPosts'));
+const AdminPostEditor   = lazy(() => import('./pages/admin/AdminPostEditor'));
+const AdminPortfolio    = lazy(() => import('./pages/admin/AdminPortfolio'));
+const AdminServices     = lazy(() => import('./pages/admin/AdminServices'));
+const AdminTestimonials = lazy(() => import('./pages/admin/AdminTestimonials'));
 
 function Spinner() {
   return (
@@ -119,6 +122,15 @@ function AppRoutes() {
               } />
               <Route path="/admin/posts/:id/edit" element={
                 <AdminLayout><AdminPostEditor /></AdminLayout>
+              } />
+              <Route path="/admin/portfolio" element={
+                <AdminLayout><AdminPortfolio /></AdminLayout>
+              } />
+              <Route path="/admin/services" element={
+                <AdminLayout><AdminServices /></AdminLayout>
+              } />
+              <Route path="/admin/testimonials" element={
+                <AdminLayout><AdminTestimonials /></AdminLayout>
               } />
             </Routes>
           </Suspense>

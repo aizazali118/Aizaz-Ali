@@ -3,9 +3,12 @@ const express    = require('express');
 const cors       = require('cors');
 const helmet     = require('helmet');
 
-const authRoutes    = require('./routes/auth');
-const postsRoutes   = require('./routes/posts');
-const uploadsRoutes = require('./routes/uploads');
+const authRoutes         = require('./routes/auth');
+const postsRoutes        = require('./routes/posts');
+const uploadsRoutes      = require('./routes/uploads');
+const portfolioRoutes    = require('./routes/portfolio');
+const siteServicesRoutes = require('./routes/siteservices');
+const testimonialsRoutes = require('./routes/testimonials');
 
 const app  = express();
 const PORT = process.env.PORT || 5000;
@@ -25,9 +28,12 @@ app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 
 /* ── API Routes ── */
-app.use('/api/auth',    authRoutes);
-app.use('/api/posts',   postsRoutes);
-app.use('/api/uploads', uploadsRoutes);
+app.use('/api/auth',         authRoutes);
+app.use('/api/posts',        postsRoutes);
+app.use('/api/uploads',      uploadsRoutes);
+app.use('/api/portfolio',    portfolioRoutes);
+app.use('/api/siteservices', siteServicesRoutes);
+app.use('/api/testimonials', testimonialsRoutes);
 
 /* ── Health check ── */
 app.get('/api/health', (_req, res) => {

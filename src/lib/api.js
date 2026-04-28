@@ -40,6 +40,30 @@ export const adminPostsApi = {
   delete: (id)         => request(`/posts/${id}`, { method: 'DELETE' }),
 };
 
+/* ── Portfolio ── */
+export const portfolioApi = {
+  list:   ()        => request('/portfolio'),
+  create: (data)    => request('/portfolio',    { method: 'POST',   body: JSON.stringify(data) }),
+  update: (id, data)=> request(`/portfolio/${id}`, { method: 'PUT', body: JSON.stringify(data) }),
+  delete: (id)      => request(`/portfolio/${id}`, { method: 'DELETE' }),
+};
+
+/* ── Site Services ── */
+export const siteServicesApi = {
+  list:   ()        => request('/siteservices'),
+  create: (data)    => request('/siteservices',    { method: 'POST',   body: JSON.stringify(data) }),
+  update: (id, data)=> request(`/siteservices/${id}`, { method: 'PUT', body: JSON.stringify(data) }),
+  delete: (id)      => request(`/siteservices/${id}`, { method: 'DELETE' }),
+};
+
+/* ── Testimonials ── */
+export const testimonialsApi = {
+  list:   ()        => request('/testimonials'),
+  create: (data)    => request('/testimonials',    { method: 'POST',   body: JSON.stringify(data) }),
+  update: (id, data)=> request(`/testimonials/${id}`, { method: 'PUT', body: JSON.stringify(data) }),
+  delete: (id)      => request(`/testimonials/${id}`, { method: 'DELETE' }),
+};
+
 /* ── Uploads ── */
 export const uploadsApi = {
   /* Upload cover or inline image — returns { url } */

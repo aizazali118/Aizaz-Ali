@@ -24,7 +24,6 @@ const highlights = [
   { icon: FiSmartphone, title: 'Responsive',    desc: 'Flawless on every screen size and device.'      },
 ];
 
-/* ── Floating tech icons around image ── */
 const techIcons = [
   { icon: FaWordpress,   color: '#21759b', label: 'WordPress',  top: '4%',  left: '-40%', dur: 3.2, delay: 0   },
   { icon: FaShopify,     color: '#96bf48', label: 'Shopify',    top: '38%', left: '-44%', dur: 4.1, delay: 0.5 },
@@ -33,6 +32,14 @@ const techIcons = [
   { icon: SiTailwindcss, color: '#06b6d4', label: 'Tailwind',   top: '38%', right: '-44%',dur: 4.4, delay: 0.8 },
   { icon: FaJs,          color: '#f0c000', label: 'JavaScript', top: '72%', right: '-42%',dur: 3.0, delay: 0.6 },
 ];
+
+const D = {
+  chip:   'rgba(255,255,255,0.05)',
+  border: 'rgba(255,255,255,0.08)',
+  track:  'rgba(255,255,255,0.08)',
+  text:   'rgba(255,255,255,0.55)',
+  muted:  'rgba(255,255,255,0.35)',
+};
 
 export default function About() {
   const sectionRef   = useRef(null);
@@ -45,92 +52,51 @@ export default function About() {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-
-      // ── Full image descends from hero section above ──
       gsap.fromTo(imageWrapRef.current,
         { y: '-65vh', x: '8vw', scale: 0.32, opacity: 0, rotateZ: 8 },
-        {
-          y: 0, x: 0, scale: 1, opacity: 1, rotateZ: 0,
-          ease: 'power3.out',
-          scrollTrigger: {
-            trigger: sectionRef.current,
-            start: 'top 90%',
-            end: 'top 15%',
-            scrub: 2,
-          },
-        }
+        { y: 0, x: 0, scale: 1, opacity: 1, rotateZ: 0, ease: 'power3.out',
+          scrollTrigger: { trigger: sectionRef.current, start: 'top 90%', end: 'top 15%', scrub: 2 } }
       );
-
-      // ── Glow blooms behind image ──
-      gsap.fromTo(glowRef.current,
-        { scale: 0, opacity: 0 },
-        {
-          scale: 1, opacity: 1, ease: 'power2.out',
-          scrollTrigger: { trigger: sectionRef.current, start: 'top 60%', end: 'top 20%', scrub: 1 },
-        }
+      gsap.fromTo(glowRef.current, { scale: 0, opacity: 0 },
+        { scale: 1, opacity: 1, ease: 'power2.out',
+          scrollTrigger: { trigger: sectionRef.current, start: 'top 60%', end: 'top 20%', scrub: 1 } }
       );
-
-      // Heading
-      gsap.from(headRef.current, {
-        scrollTrigger: { trigger: headRef.current, start: 'top 85%' },
-        y: 60, opacity: 0, duration: 0.9, ease: 'power4.out',
-      });
-
-      // Text block
-      gsap.from(textRef.current, {
-        scrollTrigger: { trigger: textRef.current, start: 'top 85%' },
-        x: -50, opacity: 0, duration: 0.9, ease: 'power3.out',
-      });
-
-      // Skill bars
+      gsap.from(headRef.current, { scrollTrigger: { trigger: headRef.current, start: 'top 85%' }, y: 60, opacity: 0, duration: 0.9, ease: 'power4.out' });
+      gsap.from(textRef.current, { scrollTrigger: { trigger: textRef.current, start: 'top 85%' }, x: -50, opacity: 0, duration: 0.9, ease: 'power3.out' });
       skillsRef.current?.querySelectorAll('.skill-fill').forEach((bar, i) => {
-        gsap.to(bar, {
-          scrollTrigger: { trigger: bar, start: 'top 90%' },
-          scaleX: 1, duration: 1.2, delay: i * 0.12, ease: 'power3.out',
-        });
+        gsap.to(bar, { scrollTrigger: { trigger: bar, start: 'top 90%' }, scaleX: 1, duration: 1.2, delay: i * 0.12, ease: 'power3.out' });
       });
-
-      // Highlight cards
       gsap.from(cardsRef.current?.querySelectorAll('.h-card'), {
-        scrollTrigger: { trigger: cardsRef.current, start: 'top 85%' },
-        y: 40, opacity: 0, duration: 0.7, ease: 'power3.out', stagger: 0.12,
+        scrollTrigger: { trigger: cardsRef.current, start: 'top 85%' }, y: 40, opacity: 0, duration: 0.7, ease: 'power3.out', stagger: 0.12,
       });
-
     }, sectionRef);
     return () => ctx.revert();
   }, []);
 
   return (
-    <section id="about" ref={sectionRef} className="py-24 overflow-hidden"
-      style={{ background: 'rgba(255,255,255,0.90)' }}>
+    <section id="about" ref={sectionRef} className="py-24 overflow-hidden" style={{ background: '#0a0a0a' }}>
       <div className="max-w-6xl mx-auto px-6">
 
-        {/* ── Section heading ── */}
         <div ref={headRef} className="text-center mb-16">
           <p className="text-accent text-sm font-semibold tracking-widest uppercase mb-3">Who I Am</p>
-          <h2 className="text-4xl md:text-5xl font-display font-black text-primary">
+          <h2 className="text-4xl md:text-5xl font-display font-black text-white">
             About <span className="gradient-text">Me</span>
           </h2>
           <div className="mt-4 mx-auto section-line animate" />
         </div>
 
-        {/* ── Grid: [bio+skills] | [highlights+exp] | [image RIGHT] ── */}
         <div className="grid lg:grid-cols-[1fr_1fr_300px] gap-6 lg:gap-10 lg:items-end">
 
-          {/* ── Col 1: Bio + skills ── */}
+          {/* Col 1: Bio + skills */}
           <div ref={textRef}>
             <div className="mb-8">
-              <h3 className="text-xl font-bold text-primary">Aizaz Ali Afridi</h3>
+              <h3 className="text-xl font-bold text-white">Aizaz Ali Afridi</h3>
               <p className="text-accent text-sm font-medium">Freelance Developer &amp; Designer</p>
-              <p className="mt-3 text-gray-500 leading-relaxed text-sm">
-                With over 3 years of experience, I specialise in building high-performance
-                websites and web applications. I've helped 40+ clients launch successful
-                WordPress stores, Shopify e-commerce sites, and custom React frontends —
-                always focusing on speed, UX, and business results.
+              <p className="mt-3 text-sm leading-relaxed" style={{ color: D.text }}>
+                With over 3 years of experience, I specialise in building high-performance websites and web applications. I've helped 40+ clients launch successful WordPress stores, Shopify e-commerce sites, and custom React frontends — always focusing on speed, UX, and business results.
               </p>
             </div>
 
-            {/* Info chips */}
             <div className="grid grid-cols-2 gap-3 mb-8">
               {[
                 { label: 'Location',      val: 'Islamabad, PK' },
@@ -138,50 +104,38 @@ export default function About() {
                 { label: 'Projects Done', val: '50+'           },
                 { label: 'Happy Clients', val: '40+'           },
               ].map(({ label, val }) => (
-                <div key={label} className="bg-gray-50 rounded-xl px-4 py-3 border border-gray-100">
-                  <p className="text-xs text-gray-400 font-medium">{label}</p>
-                  <p className="text-sm font-bold text-primary mt-0.5">{val}</p>
+                <div key={label} className="rounded-xl px-4 py-3 border" style={{ background: D.chip, borderColor: D.border }}>
+                  <p className="text-xs font-medium" style={{ color: D.muted }}>{label}</p>
+                  <p className="text-sm font-bold text-white mt-0.5">{val}</p>
                 </div>
               ))}
             </div>
 
-            {/* Skill bars */}
             <div ref={skillsRef} className="space-y-4">
-              <h4 className="text-sm font-semibold text-gray-400 uppercase tracking-wider">
-                Skill Proficiency
-              </h4>
+              <h4 className="text-sm font-semibold uppercase tracking-wider" style={{ color: D.muted }}>Skill Proficiency</h4>
               {skills.map(({ name, pct }) => (
                 <div key={name}>
                   <div className="flex justify-between text-sm mb-1.5">
-                    <span className="font-medium text-primary">{name}</span>
+                    <span className="font-medium text-white/80">{name}</span>
                     <span className="text-accent font-bold">{pct}%</span>
                   </div>
-                  <div className="h-2 rounded-full bg-gray-100 overflow-hidden">
-                    <div className="skill-fill h-full rounded-full"
-                      style={{ '--target': `${pct / 100}` }} />
+                  <div className="h-2 rounded-full overflow-hidden" style={{ background: D.track }}>
+                    <div className="skill-fill h-full rounded-full" />
                   </div>
                 </div>
               ))}
             </div>
 
-            {/* ── Mobile-only image — inside Col 1, clipped to remove transparent PNG padding ── */}
+            {/* Mobile image */}
             <div className="lg:hidden flex justify-center mt-4">
               <div className="relative w-48 overflow-hidden" style={{ maxHeight: '260px' }}>
                 <div className="absolute inset-x-0 bottom-0 h-28 pointer-events-none"
-                  style={{
-                    background: 'radial-gradient(ellipse at center bottom, rgba(124,178,110,0.18) 0%, transparent 70%)',
-                    filter: 'blur(16px)',
-                  }}
-                />
-                <img
-                  src="/about-us.png"
-                  alt="Aizaz Ali Afridi"
+                  style={{ background: 'radial-gradient(ellipse at center bottom, rgba(124,178,110,0.18) 0%, transparent 70%)', filter: 'blur(16px)' }} />
+                <img src="/about-us.png" alt="Aizaz Ali Afridi"
                   className="relative w-full h-auto select-none object-top"
-                  style={{ filter: 'drop-shadow(0 12px 32px rgba(124,178,110,0.26)) drop-shadow(0 3px 12px rgba(0,0,0,0.07))' }}
-                />
-                <div className="absolute top-2 left-1/2 -translate-x-1/2 bg-white rounded-xl px-3 py-1.5
-                  shadow-lg border border-gray-100 text-xs font-bold text-primary
-                  flex items-center gap-1.5 whitespace-nowrap">
+                  style={{ filter: 'drop-shadow(0 12px 32px rgba(124,178,110,0.26))' }} />
+                <div className="absolute top-2 left-1/2 -translate-x-1/2 rounded-xl px-3 py-1.5 shadow-lg text-xs font-bold text-white flex items-center gap-1.5 whitespace-nowrap"
+                  style={{ background: 'rgba(255,255,255,0.1)', border: '1px solid rgba(255,255,255,0.15)', backdropFilter: 'blur(8px)' }}>
                   <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
                   Open to work
                 </div>
@@ -189,31 +143,31 @@ export default function About() {
             </div>
           </div>
 
-          {/* ── Col 2: Highlight cards + Experience ── */}
+          {/* Col 2: Highlight cards + experience */}
           <div>
             <div ref={cardsRef} className="grid grid-cols-2 gap-4">
               {highlights.map(({ icon: Icon, title, desc }) => (
                 <div key={title}
-                  className="h-card group bg-white border border-gray-100 rounded-2xl p-5
-                    hover:border-accent/30 hover:shadow-lg hover:shadow-accent/10
-                    transition-all duration-300 cursor-default">
-                  <div className="w-10 h-10 rounded-xl bg-accent/10 flex items-center justify-center
-                    mb-4 group-hover:bg-accent group-hover:text-white text-accent transition-all duration-300">
+                  className="h-card group rounded-2xl p-5 border transition-all duration-300 cursor-default"
+                  style={{ background: D.chip, borderColor: D.border }}
+                  onMouseEnter={e => { e.currentTarget.style.borderColor = 'rgba(124,178,110,0.35)'; e.currentTarget.style.boxShadow = '0 8px 30px rgba(124,178,110,0.1)'; }}
+                  onMouseLeave={e => { e.currentTarget.style.borderColor = D.border; e.currentTarget.style.boxShadow = ''; }}
+                >
+                  <div className="w-10 h-10 rounded-xl bg-accent/10 flex items-center justify-center mb-4 text-accent group-hover:bg-accent group-hover:text-white transition-all duration-300">
                     <Icon size={18} />
                   </div>
-                  <h4 className="font-bold text-primary mb-1">{title}</h4>
-                  <p className="text-xs text-gray-400 leading-relaxed">{desc}</p>
+                  <h4 className="font-bold text-white mb-1">{title}</h4>
+                  <p className="text-xs leading-relaxed" style={{ color: D.muted }}>{desc}</p>
                 </div>
               ))}
             </div>
 
-            {/* Experience timeline */}
             <div className="mt-5 space-y-4">
-              <h4 className="text-sm font-semibold text-gray-400 uppercase tracking-wider">Experience</h4>
+              <h4 className="text-sm font-semibold uppercase tracking-wider" style={{ color: D.muted }}>Experience</h4>
               {[
-                { year: '2025 – 2026',  role: 'WP & Shopify Freelance Developer', company: 'Self-Employed / Agency / Remote'   },
-                { year: '2024 – 2025', role: 'WordPress & Shopify Developer',        company: 'Agency / Remote' },
-                { year: '2023 – 2025', role: 'WordPress Developer',         company: 'Startup'         },
+                { year: '2025 – 2026', role: 'WP & Shopify Freelance Developer', company: 'Self-Employed / Agency / Remote' },
+                { year: '2024 – 2025', role: 'WordPress & Shopify Developer',    company: 'Agency / Remote'                },
+                { year: '2023 – 2025', role: 'WordPress Developer',              company: 'Startup'                        },
               ].map((item, i) => (
                 <motion.div key={i}
                   initial={{ opacity: 0, x: 30 }}
@@ -224,89 +178,62 @@ export default function About() {
                 >
                   <div className="flex flex-col items-center">
                     <div className="w-3 h-3 rounded-full bg-accent mt-1.5" />
-                    {i < 2 && <div className="w-0.5 h-10 bg-gray-100 mt-1" />}
+                    {i < 2 && <div className="w-0.5 h-10 mt-1" style={{ background: 'rgba(255,255,255,0.1)' }} />}
                   </div>
                   <div>
                     <p className="text-xs text-accent font-semibold">{item.year}</p>
-                    <p className="text-sm font-bold text-primary">{item.role}</p>
-                    <p className="text-xs text-gray-400">{item.company}</p>
+                    <p className="text-sm font-bold text-white">{item.role}</p>
+                    <p className="text-xs" style={{ color: D.muted }}>{item.company}</p>
                   </div>
                 </motion.div>
               ))}
             </div>
           </div>
 
-          {/* ── Col 3 (RIGHT): Full-body image + floating tech icons ── */}
-          <div
-            ref={imageWrapRef}
-            className="relative hidden lg:block"
-          >
-            {/* Soft glow behind figure */}
-            <div
-              ref={glowRef}
-              className="absolute bottom-0 left-1/2 -translate-x-1/2 pointer-events-none rounded-full"
-              style={{
-                width: 340, height: 340,
-                background: 'radial-gradient(circle, rgba(124,178,110,0.22) 0%, rgba(163,200,154,0.10) 45%, transparent 70%)',
-                filter: 'blur(36px)',
-                zIndex: 0,
-              }}
-            />
-
-            {/* Full-body profile image — full PNG, no cropping, natural height */}
-            <motion.img
-              src="/about-us.png"
-              alt="Aizaz Ali Afridi"
+          {/* Col 3: Image + floating icons */}
+          <div ref={imageWrapRef} className="relative hidden lg:block">
+            <div ref={glowRef} className="absolute bottom-0 left-1/2 -translate-x-1/2 pointer-events-none rounded-full" style={{
+              width: 340, height: 340,
+              background: 'radial-gradient(circle, rgba(124,178,110,0.25) 0%, rgba(163,200,154,0.10) 45%, transparent 70%)',
+              filter: 'blur(36px)', zIndex: 0,
+            }} />
+            <motion.img src="/about-us.png" alt="Aizaz Ali Afridi"
               className="relative z-10 w-full select-none"
-              style={{
-                display: 'block',
-                height: 'auto',
-                filter: 'drop-shadow(0 20px 50px rgba(124,178,110,0.30)) drop-shadow(0 4px 20px rgba(0,0,0,0.10))',
-              }}
+              style={{ display: 'block', height: 'auto', filter: 'drop-shadow(0 20px 50px rgba(124,178,110,0.30))' }}
               whileHover={{ scale: 1.03 }}
               transition={{ type: 'spring', stiffness: 180, damping: 20 }}
             />
-
-            {/* ── Floating tech icon pills ── */}
             {techIcons.map(({ icon: Icon, color, label, top, left, right, dur, delay: d }) => (
               <motion.div
                 key={label}
-                className="absolute z-20 bg-white rounded-xl px-3 py-2 shadow-lg border border-gray-100
-                  flex items-center gap-2 select-none"
-                style={{ top, left, right }}
+                className="absolute z-20 rounded-xl px-3 py-2 shadow-lg flex items-center gap-2 select-none"
+                style={{ top, left, right, background: 'rgba(255,255,255,0.07)', border: '1px solid rgba(255,255,255,0.12)', backdropFilter: 'blur(8px)' }}
                 animate={{ y: [0, -9, 0] }}
                 transition={{ duration: dur, repeat: Infinity, delay: d, ease: 'easeInOut' }}
                 whileHover={{ scale: 1.12, boxShadow: `0 8px 24px ${color}40` }}
               >
                 <Icon size={15} color={color} />
-                <span className="text-xs font-bold text-gray-700">{label}</span>
+                <span className="text-xs font-bold" style={{ color: 'rgba(255,255,255,0.8)' }}>{label}</span>
               </motion.div>
             ))}
-
-            {/* "Open to work" floating badge */}
             <motion.div
               animate={{ y: [0, -6, 0] }}
               transition={{ duration: 3.5, repeat: Infinity, ease: 'easeInOut' }}
-              className="absolute top-4 left-1/2 -translate-x-1/2 bg-white rounded-2xl px-3 py-2
-                shadow-xl border border-gray-100 text-xs font-bold text-primary
-                flex items-center gap-1.5 z-30 whitespace-nowrap"
+              className="absolute top-4 left-1/2 -translate-x-1/2 rounded-2xl px-3 py-2 shadow-xl text-xs font-bold text-white flex items-center gap-1.5 z-30 whitespace-nowrap"
+              style={{ background: 'rgba(255,255,255,0.08)', border: '1px solid rgba(255,255,255,0.12)', backdropFilter: 'blur(8px)' }}
             >
-              <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
-              Open to work
+              <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse" /> Open to work
             </motion.div>
-
-            {/* Projects count badge — bottom right */}
             <motion.div
               animate={{ y: [0, 8, 0] }}
               transition={{ duration: 4.2, repeat: Infinity, ease: 'easeInOut', delay: 1 }}
-              className="absolute bottom-12 right-0 bg-white rounded-2xl px-3 py-2
-                shadow-xl border border-gray-100 z-30 text-center"
+              className="absolute bottom-12 right-0 rounded-2xl px-3 py-2 shadow-xl z-30 text-center"
+              style={{ background: 'rgba(255,255,255,0.08)', border: '1px solid rgba(255,255,255,0.12)', backdropFilter: 'blur(8px)' }}
             >
               <p className="gradient-text text-xl font-black leading-none">50+</p>
-              <p className="text-gray-400 text-[10px] mt-0.5">Projects Done</p>
+              <p className="text-[10px] mt-0.5" style={{ color: 'rgba(255,255,255,0.45)' }}>Projects Done</p>
             </motion.div>
           </div>
-
         </div>
       </div>
     </section>
