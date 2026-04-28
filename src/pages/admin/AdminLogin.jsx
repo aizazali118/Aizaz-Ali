@@ -39,48 +39,78 @@ export default function AdminLogin() {
       </div>
 
       <div className="relative w-full max-w-md">
-        {/* Card */}
-        <div className="bg-white/5 backdrop-blur-xl rounded-3xl border border-white/10 p-8 shadow-2xl">
+        <div
+          className="rounded-3xl border p-8 shadow-2xl"
+          style={{
+            background: 'rgba(255,255,255,0.04)',
+            borderColor: 'rgba(255,255,255,0.1)',
+            backdropFilter: 'blur(20px)',
+          }}
+        >
           {/* Logo */}
           <div className="flex justify-center mb-8">
             <Logo dark size={40} />
           </div>
 
           <h1 className="text-2xl font-display font-black text-white text-center mb-1">Admin Login</h1>
-          <p className="text-white/40 text-sm text-center mb-8">Sign in to manage your blog</p>
+          <p className="text-center text-sm mb-8" style={{ color: 'rgba(255,255,255,0.4)' }}>
+            Sign in to manage your blog
+          </p>
 
           {error && (
-            <div className="mb-5 px-4 py-3 rounded-xl bg-red-500/10 border border-red-500/20 text-red-400 text-sm">
+            <div className="mb-5 px-4 py-3 rounded-xl text-sm"
+              style={{ background: 'rgba(239,68,68,0.12)', border: '1px solid rgba(239,68,68,0.25)', color: '#f87171' }}>
               {error}
             </div>
           )}
 
-          <form onSubmit={handleSubmit} className="space-y-4" noValidate>
+          <form onSubmit={handleSubmit} className="space-y-5" noValidate>
+            {/* Email */}
             <div>
-              <label htmlFor="email" className="block text-xs font-semibold text-white/50 uppercase tracking-wider mb-1.5">
+              <label htmlFor="email" className="block text-xs font-bold uppercase tracking-widest mb-2"
+                style={{ color: 'rgba(255,255,255,0.45)' }}>
                 Email
               </label>
               <div className="relative">
-                <FiMail className="absolute left-3.5 top-1/2 -translate-y-1/2 text-white/30" size={15} />
+                <FiMail className="absolute left-4 top-1/2 -translate-y-1/2" size={15}
+                  style={{ color: 'rgba(124,178,110,0.7)' }} />
                 <input
                   id="email"
                   type="email"
                   value={email}
                   onChange={e => setEmail(e.target.value)}
                   required
-                  placeholder="admin@aizazaliafridi.com"
-                  className="w-full pl-10 pr-4 py-3 rounded-xl bg-white/8 border border-white/10 text-white placeholder-white/25 text-sm focus:outline-none focus:border-accent focus:ring-2 focus:ring-accent/20 transition"
+                  placeholder="aizaz.visiontact@gmail.com"
                   autoComplete="email"
+                  style={{
+                    width: '100%',
+                    paddingLeft: '2.75rem',
+                    paddingRight: '1rem',
+                    paddingTop: '0.85rem',
+                    paddingBottom: '0.85rem',
+                    borderRadius: '0.75rem',
+                    background: 'rgba(255,255,255,0.06)',
+                    border: '1px solid rgba(255,255,255,0.12)',
+                    color: '#ffffff',
+                    fontSize: '0.875rem',
+                    outline: 'none',
+                    WebkitTextFillColor: '#ffffff',
+                  }}
+                  onFocus={e => e.target.style.borderColor = 'rgba(124,178,110,0.6)'}
+                  onBlur={e => e.target.style.borderColor = 'rgba(255,255,255,0.12)'}
                 />
               </div>
             </div>
 
+            {/* Password */}
             <div>
-              <label htmlFor="password" className="block text-xs font-semibold text-white/50 uppercase tracking-wider mb-1.5">
+              <label htmlFor="password" className="block text-xs font-bold uppercase tracking-widest mb-2"
+                style={{ color: 'rgba(255,255,255,0.45)' }}>
                 Password
               </label>
               <div className="relative">
-                <FiLock className="absolute left-3.5 top-1/2 -translate-y-1/2 text-white/30" size={15} />
+                <FiLock className="absolute left-4 top-1/2 -translate-y-1/2" size={15}
+                  style={{ color: 'rgba(124,178,110,0.7)' }} />
                 <input
                   id="password"
                   type={showPw ? 'text' : 'password'}
@@ -88,13 +118,29 @@ export default function AdminLogin() {
                   onChange={e => setPassword(e.target.value)}
                   required
                   placeholder="••••••••"
-                  className="w-full pl-10 pr-11 py-3 rounded-xl bg-white/8 border border-white/10 text-white placeholder-white/25 text-sm focus:outline-none focus:border-accent focus:ring-2 focus:ring-accent/20 transition"
                   autoComplete="current-password"
+                  style={{
+                    width: '100%',
+                    paddingLeft: '2.75rem',
+                    paddingRight: '3rem',
+                    paddingTop: '0.85rem',
+                    paddingBottom: '0.85rem',
+                    borderRadius: '0.75rem',
+                    background: 'rgba(255,255,255,0.06)',
+                    border: '1px solid rgba(255,255,255,0.12)',
+                    color: '#ffffff',
+                    fontSize: '0.875rem',
+                    outline: 'none',
+                    WebkitTextFillColor: '#ffffff',
+                  }}
+                  onFocus={e => e.target.style.borderColor = 'rgba(124,178,110,0.6)'}
+                  onBlur={e => e.target.style.borderColor = 'rgba(255,255,255,0.12)'}
                 />
                 <button
                   type="button"
                   onClick={() => setShowPw(p => !p)}
-                  className="absolute right-3.5 top-1/2 -translate-y-1/2 text-white/30 hover:text-white/70 transition"
+                  className="absolute right-4 top-1/2 -translate-y-1/2 transition-colors"
+                  style={{ color: 'rgba(255,255,255,0.35)' }}
                   aria-label={showPw ? 'Hide password' : 'Show password'}
                 >
                   {showPw ? <FiEyeOff size={15} /> : <FiEye size={15} />}
@@ -105,18 +151,29 @@ export default function AdminLogin() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full py-3.5 rounded-xl font-bold text-white text-sm transition-all active:scale-95 disabled:opacity-60 disabled:cursor-not-allowed mt-2"
-              style={{ background: loading ? '#5a9a4a' : 'linear-gradient(135deg, #5a9a4a, #7cb26e)' }}
+              className="w-full py-3.5 rounded-xl font-bold text-white text-sm transition-all active:scale-95 disabled:opacity-60 mt-1"
+              style={{ background: 'linear-gradient(135deg, #5a9a4a, #7cb26e)', boxShadow: '0 8px 24px rgba(124,178,110,0.25)' }}
             >
-              {loading ? 'Signing in…' : 'Sign In'}
+              {loading ? 'Signing in…' : 'Sign In →'}
             </button>
           </form>
         </div>
 
-        <p className="text-center text-white/20 text-xs mt-5">
+        <p className="text-center text-xs mt-5" style={{ color: 'rgba(255,255,255,0.2)' }}>
           Admin access only — not a public area
         </p>
       </div>
+
+      {/* Autofill color fix */}
+      <style>{`
+        input:-webkit-autofill,
+        input:-webkit-autofill:hover,
+        input:-webkit-autofill:focus {
+          -webkit-box-shadow: 0 0 0 1000px rgba(255,255,255,0.06) inset !important;
+          -webkit-text-fill-color: #ffffff !important;
+          caret-color: #ffffff;
+        }
+      `}</style>
     </div>
   );
 }
