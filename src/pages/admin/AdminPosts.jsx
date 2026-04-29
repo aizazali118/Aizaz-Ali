@@ -40,8 +40,8 @@ export default function AdminPosts() {
     <div>
       <div className="flex items-center justify-between mb-8 flex-wrap gap-4">
         <div>
-          <h1 className="text-2xl font-display font-black text-gray-900">All Posts</h1>
-          <p className="text-gray-400 text-sm mt-1">{posts.length} total · {posts.filter(p=>p.status==='published').length} published</p>
+          <h1 className="text-2xl font-display font-black text-white">All Posts</h1>
+          <p className="text-gray-500 text-sm mt-1">{posts.length} total · {posts.filter(p=>p.status==='published').length} published</p>
         </div>
         <Link
           to="/admin/posts/new"
@@ -59,27 +59,28 @@ export default function AdminPosts() {
           placeholder="Search posts…"
           value={search}
           onChange={e => setSearch(e.target.value)}
-          className="w-full max-w-sm pl-10 pr-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:border-accent focus:ring-2 focus:ring-accent/20 transition"
+          style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)', color: '#e8e8e8' }}
+          className="w-full max-w-sm pl-10 pr-4 py-2.5 rounded-xl text-sm focus:outline-none transition"
         />
       </div>
 
       {/* Table */}
-      <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
+      <div className="rounded-2xl overflow-hidden" style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)' }}>
         {loading ? (
           <div className="p-6 space-y-3">
             {[1,2,3,4,5].map(i => (
-              <div key={i} className="h-14 bg-gray-50 rounded-xl animate-pulse" />
+              <div key={i} className="h-14 rounded-xl animate-pulse" style={{ background: 'rgba(255,255,255,0.05)' }} />
             ))}
           </div>
         ) : filtered.length === 0 ? (
           <div className="p-10 text-center">
-            <p className="text-gray-400 text-sm">{search ? 'No posts match your search.' : 'No posts yet.'}</p>
+            <p className="text-gray-500 text-sm">{search ? 'No posts match your search.' : 'No posts yet.'}</p>
           </div>
         ) : (
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
               <thead>
-                <tr className="border-b border-gray-50 text-xs text-gray-400 uppercase tracking-wider">
+                <tr className="text-xs text-gray-500 uppercase tracking-wider" style={{ borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
                   <th className="text-left px-6 py-3 font-semibold">Title</th>
                   <th className="text-left px-4 py-3 font-semibold hidden sm:table-cell">Category</th>
                   <th className="text-left px-4 py-3 font-semibold">Status</th>
@@ -87,12 +88,14 @@ export default function AdminPosts() {
                   <th className="text-right px-6 py-3 font-semibold">Actions</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-gray-50">
+              <tbody>
                 {filtered.map(post => (
-                  <tr key={post.id} className="hover:bg-gray-50/60 transition group">
+                  <tr key={post.id} className="transition group" style={{ borderTop: '1px solid rgba(255,255,255,0.05)' }}
+                    onMouseEnter={e => e.currentTarget.style.background = 'rgba(255,255,255,0.04)'}
+                    onMouseLeave={e => e.currentTarget.style.background = ''}>
                     <td className="px-6 py-4">
-                      <p className="font-semibold text-gray-900 leading-snug line-clamp-1">{post.title}</p>
-                      <p className="text-xs text-gray-400 mt-0.5 font-mono truncate max-w-xs">/blog/{post.slug}</p>
+                      <p className="font-semibold text-white leading-snug line-clamp-1">{post.title}</p>
+                      <p className="text-xs text-gray-500 mt-0.5 font-mono truncate max-w-xs">/blog/{post.slug}</p>
                     </td>
                     <td className="px-4 py-4 hidden sm:table-cell">
                       {post.category && (
@@ -107,15 +110,15 @@ export default function AdminPosts() {
                     <td className="px-4 py-4">
                       <span className={`inline-flex items-center gap-1 text-[11px] font-bold uppercase px-2.5 py-1 rounded-full ${
                         post.status === 'published'
-                          ? 'bg-green-100 text-green-700'
-                          : 'bg-orange-100 text-orange-700'
+                          ? 'bg-green-900/40 text-green-400'
+                          : 'bg-orange-900/40 text-orange-400'
                       }`}>
                         {post.status === 'published' ? <FiEye size={10} /> : <FiEyeOff size={10} />}
                         {post.status}
                       </span>
                     </td>
                     <td className="px-4 py-4 hidden md:table-cell">
-                      <span className="text-xs text-gray-400">
+                      <span className="text-xs text-gray-500">
                         {new Date(post.created_at).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })}
                       </span>
                     </td>
@@ -126,7 +129,7 @@ export default function AdminPosts() {
                             href={`/blog/${post.slug}`}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="p-1.5 rounded-lg text-gray-400 hover:text-accent hover:bg-accent/10 transition"
+                            className="p-1.5 rounded-lg text-gray-500 hover:text-accent hover:bg-accent/10 transition"
                             aria-label="View post"
                           >
                             <FiEye size={14} />
@@ -134,7 +137,7 @@ export default function AdminPosts() {
                         )}
                         <Link
                           to={`/admin/posts/${post.id}/edit`}
-                          className="p-1.5 rounded-lg text-gray-400 hover:text-accent hover:bg-accent/10 transition"
+                          className="p-1.5 rounded-lg text-gray-500 hover:text-accent hover:bg-accent/10 transition"
                           aria-label="Edit post"
                         >
                           <FiEdit2 size={14} />
@@ -142,7 +145,7 @@ export default function AdminPosts() {
                         <button
                           onClick={() => handleDelete(post)}
                           disabled={deleting === post.id}
-                          className="p-1.5 rounded-lg text-gray-400 hover:text-red-500 hover:bg-red-50 transition disabled:opacity-50"
+                          className="p-1.5 rounded-lg text-gray-500 hover:text-red-400 hover:bg-red-900/30 transition disabled:opacity-50"
                           aria-label="Delete post"
                         >
                           <FiTrash2 size={14} />

@@ -18,7 +18,8 @@ function PostCard({ post, index }) {
       initial={{ opacity: 0, y: 40 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, delay: index * 0.08 }}
-      className="group bg-white rounded-2xl border border-gray-100 overflow-hidden hover:shadow-xl hover:shadow-accent/10 hover:-translate-y-1 transition-all duration-300"
+      className="group rounded-2xl overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
+      style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)' }}
       itemScope itemType="https://schema.org/BlogPosting"
     >
       {/* Cover image */}
@@ -47,25 +48,25 @@ function PostCard({ post, index }) {
           >
             <FiTag size={10} /> {post.category}
           </span>
-          <span className="flex items-center gap-1 text-xs text-gray-400">
+          <span className="flex items-center gap-1 text-xs text-gray-500">
             <FiCalendar size={11} />
             <time dateTime={post.published_at} itemProp="datePublished">
               {new Date(post.published_at).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })}
             </time>
           </span>
           {post.read_time && (
-            <span className="flex items-center gap-1 text-xs text-gray-400">
+            <span className="flex items-center gap-1 text-xs text-gray-500">
               <FiClock size={11} /> {post.read_time}
             </span>
           )}
         </div>
 
-        <h2 className="text-lg font-display font-bold text-primary mb-2 leading-snug group-hover:text-accent transition-colors" itemProp="headline">
+        <h2 className="text-lg font-display font-bold text-white mb-2 leading-snug group-hover:text-accent transition-colors" itemProp="headline">
           <Link to={`/blog/${post.slug}`}>{post.title}</Link>
         </h2>
 
         {post.excerpt && (
-          <p className="text-sm text-gray-500 leading-relaxed mb-4" itemProp="description">{post.excerpt}</p>
+          <p className="text-sm text-gray-400 leading-relaxed mb-4" itemProp="description">{post.excerpt}</p>
         )}
 
         <div className="flex items-center justify-between gap-3 flex-wrap">
@@ -76,7 +77,7 @@ function PostCard({ post, index }) {
             Read More <FiArrowRight size={14} />
           </Link>
           {post.downloads?.length > 0 && (
-            <span className="inline-flex items-center gap-1 text-xs text-gray-400">
+            <span className="inline-flex items-center gap-1 text-xs text-gray-500">
               <FiDownload size={11} /> {post.downloads.length} download{post.downloads.length > 1 ? 's' : ''}
             </span>
           )}
@@ -118,12 +119,12 @@ export default function BlogPage() {
       canonical="/blog"
     >
       {/* Page hero */}
-      <section className="pt-32 pb-12 bg-white text-center px-6" aria-labelledby="blog-page-heading">
+      <section className="pt-32 pb-12 text-center px-6" style={{ background: '#0a0a0a' }} aria-labelledby="blog-page-heading">
         <p className="text-accent text-sm font-semibold tracking-widest uppercase mb-3">Resources & Insights</p>
         <h1 id="blog-page-heading" className="text-4xl md:text-6xl font-display font-black text-primary">
           Dev <span className="gradient-text">Blog</span>
         </h1>
-        <p className="mt-4 text-gray-500 max-w-xl mx-auto leading-relaxed">
+        <p className="mt-4 text-gray-400 max-w-xl mx-auto leading-relaxed">
           Practical guides on WordPress, Shopify and React — with free downloadable resources in many articles.
         </p>
         <nav className="mt-4 flex items-center justify-center gap-2 text-xs text-gray-400" aria-label="Breadcrumb">
@@ -133,24 +134,26 @@ export default function BlogPage() {
         </nav>
       </section>
 
-      <div className="max-w-6xl mx-auto px-6 pb-24">
+      <div className="max-w-6xl mx-auto px-6 pb-24" style={{ background: '#0a0a0a' }}>
         {/* Search + filter bar */}
         <div className="flex flex-col sm:flex-row gap-4 mb-10">
           <div className="relative flex-1">
-            <FiSearch className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400" size={15} />
+            <FiSearch className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-500" size={15} />
             <input
               type="search"
               placeholder="Search articles..."
               value={search}
               onChange={e => setSearch(e.target.value)}
-              className="w-full pl-10 pr-4 py-2.5 rounded-full border border-gray-200 text-sm focus:outline-none focus:border-accent focus:ring-2 focus:ring-accent/20 transition"
+              style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)', color: '#e8e8e8' }}
+              className="w-full pl-10 pr-4 py-2.5 rounded-full text-sm focus:outline-none transition"
               aria-label="Search blog posts"
             />
           </div>
           <div className="flex flex-wrap gap-2" role="group" aria-label="Filter by category">
             <button
               onClick={() => setFilter('All')}
-              className={`px-4 py-2 rounded-full text-sm font-semibold transition-all ${filter === 'All' ? 'bg-accent text-white shadow-lg shadow-accent/30' : 'bg-white border border-gray-200 text-gray-600 hover:border-accent/50 hover:text-accent'}`}
+              className={`px-4 py-2 rounded-full text-sm font-semibold transition-all ${filter === 'All' ? 'bg-accent text-white shadow-lg shadow-accent/30' : 'text-gray-500 hover:text-accent'}`}
+              style={filter !== 'All' ? { background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.08)' } : {}}
               aria-pressed={filter === 'All'}
             >
               All
@@ -159,7 +162,8 @@ export default function BlogPage() {
               <button
                 key={cat.id}
                 onClick={() => setFilter(cat.name)}
-                className={`px-4 py-2 rounded-full text-sm font-semibold transition-all ${filter === cat.name ? 'bg-accent text-white shadow-lg shadow-accent/30' : 'bg-white border border-gray-200 text-gray-600 hover:border-accent/50 hover:text-accent'}`}
+                className={`px-4 py-2 rounded-full text-sm font-semibold transition-all ${filter === cat.name ? 'bg-accent text-white shadow-lg shadow-accent/30' : 'text-gray-500 hover:text-accent'}`}
+                style={filter !== cat.name ? { background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.08)' } : {}}
                 aria-pressed={filter === cat.name}
               >
                 {cat.name}
@@ -172,13 +176,13 @@ export default function BlogPage() {
         {loading && (
           <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-6">
             {[1,2,3,4,5,6].map(i => (
-              <div key={i} className="bg-white rounded-2xl border border-gray-100 overflow-hidden animate-pulse">
-                <div className="h-48 bg-gray-100" />
+              <div key={i} className="rounded-2xl overflow-hidden animate-pulse" style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)' }}>
+                <div className="h-48" style={{ background: 'rgba(255,255,255,0.06)' }} />
                 <div className="p-6 space-y-3">
-                  <div className="h-3 bg-gray-100 rounded w-24" />
-                  <div className="h-5 bg-gray-100 rounded w-3/4" />
-                  <div className="h-3 bg-gray-100 rounded" />
-                  <div className="h-3 bg-gray-100 rounded w-5/6" />
+                  <div className="h-3 rounded w-24" style={{ background: 'rgba(255,255,255,0.08)' }} />
+                  <div className="h-5 rounded w-3/4" style={{ background: 'rgba(255,255,255,0.08)' }} />
+                  <div className="h-3 rounded" style={{ background: 'rgba(255,255,255,0.06)' }} />
+                  <div className="h-3 rounded w-5/6" style={{ background: 'rgba(255,255,255,0.06)' }} />
                 </div>
               </div>
             ))}
@@ -187,13 +191,13 @@ export default function BlogPage() {
 
         {error && (
           <div className="text-center py-20">
-            <p className="text-gray-400 text-sm">Could not load posts. Make sure the API server is running.</p>
-            <p className="text-xs text-gray-300 mt-1 font-mono">{error}</p>
+            <p className="text-gray-500 text-sm">Could not load posts. Make sure the API server is running.</p>
+            <p className="text-xs text-gray-600 mt-1 font-mono">{error}</p>
           </div>
         )}
 
         {!loading && !error && filtered.length === 0 && (
-          <p className="text-center text-gray-400 py-20">No articles found.</p>
+          <p className="text-center text-gray-500 py-20">No articles found.</p>
         )}
 
         {!loading && !error && filtered.length > 0 && (

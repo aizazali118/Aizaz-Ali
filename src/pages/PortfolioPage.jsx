@@ -12,12 +12,12 @@ export default function PortfolioPage() {
       canonical="/portfolio"
     >
       {/* Page hero */}
-      <section className="pt-32 pb-8 bg-white text-center px-6" aria-labelledby="portfolio-page-heading">
+      <section className="pt-32 pb-8 bg-[#0a0a0a] text-center px-6" aria-labelledby="portfolio-page-heading">
         <p className="text-accent text-sm font-semibold tracking-widest uppercase mb-3">My Work</p>
         <h1 id="portfolio-page-heading" className="text-4xl md:text-6xl font-display font-black text-primary">
           Project <span className="gradient-text">Portfolio</span>
         </h1>
-        <p className="mt-4 text-gray-500 max-w-xl mx-auto leading-relaxed">
+        <p className="mt-4 text-gray-400 max-w-xl mx-auto leading-relaxed">
           50+ projects completed. WordPress stores, Shopify e-commerce sites and React applications.
         </p>
         <nav className="mt-4 flex items-center justify-center gap-2 text-xs text-gray-400" aria-label="Breadcrumb">
@@ -30,11 +30,11 @@ export default function PortfolioPage() {
       <Portfolio />
 
       {/* CTA strip */}
-      <section className="py-16 bg-white text-center px-6">
+      <section className="py-16 bg-[#0a0a0a] text-center px-6">
         <h2 className="text-2xl md:text-3xl font-display font-black text-primary mb-4">
           Like what you see?
         </h2>
-        <p className="text-gray-500 mb-6 max-w-md mx-auto">
+        <p className="text-gray-400 mb-6 max-w-md mx-auto">
           Hire me on Fiverr or Upwork, or contact me directly to discuss your project.
         </p>
         <div className="flex flex-wrap gap-4 justify-center">

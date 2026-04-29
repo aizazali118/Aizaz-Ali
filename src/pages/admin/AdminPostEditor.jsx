@@ -12,7 +12,7 @@ const API_BASE = import.meta.env.VITE_API_URL?.replace('/api', '') || 'http://lo
 function Toolbar({ onInsertImage }) {
   const exec = (cmd, val = null) => { document.execCommand(cmd, false, val); };
   return (
-    <div className="flex flex-wrap gap-1 px-3 py-2 border-b border-gray-200 bg-gray-50 rounded-t-xl">
+    <div className="flex flex-wrap gap-1 px-3 py-2 rounded-t-xl" style={{ background: 'rgba(255,255,255,0.05)', borderBottom: '1px solid rgba(255,255,255,0.08)' }}>
       {[
         { icon: FiBold,   cmd: 'bold',          title: 'Bold'       },
         { icon: FiItalic, cmd: 'italic',         title: 'Italic'     },
@@ -24,7 +24,7 @@ function Toolbar({ onInsertImage }) {
           type="button"
           title={title}
           onMouseDown={e => { e.preventDefault(); exec(cmd, val); }}
-          className="p-2 rounded-lg hover:bg-gray-200 text-gray-600 transition"
+          className="p-2 rounded-lg text-gray-400 hover:text-white transition" style={{ ':hover': { background: 'rgba(255,255,255,0.1)' } }}
         >
           <Icon size={14} />
         </button>
@@ -35,7 +35,7 @@ function Toolbar({ onInsertImage }) {
           type="button"
           title={`Heading ${n}`}
           onMouseDown={e => { e.preventDefault(); exec('formatBlock', `h${n}`); }}
-          className="px-2.5 py-1.5 rounded-lg text-xs font-bold hover:bg-gray-200 text-gray-600 transition"
+          className="px-2.5 py-1.5 rounded-lg text-xs font-bold text-gray-400 hover:text-white transition"
         >
           H{n}
         </button>
@@ -215,11 +215,11 @@ export default function AdminPostEditor() {
       {/* Header */}
       <div className="flex items-center justify-between mb-6 flex-wrap gap-4">
         <div className="flex items-center gap-3">
-          <Link to="/admin/posts" className="p-2 rounded-xl bg-gray-100 hover:bg-gray-200 text-gray-600 transition">
+          <Link to="/admin/posts" className="p-2 rounded-xl text-gray-400 hover:text-white transition" style={{ background: 'rgba(255,255,255,0.07)' }}>
             <FiArrowLeft size={16} />
           </Link>
           <div>
-            <h1 className="text-xl font-display font-black text-gray-900">
+            <h1 className="text-xl font-display font-black text-white">
               {isNew ? 'New Post' : 'Edit Post'}
             </h1>
             {savedId && (
@@ -234,7 +234,8 @@ export default function AdminPostEditor() {
           <select
             value={form.status}
             onChange={set('status')}
-            className="px-3 py-2.5 rounded-xl border border-gray-200 text-sm font-semibold focus:outline-none focus:border-accent transition"
+            style={{ background: 'rgba(255,255,255,0.07)', border: '1px solid rgba(255,255,255,0.12)', color: '#e8e8e8' }}
+            className="px-3 py-2.5 rounded-xl text-sm font-semibold focus:outline-none transition"
           >
             <option value="draft">Draft</option>
             <option value="published">Published</option>
@@ -250,7 +251,7 @@ export default function AdminPostEditor() {
       </div>
 
       {error && (
-        <div className="mb-5 px-4 py-3 rounded-xl bg-red-50 border border-red-200 text-red-600 text-sm">
+        <div className="mb-5 px-4 py-3 rounded-xl text-red-400 text-sm" style={{ background: 'rgba(239,68,68,0.1)', border: '1px solid rgba(239,68,68,0.3)' }}>
           {error}
         </div>
       )}
@@ -260,40 +261,40 @@ export default function AdminPostEditor() {
         <div className="lg:col-span-2 space-y-5">
 
           {/* Title */}
-          <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-5">
+          <div className="rounded-2xl p-5" style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)' }}>
             <input
               type="text"
               placeholder="Post Title *"
               value={form.title}
               onChange={set('title')}
               required
-              className="w-full text-xl font-display font-black text-gray-900 placeholder-gray-300 border-none outline-none resize-none"
+              className="w-full text-xl font-display font-black placeholder-gray-600 border-none outline-none resize-none bg-transparent" style={{ color: '#e8e8e8' }}
             />
           </div>
 
           {/* Excerpt */}
-          <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-5">
-            <label className="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">
-              Excerpt <span className="text-gray-300 font-normal">(shown on blog listing)</span>
+          <div className="rounded-2xl p-5" style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)' }}>
+            <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">
+              Excerpt <span className="text-gray-600 font-normal">(shown on blog listing)</span>
             </label>
             <textarea
               placeholder="Brief summary of the post…"
               value={form.excerpt}
               onChange={set('excerpt')}
               rows={2}
-              className="w-full text-sm text-gray-700 placeholder-gray-300 border-none outline-none resize-none leading-relaxed"
+              className="w-full text-sm placeholder-gray-600 border-none outline-none resize-none leading-relaxed bg-transparent" style={{ color: '#e8e8e8' }}
             />
           </div>
 
           {/* Content editor */}
-          <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
+          <div className="rounded-2xl overflow-hidden" style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)' }}>
             <Toolbar onInsertImage={handleInsertImage} />
             <input type="file" ref={imageInputRef} accept="image/*" className="hidden" onChange={onInlineImageChange} />
             <div
               ref={editorRef}
               contentEditable
               suppressContentEditableWarning
-              className="min-h-[360px] p-5 text-sm text-gray-700 leading-relaxed focus:outline-none
+              className="min-h-[360px] p-5 text-sm leading-relaxed focus:outline-none
                 [&_h1]:text-2xl [&_h1]:font-bold [&_h1]:mb-3 [&_h1]:mt-5
                 [&_h2]:text-xl [&_h2]:font-bold [&_h2]:mb-2 [&_h2]:mt-4
                 [&_h3]:text-lg [&_h3]:font-bold [&_h3]:mb-2 [&_h3]:mt-3
@@ -302,11 +303,12 @@ export default function AdminPostEditor() {
                 [&_ol]:list-decimal [&_ol]:pl-6 [&_ol]:mb-3
                 [&_pre]:bg-gray-900 [&_pre]:text-gray-100 [&_pre]:p-4 [&_pre]:rounded-xl [&_pre]:text-xs [&_pre]:mb-3 [&_pre]:overflow-x-auto
                 [&_img]:rounded-xl [&_img]:max-w-full [&_img]:my-4"
+              style={{ color: '#d0d0d0' }}
               aria-label="Post content"
               data-placeholder="Start writing your post…"
             />
             {uploading && (
-              <div className="px-5 py-2 text-xs text-accent font-semibold border-t border-gray-100 flex items-center gap-2">
+              <div className="px-5 py-2 text-xs text-accent font-semibold flex items-center gap-2" style={{ borderTop: '1px solid rgba(255,255,255,0.07)' }}>
                 <div className="w-3 h-3 rounded-full border-2 border-accent border-t-transparent animate-spin" />
                 Uploading image…
               </div>
@@ -314,8 +316,8 @@ export default function AdminPostEditor() {
           </div>
 
           {/* Downloadable files */}
-          <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-5">
-            <h3 className="text-sm font-bold text-gray-900 mb-4 flex items-center gap-2">
+          <div className="rounded-2xl p-5" style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)' }}>
+            <h3 className="text-sm font-bold text-white mb-4 flex items-center gap-2">
               <FiDownload size={14} className="text-accent" /> Downloadable Files
             </h3>
 
@@ -323,18 +325,18 @@ export default function AdminPostEditor() {
             {downloads.length > 0 && (
               <div className="space-y-2 mb-4">
                 {downloads.map(dl => (
-                  <div key={dl.id} className="flex items-center gap-3 p-3 bg-gray-50 rounded-xl">
+                  <div key={dl.id} className="flex items-center gap-3 p-3 rounded-xl" style={{ background: 'rgba(255,255,255,0.05)' }}>
                     <div className="w-8 h-8 rounded-lg bg-accent/10 flex items-center justify-center text-accent shrink-0">
                       <FiDownload size={13} />
                     </div>
                     <div className="flex-1 min-w-0">
-                      <p className="text-sm font-semibold text-gray-800 truncate">{dl.label}</p>
-                      <p className="text-xs text-gray-400">{dl.file_name} {dl.file_size ? `· ${formatSize(dl.file_size)}` : ''}</p>
+                      <p className="text-sm font-semibold text-white truncate">{dl.label}</p>
+                      <p className="text-xs text-gray-500">{dl.file_name} {dl.file_size ? `· ${formatSize(dl.file_size)}` : ''}</p>
                     </div>
                     <button
                       type="button"
                       onClick={() => removeDownload(dl.id)}
-                      className="p-1.5 rounded-lg text-gray-400 hover:text-red-500 hover:bg-red-50 transition shrink-0"
+                      className="p-1.5 rounded-lg text-gray-500 hover:text-red-400 hover:bg-red-900/30 transition shrink-0"
                       aria-label="Remove download"
                     >
                       <FiTrash2 size={13} />
@@ -351,10 +353,11 @@ export default function AdminPostEditor() {
                 placeholder="Button label (e.g. Download Speed Checklist PDF)"
                 value={dlLabel}
                 onChange={e => setDlLabel(e.target.value)}
-                className="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:border-accent transition"
+                style={{ background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.1)', color: '#e8e8e8' }}
+                className="w-full px-4 py-2.5 rounded-xl text-sm focus:outline-none transition placeholder-gray-600"
               />
               <div className="flex gap-3">
-                <label className="flex-1 flex items-center gap-2 px-4 py-2.5 rounded-xl border-2 border-dashed border-gray-200 hover:border-accent/50 cursor-pointer text-sm text-gray-500 hover:text-accent transition">
+                <label className="flex-1 flex items-center gap-2 px-4 py-2.5 rounded-xl cursor-pointer text-sm text-gray-500 hover:text-accent transition" style={{ border: '2px dashed rgba(255,255,255,0.12)' }}>
                   <FiUpload size={14} />
                   {dlFile ? dlFile.name : 'Choose file (PDF, ZIP, DOCX…)'}
                   <input type="file" ref={dlInputRef} className="hidden" onChange={e => setDlFile(e.target.files?.[0] || null)} />
@@ -369,7 +372,7 @@ export default function AdminPostEditor() {
                 </button>
               </div>
               {!savedId && (
-                <p className="text-xs text-gray-400">Save the post first, then attach downloadable files.</p>
+                <p className="text-xs text-gray-600">Save the post first, then attach downloadable files.</p>
               )}
             </div>
           </div>
@@ -379,15 +382,16 @@ export default function AdminPostEditor() {
         <div className="space-y-5">
 
           {/* Category + Status */}
-          <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-5 space-y-4">
-            <h3 className="text-sm font-bold text-gray-900">Post Settings</h3>
+          <div className="rounded-2xl p-5 space-y-4" style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)' }}>
+            <h3 className="text-sm font-bold text-white">Post Settings</h3>
 
             <div>
-              <label className="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-1.5">Category</label>
+              <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5">Category</label>
               <select
                 value={form.category_id}
                 onChange={set('category_id')}
-                className="w-full px-3 py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:border-accent transition"
+                style={{ background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.1)', color: '#e8e8e8' }}
+                className="w-full px-3 py-2.5 rounded-xl text-sm focus:outline-none transition"
               >
                 <option value="">— Select category —</option>
                 {categories.map(cat => (
@@ -397,11 +401,12 @@ export default function AdminPostEditor() {
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-1.5">Visibility</label>
+              <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5">Visibility</label>
               <select
                 value={form.status}
                 onChange={set('status')}
-                className="w-full px-3 py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:border-accent transition"
+                style={{ background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.1)', color: '#e8e8e8' }}
+                className="w-full px-3 py-2.5 rounded-xl text-sm focus:outline-none transition"
               >
                 <option value="draft">Draft (not visible)</option>
                 <option value="published">Published (live)</option>
@@ -410,11 +415,11 @@ export default function AdminPostEditor() {
           </div>
 
           {/* Cover image */}
-          <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-5">
-            <h3 className="text-sm font-bold text-gray-900 mb-3">Cover Image</h3>
+          <div className="rounded-2xl p-5" style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)' }}>
+            <h3 className="text-sm font-bold text-white mb-3">Cover Image</h3>
 
             {(coverPreview || existingCover) && (
-              <div className="mb-3 rounded-xl overflow-hidden border border-gray-100">
+              <div className="mb-3 rounded-xl overflow-hidden" style={{ border: '1px solid rgba(255,255,255,0.08)' }}>
                 <img
                   src={coverPreview || existingCover}
                   alt="Cover preview"
@@ -423,52 +428,55 @@ export default function AdminPostEditor() {
               </div>
             )}
 
-            <label className="flex items-center gap-2 px-4 py-3 rounded-xl border-2 border-dashed border-gray-200 hover:border-accent/50 cursor-pointer text-sm text-gray-500 hover:text-accent transition">
+            <label className="flex items-center gap-2 px-4 py-3 rounded-xl cursor-pointer text-sm text-gray-500 hover:text-accent transition" style={{ border: '2px dashed rgba(255,255,255,0.12)' }}>
               <FiImage size={14} />
               {coverFile ? coverFile.name : (existingCover ? 'Replace cover image' : 'Upload cover image')}
               <input type="file" accept="image/*" className="hidden" onChange={onCoverChange} />
             </label>
 
             <div className="mt-3">
-              <label className="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-1.5">
-                Image Alt Text <span className="text-gray-300">(SEO)</span>
+              <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5">
+                Image Alt Text <span className="text-gray-600">(SEO)</span>
               </label>
               <input
                 type="text"
                 placeholder="Describe the image…"
                 value={form.cover_alt}
                 onChange={set('cover_alt')}
-                className="w-full px-3 py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:border-accent transition"
+                style={{ background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.1)', color: '#e8e8e8' }}
+                className="w-full px-3 py-2.5 rounded-xl text-sm focus:outline-none transition"
               />
             </div>
           </div>
 
           {/* SEO */}
-          <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-5 space-y-3">
-            <h3 className="text-sm font-bold text-gray-900">SEO</h3>
+          <div className="rounded-2xl p-5 space-y-3" style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)' }}>
+            <h3 className="text-sm font-bold text-white">SEO</h3>
             <div>
-              <label className="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-1.5">Meta Title</label>
+              <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5">Meta Title</label>
               <input
                 type="text"
                 placeholder="Leave blank to use post title"
                 value={form.meta_title}
                 onChange={set('meta_title')}
                 maxLength={70}
-                className="w-full px-3 py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:border-accent transition"
+                style={{ background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.1)', color: '#e8e8e8' }}
+                className="w-full px-3 py-2.5 rounded-xl text-sm focus:outline-none transition"
               />
-              <p className="text-[10px] text-gray-300 mt-1">{form.meta_title.length}/70 chars</p>
+              <p className="text-[10px] text-gray-600 mt-1">{form.meta_title.length}/70 chars</p>
             </div>
             <div>
-              <label className="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-1.5">Meta Description</label>
+              <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5">Meta Description</label>
               <textarea
                 placeholder="Leave blank to use excerpt"
                 value={form.meta_desc}
                 onChange={set('meta_desc')}
                 rows={3}
                 maxLength={160}
-                className="w-full px-3 py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:border-accent transition resize-none"
+                style={{ background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.1)', color: '#e8e8e8' }}
+              className="w-full px-3 py-2.5 rounded-xl text-sm focus:outline-none transition resize-none"
               />
-              <p className="text-[10px] text-gray-300">{form.meta_desc.length}/160 chars</p>
+              <p className="text-[10px] text-gray-600">{form.meta_desc.length}/160 chars</p>
             </div>
           </div>
 

@@ -12,12 +12,12 @@ export default function ServicesPage() {
       canonical="/services"
     >
       {/* Page hero */}
-      <section className="pt-32 pb-8 bg-white text-center px-6" aria-labelledby="services-page-heading">
+      <section className="pt-32 pb-8 bg-[#0a0a0a] text-center px-6" aria-labelledby="services-page-heading">
         <p className="text-accent text-sm font-semibold tracking-widest uppercase mb-3">What I Offer</p>
         <h1 id="services-page-heading" className="text-4xl md:text-6xl font-display font-black text-primary">
           Web Development <span className="gradient-text">Services</span>
         </h1>
-        <p className="mt-4 text-gray-500 max-w-xl mx-auto leading-relaxed">
+        <p className="mt-4 text-gray-400 max-w-xl mx-auto leading-relaxed">
           From WordPress blogs to full Shopify stores and custom React apps — everything built to perform.
         </p>
         <nav className="mt-4 flex items-center justify-center gap-2 text-xs text-gray-400" aria-label="Breadcrumb">
@@ -31,11 +31,11 @@ export default function ServicesPage() {
       <Pricing />
 
       {/* CTA */}
-      <section className="py-16 bg-white text-center px-6">
+      <section className="py-16 bg-[#0a0a0a] text-center px-6">
         <h2 className="text-2xl md:text-3xl font-display font-black text-primary mb-4">
           Need a custom quote?
         </h2>
-        <p className="text-gray-500 mb-6 max-w-md mx-auto">
+        <p className="text-gray-400 mb-6 max-w-md mx-auto">
           Every project is different. Get in touch and I'll give you a tailored estimate within 24 hours.
         </p>
         <Link

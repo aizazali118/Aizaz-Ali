@@ -30,11 +30,11 @@ export default function BlogPostPage() {
 
   if (loading) {
     return (
-      <div className="max-w-3xl mx-auto px-6 py-24 animate-pulse space-y-4 pt-32">
-        <div className="h-4 bg-gray-100 rounded w-32" />
-        <div className="h-8 bg-gray-100 rounded w-3/4" />
-        <div className="h-4 bg-gray-100 rounded" />
-        <div className="h-4 bg-gray-100 rounded w-5/6" />
+      <div className="max-w-3xl mx-auto px-6 py-24 animate-pulse space-y-4 pt-32" style={{ background: '#0a0a0a', minHeight: '100vh' }}>
+        <div className="h-4 rounded w-32" style={{ background: 'rgba(255,255,255,0.08)' }} />
+        <div className="h-8 rounded w-3/4" style={{ background: 'rgba(255,255,255,0.08)' }} />
+        <div className="h-4 rounded" style={{ background: 'rgba(255,255,255,0.06)' }} />
+        <div className="h-4 rounded w-5/6" style={{ background: 'rgba(255,255,255,0.06)' }} />
       </div>
     );
   }
@@ -78,6 +78,7 @@ export default function BlogPostPage() {
 
       <motion.article
         className="max-w-3xl mx-auto px-6 pt-32 pb-24"
+        style={{ minHeight: '100vh', background: '#0a0a0a' }}
         initial={{ opacity: 0, y: 24 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.45 }}
@@ -137,37 +138,38 @@ export default function BlogPostPage() {
 
         {/* Author */}
         <div
-          className="flex items-center gap-3 mb-8 pb-8 border-b border-gray-100"
+          className="flex items-center gap-3 mb-8 pb-8 border-b border-white/10"
           itemProp="author" itemScope itemType="https://schema.org/Person"
         >
           <div className="w-9 h-9 rounded-full overflow-hidden">
             <img src="/profile.png" alt="Aizaz Ali Afridi" className="w-full h-full object-cover object-top" />
           </div>
           <div>
-            <p className="text-sm font-bold text-primary" itemProp="name">Aizaz Ali Afridi</p>
-            <p className="text-xs text-gray-400">WordPress · Shopify · React Developer</p>
+            <p className="text-sm font-bold text-white" itemProp="name">Aizaz Ali Afridi</p>
+            <p className="text-xs text-gray-500">WordPress · Shopify · React Developer</p>
           </div>
         </div>
 
         {/* Download box (top) */}
         {post.downloads?.length > 0 && (
-          <div className="mb-8 p-5 rounded-2xl border-2 border-accent/20 bg-accent/5">
-            <p className="text-sm font-bold text-primary mb-3">Free Resources in This Post</p>
+          <div className="mb-8 p-5 rounded-2xl border-2 border-accent/20" style={{ background: 'rgba(124,178,110,0.07)' }}>
+            <p className="text-sm font-bold text-white mb-3">Free Resources in This Post</p>
             <div className="space-y-2">
               {post.downloads.map(dl => (
                 <a
                   key={dl.id}
                   href={`${API_BASE}${dl.file_path}`}
                   download={dl.file_name}
-                  className="flex items-center gap-3 p-3 bg-white rounded-xl border border-gray-100 hover:border-accent/40 hover:shadow-sm transition-all group"
+                  className="flex items-center gap-3 p-3 rounded-xl hover:border-accent/40 hover:shadow-sm transition-all group"
+                  style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.08)' }}
                   aria-label={`Download: ${dl.label}`}
                 >
                   <div className="w-9 h-9 rounded-xl bg-accent/10 flex items-center justify-center text-accent group-hover:bg-accent group-hover:text-white transition-all">
                     <FiDownload size={15} />
                   </div>
                   <div className="flex-1 min-w-0">
-                    <p className="text-sm font-semibold text-primary truncate">{dl.label}</p>
-                    {dl.file_size && <p className="text-xs text-gray-400">{formatFileSize(dl.file_size)}</p>}
+                    <p className="text-sm font-semibold text-white truncate">{dl.label}</p>
+                    {dl.file_size && <p className="text-xs text-gray-500">{formatFileSize(dl.file_size)}</p>}
                   </div>
                   <span className="text-xs font-bold text-accent shrink-0">Download</span>
                 </a>
@@ -179,21 +181,21 @@ export default function BlogPostPage() {
         {/* Article body (HTML from editor) */}
         <div
           className="prose prose-sm sm:prose max-w-none
-            prose-headings:font-display prose-headings:font-bold prose-headings:text-primary
-            prose-p:text-gray-600 prose-p:leading-relaxed
+            prose-headings:font-display prose-headings:font-bold prose-headings:text-white
+            prose-p:text-gray-400 prose-p:leading-relaxed
             prose-a:text-accent prose-a:no-underline hover:prose-a:underline
             prose-img:rounded-xl prose-img:shadow-md
             prose-code:text-accent prose-code:bg-accent/10 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded
             prose-pre:bg-gray-900 prose-pre:text-gray-100
-            prose-strong:text-primary"
+            prose-strong:text-white prose-li:text-gray-400"
           dangerouslySetInnerHTML={{ __html: post.content }}
           itemProp="articleBody"
         />
 
         {/* Download box (bottom) */}
         {post.downloads?.length > 0 && (
-          <div className="mt-12 p-5 rounded-2xl bg-accent/5 border border-accent/20 text-center">
-            <p className="text-sm font-bold text-primary mb-1">Get the free resources</p>
+          <div className="mt-12 p-5 rounded-2xl border border-accent/20 text-center" style={{ background: 'rgba(124,178,110,0.07)' }}>
+            <p className="text-sm font-bold text-white mb-1">Get the free resources</p>
             <div className="flex flex-wrap gap-3 justify-center mt-3">
               {post.downloads.map(dl => (
                 <a
@@ -210,7 +212,7 @@ export default function BlogPostPage() {
         )}
 
         {/* Footer nav */}
-        <div className="mt-12 pt-8 border-t border-gray-100">
+        <div className="mt-12 pt-8 border-t border-white/10">
           <Link to="/blog" className="inline-flex items-center gap-2 text-sm font-semibold text-accent hover:gap-4 transition-all">
             <FiArrowLeft size={14} /> More Articles
           </Link>

@@ -97,7 +97,7 @@ export default function Portfolio() {
   }, []);
 
   return (
-    <section id="portfolio" ref={sectionRef} className="py-24 overflow-hidden" style={{ background: 'rgba(255,255,255,0.90)' }}>
+    <section id="portfolio" ref={sectionRef} className="py-24 overflow-hidden" style={{ background: '#0a0a0a' }}>
       <div className="max-w-6xl mx-auto px-6">
         {/* Header */}
         <div ref={headRef} className="text-center mb-12">
@@ -105,7 +105,7 @@ export default function Portfolio() {
           <h2 className="text-4xl md:text-5xl font-display font-black text-primary">
             My <span className="gradient-text">Portfolio</span>
           </h2>
-          <p className="mt-4 text-gray-500 max-w-xl mx-auto">
+          <p className="mt-4 text-gray-400 max-w-xl mx-auto">
             A selection of projects I've built for clients across industries.
           </p>
           <div className="mt-4 mx-auto section-line animate" />
@@ -120,8 +120,9 @@ export default function Portfolio() {
               className={`px-5 py-2 rounded-full text-sm font-semibold transition-all duration-250 ${
                 filter === cat
                   ? 'bg-accent text-white shadow-lg shadow-accent/30 scale-105'
-                  : 'bg-gray-100 text-gray-500 hover:bg-gray-200'
+                  : 'text-gray-500 hover:text-gray-300'
               }`}
+              style={filter !== cat ? { background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.08)' } : {}}
             >
               {cat}
             </button>
@@ -139,7 +140,8 @@ export default function Portfolio() {
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.9 }}
                 transition={{ duration: 0.35, ease: [0.34, 1.56, 0.64, 1] }}
-                className="port-card group relative rounded-3xl overflow-hidden border border-gray-100 shadow-sm hover:shadow-xl hover:shadow-black/10 transition-shadow duration-400"
+                className="port-card group relative rounded-3xl overflow-hidden transition-shadow duration-400 hover:shadow-xl"
+                style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)' }}
               >
                 {/* Card image / graphic */}
                 <div className={`relative h-52 bg-gradient-to-br ${p.bg} flex items-center justify-center overflow-hidden`}>
@@ -168,9 +170,9 @@ export default function Portfolio() {
                 </div>
 
                 {/* Card body */}
-                <div className="p-5 bg-white">
+                <div className="p-5" style={{ background: 'rgba(255,255,255,0.03)' }}>
                   <div className="flex items-start justify-between mb-2">
-                    <h3 className="font-display font-bold text-primary text-base">{p.title}</h3>
+                    <h3 className="font-display font-bold text-white text-base">{p.title}</h3>
                     <span
                       className="text-xs font-semibold px-2 py-0.5 rounded-full border"
                       style={{ color: p.color, borderColor: p.color + '40', backgroundColor: p.color + '10' }}
@@ -181,7 +183,7 @@ export default function Portfolio() {
                   <p className="text-xs text-gray-400 leading-relaxed mb-4">{p.desc}</p>
                   <div className="flex flex-wrap gap-1.5">
                     {p.tech.map((t) => (
-                      <span key={t} className="text-xs bg-gray-50 border border-gray-100 text-gray-500 px-2 py-0.5 rounded-md">
+                      <span key={t} className="text-xs text-gray-400 px-2 py-0.5 rounded-md" style={{ background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.08)' }}>
                         {t}
                       </span>
                     ))}
@@ -194,7 +196,7 @@ export default function Portfolio() {
 
         {/* CTA */}
         <div className="text-center mt-14">
-          <p className="text-gray-400 mb-4">Want to see more work or discuss a project?</p>
+          <p className="text-gray-500 mb-4">Want to see more work or discuss a project?</p>
           <button
             onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
             className="inline-flex items-center gap-2 px-8 py-3.5 rounded-full bg-accent text-white font-bold shadow-xl shadow-accent/30 hover:bg-accent/90 hover:scale-105 active:scale-95 transition-all duration-200"
@@ -204,7 +206,7 @@ export default function Portfolio() {
 
           {/* Portfolio profile links */}
           <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
-            <p className="text-xs text-gray-400 uppercase tracking-widest font-semibold">View full portfolio on</p>
+            <p className="text-xs text-gray-500 uppercase tracking-widest font-semibold">View full portfolio on</p>
             <div className="flex items-center gap-3">
               <a
                 href="https://www.fiverr.com/s/dDa9lqa"

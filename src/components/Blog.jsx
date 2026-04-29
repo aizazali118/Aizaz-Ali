@@ -77,7 +77,8 @@ function PostCard({ post, index }) {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.6, delay: index * 0.1 }}
-      className="group bg-white rounded-2xl border border-gray-100 overflow-hidden hover:shadow-xl hover:shadow-accent/10 hover:-translate-y-1 transition-all duration-300"
+      className="group rounded-2xl overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
+      style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)' }}
       itemScope
       itemType="https://schema.org/BlogPosting"
     >
@@ -93,27 +94,27 @@ function PostCard({ post, index }) {
           >
             <FiTag size={10} /> {post.category}
           </span>
-          <span className="flex items-center gap-1 text-xs text-gray-400">
+          <span className="flex items-center gap-1 text-xs text-gray-500">
             <FiCalendar size={11} />
             <time dateTime={post.date} itemProp="datePublished">
               {new Date(post.date).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })}
             </time>
           </span>
-          <span className="flex items-center gap-1 text-xs text-gray-400">
+          <span className="flex items-center gap-1 text-xs text-gray-500">
             <FiClock size={11} /> {post.readTime}
           </span>
         </div>
 
         {/* Title */}
         <h3
-          className="text-lg font-display font-bold text-primary mb-2 leading-snug group-hover:text-accent transition-colors"
+          className="text-lg font-display font-bold text-white mb-2 leading-snug group-hover:text-accent transition-colors"
           itemProp="headline"
         >
           {post.title}
         </h3>
 
         {/* Excerpt */}
-        <p className="text-sm text-gray-500 leading-relaxed mb-4" itemProp="description">
+        <p className="text-sm text-gray-400 leading-relaxed mb-4" itemProp="description">
           {post.excerpt}
         </p>
 
@@ -166,7 +167,7 @@ export default function Blog({ standalone = false }) {
       id="blog"
       ref={sectionRef}
       className={`py-24 ${standalone ? '' : ''}`}
-      style={{ background: 'rgba(248,250,248,0.95)' }}
+      style={{ background: '#0d0d0d' }}
       aria-labelledby="blog-heading"
     >
       {standalone && (
@@ -185,7 +186,7 @@ export default function Blog({ standalone = false }) {
           <h2 id="blog-heading" className="text-4xl md:text-5xl font-display font-black text-primary">
             Latest <span className="gradient-text">Articles</span>
           </h2>
-          <p className="mt-4 text-gray-500 max-w-xl mx-auto text-sm leading-relaxed">
+          <p className="mt-4 text-gray-400 max-w-xl mx-auto text-sm leading-relaxed">
             Free tutorials, checklists and case studies on WordPress, Shopify, and React development.
             Some posts include downloadable resources.
           </p>
@@ -201,8 +202,9 @@ export default function Blog({ standalone = false }) {
               className={`px-4 py-2 rounded-full text-sm font-semibold transition-all duration-200 ${
                 filter === cat
                   ? 'bg-accent text-white shadow-lg shadow-accent/30'
-                  : 'bg-white border border-gray-200 text-gray-600 hover:border-accent/50 hover:text-accent'
+                  : 'text-gray-500 hover:text-accent'
               }`}
+              style={filter !== cat ? { background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.08)' } : {}}
               aria-pressed={filter === cat}
             >
               {cat}

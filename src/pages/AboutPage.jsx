@@ -11,12 +11,12 @@ export default function AboutPage() {
       canonical="/about"
     >
       {/* Page hero */}
-      <section className="pt-32 pb-8 bg-white text-center px-6" aria-labelledby="about-page-heading">
+      <section className="pt-32 pb-8 bg-[#0a0a0a] text-center px-6" aria-labelledby="about-page-heading">
         <p className="text-accent text-sm font-semibold tracking-widest uppercase mb-3">Get to Know Me</p>
         <h1 id="about-page-heading" className="text-4xl md:text-6xl font-display font-black text-primary">
           About <span className="gradient-text">Aizaz Ali Afridi</span>
         </h1>
-        <p className="mt-4 text-gray-500 max-w-xl mx-auto leading-relaxed">
+        <p className="mt-4 text-gray-400 max-w-xl mx-auto leading-relaxed">
           Freelance WordPress, Shopify &amp; React Developer — building fast, beautiful websites for clients worldwide.
         </p>
         {/* Breadcrumb */}
@@ -31,11 +31,11 @@ export default function AboutPage() {
       <About />
 
       {/* CTA strip */}
-      <section className="py-16 bg-white text-center px-6">
+      <section className="py-16 bg-[#0a0a0a] text-center px-6">
         <h2 className="text-2xl md:text-3xl font-display font-black text-primary mb-4">
           Ready to work together?
         </h2>
-        <p className="text-gray-500 mb-6 max-w-md mx-auto">
+        <p className="text-gray-400 mb-6 max-w-md mx-auto">
           I'm available for freelance projects worldwide. Let's build something great.
         </p>
         <div className="flex flex-wrap gap-4 justify-center">

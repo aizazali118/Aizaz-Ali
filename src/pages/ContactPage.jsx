@@ -19,12 +19,12 @@ export default function ContactPage() {
       })}} />
 
       {/* Page hero */}
-      <section className="pt-32 pb-8 bg-white text-center px-6" aria-labelledby="contact-page-heading">
+      <section className="pt-32 pb-8 bg-[#0a0a0a] text-center px-6" aria-labelledby="contact-page-heading">
         <p className="text-accent text-sm font-semibold tracking-widest uppercase mb-3">Let's Talk</p>
         <h1 id="contact-page-heading" className="text-4xl md:text-6xl font-display font-black text-primary">
           Get in <span className="gradient-text">Touch</span>
         </h1>
-        <p className="mt-4 text-gray-500 max-w-xl mx-auto leading-relaxed">
+        <p className="mt-4 text-gray-400 max-w-xl mx-auto leading-relaxed">
           Have a project in mind? I reply to all enquiries within 24 hours.
         </p>
         <nav className="mt-4 flex items-center justify-center gap-2 text-xs text-gray-400" aria-label="Breadcrumb">
