@@ -4,7 +4,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { motion } from 'framer-motion';
 import { FiMail, FiPhone, FiMapPin, FiSend, FiCheck } from 'react-icons/fi';
 import { FaWhatsapp } from 'react-icons/fa';
-import { SiFiverr, SiUpwork } from 'react-icons/si';
+import { SiFiverr, SiUpwork, SiLinkedin } from 'react-icons/si';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -14,8 +14,9 @@ const contactInfo = [
   { icon: FiMapPin,  label: 'Location',           value: 'Islamabad, Pakistan (Remote)', href: null,                         color: '#7cb26e' },
 ];
 const socials = [
-  { icon: SiFiverr,   href: 'https://www.fiverr.com/s/dDa9lqa',                       label: 'Fiverr',   bg: '#7cb26e' },
+  { icon: SiFiverr,   href: 'https://www.fiverr.com/s/gD71ldb',                       label: 'Fiverr',   bg: '#7cb26e' },
   { icon: SiUpwork,   href: 'https://www.upwork.com/freelancers/~01db2b03b5a7f36be8', label: 'Upwork',   bg: '#7cb26e' },
+  { icon: SiLinkedin, href: 'https://www.linkedin.com/in/aizaz-ali-afridi/',           label: 'LinkedIn', bg: '#7cb26e' },
   { icon: FaWhatsapp, href: 'https://wa.me/923359574017',                              label: 'WhatsApp', bg: '#7cb26e' },
 ];
 

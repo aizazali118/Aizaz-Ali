@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link, useLocation } from 'react-router-dom';
 import { FiX } from 'react-icons/fi';
-import { SiFiverr, SiUpwork } from 'react-icons/si';
+import { SiFiverr, SiUpwork, SiLinkedin } from 'react-icons/si';
 import { FaWhatsapp } from 'react-icons/fa';
 import Logo from './Logo';
 
@@ -202,8 +202,9 @@ export default function Navbar() {
                   <p className="text-xs text-white/30 font-medium uppercase tracking-widest">Find me on</p>
                   <div className="flex gap-3">
                     {[
-                      { Icon: SiFiverr,   href: 'https://www.fiverr.com/s/dDa9lqa',                       bg: '#7cb26e', label: 'Fiverr'   },
+                      { Icon: SiFiverr,   href: 'https://www.fiverr.com/s/gD71ldb',                        bg: '#7cb26e', label: 'Fiverr'   },
                       { Icon: SiUpwork,   href: 'https://www.upwork.com/freelancers/~01db2b03b5a7f36be8', bg: '#7cb26e', label: 'Upwork'   },
+                      { Icon: SiLinkedin, href: 'https://www.linkedin.com/in/aizaz-ali-afridi/',           bg: '#7cb26e', label: 'LinkedIn' },
                       { Icon: FaWhatsapp, href: 'https://wa.me/923359574017',                              bg: '#7cb26e', label: 'WhatsApp' },
                     ].map(({ Icon, href, bg, label }) => (
                       <a

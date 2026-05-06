@@ -165,9 +165,10 @@ export default function About() {
             <div className="mt-5 space-y-4">
               <h4 className="text-sm font-semibold uppercase tracking-wider" style={{ color: D.muted }}>Experience</h4>
               {[
-                { year: '2025 – 2026', role: 'WP & Shopify Freelance Developer', company: 'Self-Employed / Agency / Remote' },
-                { year: '2024 – 2025', role: 'WordPress & Shopify Developer',    company: 'Agency / Remote'                },
-                { year: '2023 – 2025', role: 'WordPress Developer',              company: 'Startup'                        },
+                { year: 'Apr 2026 – Present', role: 'WordPress Developer',        company: 'Vision Tact · Full-time · Islamabad'        },
+                { year: 'Sep 2025 – Present', role: 'WordPress Developer',        company: 'Advanced Datalytics · Part-time · Remote'   },
+                { year: 'Jan 2024 – Apr 2026', role: 'WordPress Developer',       company: 'Hexa IT Solutions · Full-time · 2 yrs 4 mos'},
+                { year: 'Mar – Jun 2025',      role: 'WordPress & Shopify Dev',   company: 'Swiftwave Digital · Part-time · Remote'     },
               ].map((item, i) => (
                 <motion.div key={i}
                   initial={{ opacity: 0, x: 30 }}
@@ -178,7 +179,7 @@ export default function About() {
                 >
                   <div className="flex flex-col items-center">
                     <div className="w-3 h-3 rounded-full bg-accent mt-1.5" />
-                    {i < 2 && <div className="w-0.5 h-10 mt-1" style={{ background: 'rgba(255,255,255,0.1)' }} />}
+                    {i < 3 && <div className="w-0.5 h-10 mt-1" style={{ background: 'rgba(255,255,255,0.1)' }} />}
                   </div>
                   <div>
                     <p className="text-xs text-accent font-semibold">{item.year}</p>

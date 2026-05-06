@@ -3,7 +3,7 @@ import gsap from 'gsap';
 import { motion } from 'framer-motion';
 import { FiArrowRight } from 'react-icons/fi';
 import { FaWordpress, FaShopify, FaReact, FaWhatsapp } from 'react-icons/fa';
-import { SiFiverr, SiUpwork } from 'react-icons/si';
+import { SiFiverr, SiUpwork, SiLinkedin } from 'react-icons/si';
 
 const roles = [
   'WordPress Developer',
@@ -177,7 +177,7 @@ export default function Hero() {
               View My Work <FiArrowRight className="group-hover:translate-x-1 transition-transform" />
             </button>
             <a
-              href="https://www.fiverr.com/s/dDa9lqa"
+              href="https://www.fiverr.com/s/gD71ldb"
               target="_blank"
               rel="noopener noreferrer"
               data-cursor="HIRE"
@@ -191,9 +191,10 @@ export default function Hero() {
             <span className="text-xs font-semibold uppercase tracking-widest" style={{ color: 'rgba(255,255,255,0.3)' }}>Connect</span>
             <div className="flex gap-2.5">
               {[
-                { Icon: SiFiverr,   href: 'https://www.fiverr.com/s/dDa9lqa',                      label: 'Fiverr',   bg: '#7cb26e' },
-                { Icon: SiUpwork,   href: 'https://www.upwork.com/freelancers/~01db2b03b5a7f36be8', label: 'Upwork',   bg: '#7cb26e' },
-                { Icon: FaWhatsapp, href: 'https://wa.me/923359574017',                              label: 'WhatsApp', bg: '#7cb26e' },
+                { Icon: SiFiverr,   href: 'https://www.fiverr.com/s/gD71ldb',                          label: 'Fiverr',    bg: '#7cb26e' },
+                { Icon: SiUpwork,   href: 'https://www.upwork.com/freelancers/~01db2b03b5a7f36be8',   label: 'Upwork',    bg: '#7cb26e' },
+                { Icon: SiLinkedin, href: 'https://www.linkedin.com/in/aizaz-ali-afridi/',             label: 'LinkedIn',  bg: '#7cb26e' },
+                { Icon: FaWhatsapp, href: 'https://wa.me/923359574017',                                label: 'WhatsApp',  bg: '#7cb26e' },
               ].map(({ Icon, href, label, bg }) => (
                 <a
                   key={label}
@@ -256,20 +257,27 @@ export default function Hero() {
               ))}
             </div>
 
-            <div className="mt-4 grid grid-cols-2 gap-2">
-              <a href="https://www.fiverr.com/s/dDa9lqa" target="_blank" rel="noopener noreferrer"
-                className="flex items-center justify-center gap-2 py-2 rounded-xl text-xs font-bold transition-all"
+            <div className="mt-4 grid grid-cols-3 gap-2">
+              <a href="https://www.fiverr.com/s/gD71ldb" target="_blank" rel="noopener noreferrer"
+                className="flex items-center justify-center gap-1.5 py-2 rounded-xl text-xs font-bold transition-all"
                 style={{ background: 'rgba(124,178,110,0.12)', color: '#7cb26e' }}
                 onMouseEnter={e => { e.currentTarget.style.background = '#7cb26e'; e.currentTarget.style.color = '#fff'; }}
                 onMouseLeave={e => { e.currentTarget.style.background = 'rgba(124,178,110,0.12)'; e.currentTarget.style.color = '#7cb26e'; }}>
-                <SiFiverr size={13} /> Fiverr
+                <SiFiverr size={12} /> Fiverr
               </a>
               <a href="https://www.upwork.com/freelancers/~01db2b03b5a7f36be8" target="_blank" rel="noopener noreferrer"
-                className="flex items-center justify-center gap-2 py-2 rounded-xl text-xs font-bold transition-all"
+                className="flex items-center justify-center gap-1.5 py-2 rounded-xl text-xs font-bold transition-all"
                 style={{ background: 'rgba(124,178,110,0.12)', color: '#7cb26e' }}
                 onMouseEnter={e => { e.currentTarget.style.background = '#7cb26e'; e.currentTarget.style.color = '#fff'; }}
                 onMouseLeave={e => { e.currentTarget.style.background = 'rgba(124,178,110,0.12)'; e.currentTarget.style.color = '#7cb26e'; }}>
-                <SiUpwork size={13} /> Upwork
+                <SiUpwork size={12} /> Upwork
+              </a>
+              <a href="https://www.linkedin.com/in/aizaz-ali-afridi/" target="_blank" rel="noopener noreferrer"
+                className="flex items-center justify-center gap-1.5 py-2 rounded-xl text-xs font-bold transition-all"
+                style={{ background: 'rgba(124,178,110,0.12)', color: '#7cb26e' }}
+                onMouseEnter={e => { e.currentTarget.style.background = '#7cb26e'; e.currentTarget.style.color = '#fff'; }}
+                onMouseLeave={e => { e.currentTarget.style.background = 'rgba(124,178,110,0.12)'; e.currentTarget.style.color = '#7cb26e'; }}>
+                <SiLinkedin size={12} /> LinkedIn
               </a>
             </div>
           </div>
