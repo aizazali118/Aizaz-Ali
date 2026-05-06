@@ -94,10 +94,10 @@ export default function Portfolio() {
         {/* Header */}
         <div ref={headRef} className="text-center mb-12">
           <p className="text-accent text-sm font-semibold tracking-widest uppercase mb-3">Recent Work</p>
-          <h2 className="text-4xl md:text-5xl font-display font-black text-primary">
+          <h2 className="text-4xl md:text-5xl font-display font-black text-white">
             My <span className="gradient-text">Portfolio</span>
           </h2>
-          <p className="mt-4 text-gray-400 max-w-xl mx-auto">
+          <p className="mt-4 max-w-xl mx-auto" style={{ color: 'rgba(255,255,255,0.5)' }}>
             A selection of projects I've built for clients across industries.
           </p>
           <div className="mt-4 mx-auto section-line animate" />
@@ -112,9 +112,9 @@ export default function Portfolio() {
               className={`px-5 py-2 rounded-full text-sm font-semibold transition-all duration-250 ${
                 filter === cat
                   ? 'bg-accent text-white shadow-lg shadow-accent/30 scale-105'
-                  : 'text-gray-500 hover:text-gray-300'
+                  : 'hover:text-white'
               }`}
-              style={filter !== cat ? { background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.08)' } : {}}
+              style={filter !== cat ? { color: 'rgba(255,255,255,0.4)', background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.08)' } : {}}
             >
               {cat}
             </button>
@@ -176,10 +176,10 @@ export default function Portfolio() {
                       {p.cat}
                     </span>
                   </div>
-                  <p className="text-xs text-gray-400 leading-relaxed mb-4">{p.desc}</p>
+                  <p className="text-xs leading-relaxed mb-4" style={{ color: 'rgba(255,255,255,0.5)' }}>{p.desc}</p>
                   <div className="flex flex-wrap gap-1.5">
                     {p.tech.map((t) => (
-                      <span key={t} className="text-xs text-gray-400 px-2 py-0.5 rounded-md" style={{ background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.08)' }}>
+                      <span key={t} className="text-xs px-2 py-0.5 rounded-md" style={{ color: 'rgba(255,255,255,0.5)', background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.08)' }}>
                         {t}
                       </span>
                     ))}
@@ -192,7 +192,7 @@ export default function Portfolio() {
 
         {/* CTA */}
         <div className="text-center mt-14">
-          <p className="text-gray-500 mb-4">Want to see more work or discuss a project?</p>
+          <p className="mb-4" style={{ color: 'rgba(255,255,255,0.4)' }}>Want to see more work or discuss a project?</p>
           <button
             onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
             className="inline-flex items-center gap-2 px-8 py-3.5 rounded-full bg-accent text-white font-bold shadow-xl shadow-accent/30 hover:bg-accent/90 hover:scale-105 active:scale-95 transition-all duration-200"
@@ -202,7 +202,7 @@ export default function Portfolio() {
 
           {/* Portfolio profile links */}
           <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
-            <p className="text-xs text-gray-500 uppercase tracking-widest font-semibold">View full portfolio on</p>
+            <p className="text-xs uppercase tracking-widest font-semibold" style={{ color: 'rgba(255,255,255,0.3)' }}>View full portfolio on</p>
             <div className="flex items-center gap-3">
               <a
                 href="https://www.fiverr.com/s/dDa9lqa"

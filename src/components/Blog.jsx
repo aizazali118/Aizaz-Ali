@@ -94,13 +94,13 @@ function PostCard({ post, index }) {
           >
             <FiTag size={10} /> {post.category}
           </span>
-          <span className="flex items-center gap-1 text-xs text-gray-500">
+          <span className="flex items-center gap-1 text-xs" style={{ color: 'rgba(255,255,255,0.4)' }}>
             <FiCalendar size={11} />
             <time dateTime={post.date} itemProp="datePublished">
               {new Date(post.date).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })}
             </time>
           </span>
-          <span className="flex items-center gap-1 text-xs text-gray-500">
+          <span className="flex items-center gap-1 text-xs" style={{ color: 'rgba(255,255,255,0.4)' }}>
             <FiClock size={11} /> {post.readTime}
           </span>
         </div>
@@ -114,7 +114,7 @@ function PostCard({ post, index }) {
         </h3>
 
         {/* Excerpt */}
-        <p className="text-sm text-gray-400 leading-relaxed mb-4" itemProp="description">
+        <p className="text-sm leading-relaxed mb-4" style={{ color: 'rgba(255,255,255,0.5)' }} itemProp="description">
           {post.excerpt}
         </p>
 
@@ -183,10 +183,10 @@ export default function Blog({ standalone = false }) {
         {/* Section heading */}
         <div ref={headRef} className="text-center mb-12">
           <p className="text-accent text-sm font-semibold tracking-widest uppercase mb-3">Resources & Insights</p>
-          <h2 id="blog-heading" className="text-4xl md:text-5xl font-display font-black text-primary">
+          <h2 id="blog-heading" className="text-4xl md:text-5xl font-display font-black text-white">
             Latest <span className="gradient-text">Articles</span>
           </h2>
-          <p className="mt-4 text-gray-400 max-w-xl mx-auto text-sm leading-relaxed">
+          <p className="mt-4 max-w-xl mx-auto text-sm leading-relaxed" style={{ color: 'rgba(255,255,255,0.5)' }}>
             Free tutorials, checklists and case studies on WordPress, Shopify, and React development.
             Some posts include downloadable resources.
           </p>
@@ -202,9 +202,9 @@ export default function Blog({ standalone = false }) {
               className={`px-4 py-2 rounded-full text-sm font-semibold transition-all duration-200 ${
                 filter === cat
                   ? 'bg-accent text-white shadow-lg shadow-accent/30'
-                  : 'text-gray-500 hover:text-accent'
+                  : 'hover:text-accent'
               }`}
-              style={filter !== cat ? { background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.08)' } : {}}
+              style={filter !== cat ? { color: 'rgba(255,255,255,0.4)', background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.08)' } : {}}
               aria-pressed={filter === cat}
             >
               {cat}

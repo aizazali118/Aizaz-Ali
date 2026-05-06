@@ -214,16 +214,16 @@ function PlanCard({ plan, accent, delay }) {
       {/* Price */}
       <div className="mb-4">
         <span className="text-4xl font-black text-white">{plan.price}</span>
-        <span className="text-sm text-gray-400 ml-1">/ project</span>
+        <span className="text-sm ml-1" style={{ color: 'rgba(255,255,255,0.4)' }}>/ project</span>
       </div>
 
       {/* Description */}
-      <p className="text-xs text-gray-400 leading-relaxed mb-5">{plan.desc}</p>
+      <p className="text-xs leading-relaxed mb-5" style={{ color: 'rgba(255,255,255,0.5)' }}>{plan.desc}</p>
 
       {/* Features */}
       <ul className="space-y-2 mb-6 flex-1">
         {plan.features.map((f) => (
-          <li key={f} className="flex items-center gap-2 text-sm text-gray-300">
+          <li key={f} className="flex items-center gap-2 text-sm" style={{ color: 'rgba(255,255,255,0.75)' }}>
             <span
               className="w-4 h-4 rounded-full flex items-center justify-center flex-shrink-0"
               style={{ background: accent + '18' }}
@@ -269,10 +269,10 @@ export default function Pricing() {
           className="text-center mb-12"
         >
           <p className="text-accent text-sm font-semibold tracking-widest uppercase mb-3">Transparent Pricing</p>
-          <h2 className="text-4xl md:text-5xl font-display font-black text-primary">
+          <h2 className="text-4xl md:text-5xl font-display font-black text-white">
             Simple <span className="gradient-text">Pricing Plans</span>
           </h2>
-          <p className="mt-3 text-gray-500 text-sm max-w-md mx-auto">
+          <p className="mt-3 text-sm max-w-md mx-auto" style={{ color: 'rgba(255,255,255,0.45)' }}>
             Clear, honest pricing for every budget. Choose the plan that fits your needs.
           </p>
           <div className="mt-4 mx-auto section-line animate" />
@@ -286,9 +286,9 @@ export default function Pricing() {
                 key={key}
                 onClick={() => setActive(key)}
                 className={`flex flex-col sm:flex-row items-center justify-center gap-1 sm:gap-1.5 px-2 sm:px-5 py-2.5 rounded-xl font-bold transition-all duration-300 ${
-                  active === key ? 'text-white shadow-lg' : 'text-gray-500 hover:text-gray-300'
+                  active === key ? 'text-white shadow-lg' : 'hover:text-white'
                 }`}
-                style={active === key ? { background: color } : {}}
+                style={active === key ? { background: color } : { color: 'rgba(255,255,255,0.45)' }}
               >
                 <Icon size={16} />
                 <span className="text-[11px] sm:text-sm leading-tight">{label}</span>
@@ -327,7 +327,7 @@ export default function Pricing() {
           className="mt-12 text-center"
         >
           <div className="inline-block rounded-2xl px-8 py-5" style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)' }}>
-            <p className="text-sm text-gray-400">
+            <p className="text-sm" style={{ color: 'rgba(255,255,255,0.55)' }}>
               Need something custom?{' '}
               <button
                 onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
@@ -336,7 +336,7 @@ export default function Pricing() {
                 Let's talk <FiArrowRight size={13} />
               </button>
             </p>
-            <p className="text-xs text-gray-500 mt-1">All prices are starting rates — final quote depends on project scope.</p>
+            <p className="text-xs mt-1" style={{ color: 'rgba(255,255,255,0.35)' }}>All prices are starting rates — final quote depends on project scope.</p>
           </div>
         </motion.div>
 
