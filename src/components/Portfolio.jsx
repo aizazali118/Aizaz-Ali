@@ -2,9 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FiExternalLink, FiGithub, FiArrowRight } from 'react-icons/fi';
-import { FaWordpress, FaShopify, FaReact } from 'react-icons/fa';
-import { SiFiverr, SiUpwork } from 'react-icons/si';
+import { FiExternalLink, FiArrowRight, FiShoppingCart, FiLayout, FiHome, FiBox, FiMonitor } from 'react-icons/fi';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -18,9 +16,8 @@ const projects = [
     tech: ['WordPress', 'WooCommerce', 'Elementor'],
     desc: 'A high-end fashion store with custom WooCommerce checkout and product animations.',
     color: '#21759b',
-    icon: FaWordpress,
+    icon: FiShoppingCart,
     liveUrl: '#',
-    bg: 'from-blue-100 to-cyan-100',
   },
   {
     id: 2,
@@ -29,9 +26,8 @@ const projects = [
     tech: ['Shopify', 'Liquid', 'Custom Theme'],
     desc: 'Fully custom Shopify theme with subscription products and loyalty programme.',
     color: '#96bf48',
-    icon: FaShopify,
+    icon: FiBox,
     liveUrl: '#',
-    bg: 'from-green-100 to-emerald-100',
   },
   {
     id: 3,
@@ -40,9 +36,8 @@ const projects = [
     tech: ['React', 'Tailwind', 'GSAP'],
     desc: 'An animated analytics dashboard with real-time charts and dark mode support.',
     color: '#7cb26e',
-    icon: FaReact,
+    icon: FiMonitor,
     liveUrl: '#',
-    bg: 'from-green-100 to-emerald-100',
   },
   {
     id: 4,
@@ -51,9 +46,8 @@ const projects = [
     tech: ['WordPress', 'Custom Plugin', 'ACF'],
     desc: 'Property listing portal with advanced search, map integration and agent portal.',
     color: '#21759b',
-    icon: FaWordpress,
+    icon: FiHome,
     liveUrl: '#',
-    bg: 'from-sky-100 to-blue-100',
   },
   {
     id: 5,
@@ -62,9 +56,8 @@ const projects = [
     tech: ['Shopify', 'Liquid', 'Klaviyo'],
     desc: 'Limited-drop streetwear brand with countdown timers and email capture flows.',
     color: '#96bf48',
-    icon: FaShopify,
+    icon: FiShoppingCart,
     liveUrl: '#',
-    bg: 'from-lime-100 to-green-100',
   },
   {
     id: 6,
@@ -73,9 +66,8 @@ const projects = [
     tech: ['React', 'Framer Motion', 'Three.js'],
     desc: 'Creative agency website with 3D elements, scroll animations and WebGL backgrounds.',
     color: '#7cb26e',
-    icon: FaReact,
+    icon: FiLayout,
     liveUrl: '#',
-    bg: 'from-green-100 to-teal-100',
   },
 ];
 
@@ -143,28 +135,32 @@ export default function Portfolio() {
                 className="port-card group relative rounded-3xl overflow-hidden transition-shadow duration-400 hover:shadow-xl"
                 style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)' }}
               >
-                {/* Card image / graphic */}
-                <div className={`relative h-52 bg-gradient-to-br ${p.bg} flex items-center justify-center overflow-hidden`}>
-                  <p.icon size={72} color={p.color} className="opacity-20 float2" />
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <p.icon size={48} color={p.color} className="drop-shadow-lg" />
+                {/* Card thumbnail */}
+                <div
+                  className="relative h-44 flex items-center justify-center overflow-hidden"
+                  style={{ background: `linear-gradient(135deg, ${p.color}18 0%, rgba(255,255,255,0.03) 100%)` }}
+                >
+                  {/* Category colour bar at top */}
+                  <div className="absolute top-0 inset-x-0 h-0.5" style={{ background: p.color }} />
+
+                  {/* Icon */}
+                  <div
+                    className="w-16 h-16 rounded-2xl flex items-center justify-center"
+                    style={{ background: `${p.color}20`, border: `1px solid ${p.color}40` }}
+                  >
+                    <p.icon size={28} style={{ color: p.color }} />
                   </div>
 
-                  {/* Overlay on hover */}
-                  <div className="port-overlay absolute inset-0 bg-black/60 flex items-center justify-center gap-4">
+                  {/* Hover overlay — view live */}
+                  <div className="port-overlay absolute inset-0 flex items-center justify-center gap-3" style={{ background: 'rgba(0,0,0,0.7)' }}>
                     <a
                       href={p.liveUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="w-10 h-10 rounded-full bg-white flex items-center justify-center text-primary hover:bg-accent hover:text-white transition-colors"
+                      className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-bold transition-all"
+                      style={{ background: p.color, color: '#fff' }}
                     >
-                      <FiExternalLink size={16} />
-                    </a>
-                    <a
-                      href="#"
-                      className="w-10 h-10 rounded-full bg-white flex items-center justify-center text-primary hover:bg-accent hover:text-white transition-colors"
-                    >
-                      <FiGithub size={16} />
+                      <FiExternalLink size={13} /> View Live
                     </a>
                   </div>
                 </div>
@@ -212,12 +208,11 @@ export default function Portfolio() {
                 href="https://www.fiverr.com/s/dDa9lqa"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group inline-flex items-center gap-2.5 px-5 py-2.5 rounded-full border-2 font-bold text-sm transition-all duration-250 hover:scale-105 active:scale-95"
+                className="group inline-flex items-center gap-2 px-5 py-2.5 rounded-full border-2 font-bold text-sm transition-all duration-250 hover:scale-105 active:scale-95"
                 style={{ borderColor: '#1dbf73', color: '#1dbf73' }}
                 onMouseEnter={e => { e.currentTarget.style.background = '#1dbf73'; e.currentTarget.style.color = '#fff'; }}
                 onMouseLeave={e => { e.currentTarget.style.background = ''; e.currentTarget.style.color = '#1dbf73'; }}
               >
-                <SiFiverr size={16} />
                 Fiverr
                 <FiArrowRight size={13} className="group-hover:translate-x-1 transition-transform" />
               </a>
@@ -225,12 +220,11 @@ export default function Portfolio() {
                 href="https://www.upwork.com/freelancers/~01db2b03b5a7f36be8"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group inline-flex items-center gap-2.5 px-5 py-2.5 rounded-full border-2 font-bold text-sm transition-all duration-250 hover:scale-105 active:scale-95"
+                className="group inline-flex items-center gap-2 px-5 py-2.5 rounded-full border-2 font-bold text-sm transition-all duration-250 hover:scale-105 active:scale-95"
                 style={{ borderColor: '#14a800', color: '#14a800' }}
                 onMouseEnter={e => { e.currentTarget.style.background = '#14a800'; e.currentTarget.style.color = '#fff'; }}
                 onMouseLeave={e => { e.currentTarget.style.background = ''; e.currentTarget.style.color = '#14a800'; }}
               >
-                <SiUpwork size={16} />
                 Upwork
                 <FiArrowRight size={13} className="group-hover:translate-x-1 transition-transform" />
               </a>
