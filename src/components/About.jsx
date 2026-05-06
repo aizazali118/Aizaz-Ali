@@ -25,12 +25,12 @@ const highlights = [
 ];
 
 const techIcons = [
-  { icon: FaWordpress,   color: '#21759b', label: 'WordPress',  top: '4%',  left: '-40%', dur: 3.2, delay: 0   },
-  { icon: FaShopify,     color: '#96bf48', label: 'Shopify',    top: '38%', left: '-44%', dur: 4.1, delay: 0.5 },
-  { icon: SiFigma,       color: '#f24e1e', label: 'Figma',      top: '72%', left: '-38%', dur: 3.6, delay: 1.0 },
-  { icon: FaReact,       color: '#61dafb', label: 'React',      top: '4%',  right: '-40%',dur: 3.8, delay: 0.3 },
-  { icon: SiTailwindcss, color: '#06b6d4', label: 'Tailwind',   top: '38%', right: '-44%',dur: 4.4, delay: 0.8 },
-  { icon: FaJs,          color: '#f0c000', label: 'JavaScript', top: '72%', right: '-42%',dur: 3.0, delay: 0.6 },
+  { icon: FaWordpress,   color: '#7cb26e', label: 'WordPress',  top: '4%',  left: '-40%', dur: 3.2, delay: 0   },
+  { icon: FaShopify,     color: '#7cb26e', label: 'Shopify',    top: '38%', left: '-44%', dur: 4.1, delay: 0.5 },
+  { icon: SiFigma,       color: '#7cb26e', label: 'Figma',      top: '72%', left: '-38%', dur: 3.6, delay: 1.0 },
+  { icon: FaReact,       color: '#7cb26e', label: 'React',      top: '4%',  right: '-40%',dur: 3.8, delay: 0.3 },
+  { icon: SiTailwindcss, color: '#7cb26e', label: 'Tailwind',   top: '38%', right: '-44%',dur: 4.4, delay: 0.8 },
+  { icon: FaJs,          color: '#7cb26e', label: 'JavaScript', top: '72%', right: '-42%',dur: 3.0, delay: 0.6 },
 ];
 
 const D = {

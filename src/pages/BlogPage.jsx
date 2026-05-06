@@ -8,7 +8,7 @@ import { postsApi } from '../lib/api';
 const API_BASE = import.meta.env.VITE_API_URL?.replace('/api', '') || 'http://localhost:5000';
 
 function PostCard({ post, index }) {
-  const catColor = post.category_color || '#7cb26e';
+  const catColor = '#7cb26e';
   const coverSrc = post.cover_image
     ? (post.cover_image.startsWith('http') ? post.cover_image : `${API_BASE}${post.cover_image}`)
     : null;

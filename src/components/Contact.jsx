@@ -10,13 +10,13 @@ gsap.registerPlugin(ScrollTrigger);
 
 const contactInfo = [
   { icon: FiMail,    label: 'Email',              value: 'aaizaz519@gmail.com',          href: 'mailto:aaizaz519@gmail.com', color: '#7cb26e' },
-  { icon: FiPhone,   label: 'Phone / WhatsApp',   value: '+92 335 9574017',              href: 'https://wa.me/923359574017', color: '#25d366' },
-  { icon: FiMapPin,  label: 'Location',           value: 'Islamabad, Pakistan (Remote)', href: null,                         color: '#f97316' },
+  { icon: FiPhone,   label: 'Phone / WhatsApp',   value: '+92 335 9574017',              href: 'https://wa.me/923359574017', color: '#7cb26e' },
+  { icon: FiMapPin,  label: 'Location',           value: 'Islamabad, Pakistan (Remote)', href: null,                         color: '#7cb26e' },
 ];
 const socials = [
-  { icon: SiFiverr,   href: 'https://www.fiverr.com/s/dDa9lqa',                       label: 'Fiverr',   bg: '#1dbf73' },
-  { icon: SiUpwork,   href: 'https://www.upwork.com/freelancers/~01db2b03b5a7f36be8', label: 'Upwork',   bg: '#14a800' },
-  { icon: FaWhatsapp, href: 'https://wa.me/923359574017',                              label: 'WhatsApp', bg: '#25d366' },
+  { icon: SiFiverr,   href: 'https://www.fiverr.com/s/dDa9lqa',                       label: 'Fiverr',   bg: '#7cb26e' },
+  { icon: SiUpwork,   href: 'https://www.upwork.com/freelancers/~01db2b03b5a7f36be8', label: 'Upwork',   bg: '#7cb26e' },
+  { icon: FaWhatsapp, href: 'https://wa.me/923359574017',                              label: 'WhatsApp', bg: '#7cb26e' },
 ];
 
 const D = {

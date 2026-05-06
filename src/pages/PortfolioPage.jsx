@@ -41,14 +41,14 @@ export default function PortfolioPage() {
           <a
             href="https://www.fiverr.com/s/dDa9lqa"
             target="_blank" rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full bg-[#1dbf73] text-white font-bold text-sm shadow-xl shadow-[#1dbf73]/30 hover:bg-[#1dbf73]/90 hover:scale-105 transition-all"
+            className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full bg-accent text-white font-bold text-sm shadow-xl shadow-accent/30 hover:bg-accent/90 hover:scale-105 transition-all"
           >
             <SiFiverr size={14} /> Hire on Fiverr
           </a>
           <a
             href="https://www.upwork.com/freelancers/~01db2b03b5a7f36be8"
             target="_blank" rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full bg-[#14a800] text-white font-bold text-sm shadow-xl shadow-[#14a800]/30 hover:bg-[#14a800]/90 hover:scale-105 transition-all"
+            className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full border-2 border-accent/40 text-accent font-bold text-sm hover:bg-accent hover:text-white hover:scale-105 transition-all"
           >
             <SiUpwork size={14} /> Hire on Upwork
           </a>

@@ -42,7 +42,7 @@ export default function BlogPostPage() {
   if (notFound) return <Navigate to="/blog" replace />;
   if (!post) return null;
 
-  const catColor = post.category_color || '#7cb26e';
+  const catColor = '#7cb26e';
   const coverSrc = post.cover_image
     ? (post.cover_image.startsWith('http') ? post.cover_image : `${API_BASE}${post.cover_image}`)
     : null;

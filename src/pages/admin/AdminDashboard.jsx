@@ -29,9 +29,9 @@ export default function AdminDashboard() {
 
   const stats = [
     { label: 'Total Posts',   value: posts.length, color: '#7cb26e', icon: FiFileText },
-    { label: 'Published',     value: published,     color: '#21759b', icon: FiEye     },
-    { label: 'Drafts',        value: drafts,        color: '#f97316', icon: FiEdit2   },
-    { label: 'Categories',    value: 4,             color: '#96bf48', icon: FiFileText},
+    { label: 'Published',     value: published,     color: '#7cb26e', icon: FiEye     },
+    { label: 'Drafts',        value: drafts,        color: '#7cb26e', icon: FiEdit2   },
+    { label: 'Categories',    value: 4,             color: '#7cb26e', icon: FiFileText},
   ];
 
   const quickLinks = [

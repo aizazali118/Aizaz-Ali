@@ -62,10 +62,10 @@ const posts = [
 ];
 
 const categoryColors = {
-  WordPress:   '#21759b',
-  Shopify:     '#96bf48',
+  WordPress:   '#7cb26e',
+  Shopify:     '#7cb26e',
   React:       '#7cb26e',
-  Freelancing: '#f97316',
+  Freelancing: '#7cb26e',
 };
 
 function PostCard({ post, index }) {

@@ -9,27 +9,27 @@ import { FiLayers } from 'react-icons/fi';
 const services = [
   {
     icon: FaWordpress,
-    iconColor: '#21759b',
+    iconColor: '#7cb26e',
     title: 'WordPress Development',
     tagline: 'Custom themes & powerful plugins',
     desc: 'From blog sites to full WooCommerce stores — fast, secure WordPress websites tailored to your brand and business goals.',
     features: ['Custom Theme Development', 'WooCommerce Store Setup', 'Plugin Development & Integration', 'Speed Optimisation', 'SEO-Ready Architecture', 'Maintenance & Support'],
-    accent: '#21759b',
+    accent: '#7cb26e',
     badge: 'Most Popular',
   },
   {
     icon: FaShopify,
-    iconColor: '#96bf48',
+    iconColor: '#7cb26e',
     title: 'Shopify Development',
     tagline: 'E-commerce that converts',
     desc: 'Custom Shopify stores, Liquid theme development, app integrations and conversion-optimised product pages that drive sales.',
     features: ['Custom Liquid Theme Development', 'Shopify App Integration', 'Payment Gateway Setup', 'Conversion Rate Optimisation', 'Store Migration & Setup', 'Performance Tuning'],
-    accent: '#96bf48',
+    accent: '#7cb26e',
     badge: null,
   },
   {
     icon: FaReact,
-    iconColor: '#61dafb',
+    iconColor: '#7cb26e',
     title: 'Frontend Development',
     tagline: 'React & modern web apps',
     desc: 'Blazing-fast React/Next.js web applications with stunning animations, full responsiveness, and clean, maintainable code.',
@@ -39,22 +39,22 @@ const services = [
   },
   {
     icon: FiCode,
-    iconColor: '#f97316',
+    iconColor: '#7cb26e',
     title: 'Custom Software',
     tagline: 'Tailored solutions, built to scale',
     desc: 'End-to-end custom web applications engineered for your exact requirements — from complex dashboards to SaaS platforms.',
     features: ['Full-Stack Web Applications', 'REST API & Backend Development', 'Database Design & Integration', 'Admin Dashboards & Portals', 'Third-Party API Integration', 'Scalable Architecture'],
-    accent: '#f97316',
+    accent: '#7cb26e',
     badge: null,
   },
   {
     icon: MdOutlineDesignServices,
-    iconColor: '#ec4899',
+    iconColor: '#7cb26e',
     title: 'UI/UX Designing',
     tagline: 'Designs that delight & convert',
     desc: 'User-centred Figma designs — wireframes, prototypes, and polished UI systems crafted before a single line of code is written.',
     features: ['Figma Wireframes & Prototypes', 'Design System & Component Library', 'Mobile-First Responsive Design', 'Brand Identity & Style Guide', 'User Flow & Interaction Design', 'Landing Page Design'],
-    accent: '#ec4899',
+    accent: '#7cb26e',
     badge: 'New',
   },
 ];
@@ -86,7 +86,7 @@ function ServiceCard({ s, index }) {
       {s.badge && (
         <span
           className="absolute -top-3 left-6 text-white text-[10px] font-bold px-3 py-0.5 rounded-full shadow-lg"
-          style={{ background: s.badge === 'New' ? 'linear-gradient(135deg,#ec4899,#f97316)' : 'linear-gradient(135deg,#5a9a4a,#7cb26e)' }}
+          style={{ background: 'linear-gradient(135deg,#5a9a4a,#7cb26e)' }}
         >
           {s.badge}
         </span>

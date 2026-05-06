@@ -4,8 +4,8 @@ import { FaWordpress, FaShopify, FaReact } from 'react-icons/fa';
 import { FiCheck, FiArrowRight, FiZap } from 'react-icons/fi';
 
 const categories = [
-  { key: 'wordpress', label: 'WordPress',  Icon: FaWordpress,  color: '#21759b' },
-  { key: 'shopify',   label: 'Shopify',    Icon: FaShopify,    color: '#96bf48' },
+  { key: 'wordpress', label: 'WordPress',  Icon: FaWordpress,  color: '#7cb26e' },
+  { key: 'shopify',   label: 'Shopify',    Icon: FaShopify,    color: '#7cb26e' },
   { key: 'frontend',  label: 'Frontend',   Icon: FaReact,      color: '#7cb26e' },
 ];
 

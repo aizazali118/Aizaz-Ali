@@ -71,7 +71,7 @@ export default function AdminServices() {
                   <h3 className="font-bold text-white text-sm">{item.title}</h3>
                   {item.badge && (
                     <span className="text-[9px] font-bold px-2 py-0.5 rounded-full text-white"
-                      style={{ background: item.badge === 'New' ? 'linear-gradient(135deg,#ec4899,#f97316)' : 'linear-gradient(135deg,#5a9a4a,#7cb26e)' }}>
+                      style={{ background: 'linear-gradient(135deg,#5a9a4a,#7cb26e)' }}>
                       {item.badge}
                     </span>
                   )}

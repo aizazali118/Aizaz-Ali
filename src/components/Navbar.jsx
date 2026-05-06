@@ -202,9 +202,9 @@ export default function Navbar() {
                   <p className="text-xs text-white/30 font-medium uppercase tracking-widest">Find me on</p>
                   <div className="flex gap-3">
                     {[
-                      { Icon: SiFiverr,   href: 'https://www.fiverr.com/s/dDa9lqa',                       bg: '#1dbf73', label: 'Fiverr'   },
-                      { Icon: SiUpwork,   href: 'https://www.upwork.com/freelancers/~01db2b03b5a7f36be8', bg: '#14a800', label: 'Upwork'   },
-                      { Icon: FaWhatsapp, href: 'https://wa.me/923359574017',                              bg: '#25d366', label: 'WhatsApp' },
+                      { Icon: SiFiverr,   href: 'https://www.fiverr.com/s/dDa9lqa',                       bg: '#7cb26e', label: 'Fiverr'   },
+                      { Icon: SiUpwork,   href: 'https://www.upwork.com/freelancers/~01db2b03b5a7f36be8', bg: '#7cb26e', label: 'Upwork'   },
+                      { Icon: FaWhatsapp, href: 'https://wa.me/923359574017',                              bg: '#7cb26e', label: 'WhatsApp' },
                     ].map(({ Icon, href, bg, label }) => (
                       <a
                         key={label}

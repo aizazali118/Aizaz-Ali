@@ -15,7 +15,7 @@ const projects = [
     cat: 'WordPress',
     tech: ['WordPress', 'WooCommerce', 'Elementor'],
     desc: 'A high-end fashion store with custom WooCommerce checkout and product animations.',
-    color: '#21759b',
+    color: '#7cb26e',
     icon: FiShoppingCart,
     liveUrl: '#',
   },
@@ -25,7 +25,7 @@ const projects = [
     cat: 'Shopify',
     tech: ['Shopify', 'Liquid', 'Custom Theme'],
     desc: 'Fully custom Shopify theme with subscription products and loyalty programme.',
-    color: '#96bf48',
+    color: '#7cb26e',
     icon: FiBox,
     liveUrl: '#',
   },
@@ -45,7 +45,7 @@ const projects = [
     cat: 'WordPress',
     tech: ['WordPress', 'Custom Plugin', 'ACF'],
     desc: 'Property listing portal with advanced search, map integration and agent portal.',
-    color: '#21759b',
+    color: '#7cb26e',
     icon: FiHome,
     liveUrl: '#',
   },
@@ -55,7 +55,7 @@ const projects = [
     cat: 'Shopify',
     tech: ['Shopify', 'Liquid', 'Klaviyo'],
     desc: 'Limited-drop streetwear brand with countdown timers and email capture flows.',
-    color: '#96bf48',
+    color: '#7cb26e',
     icon: FiShoppingCart,
     liveUrl: '#',
   },
@@ -209,9 +209,9 @@ export default function Portfolio() {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="group inline-flex items-center gap-2 px-5 py-2.5 rounded-full border-2 font-bold text-sm transition-all duration-250 hover:scale-105 active:scale-95"
-                style={{ borderColor: '#1dbf73', color: '#1dbf73' }}
-                onMouseEnter={e => { e.currentTarget.style.background = '#1dbf73'; e.currentTarget.style.color = '#fff'; }}
-                onMouseLeave={e => { e.currentTarget.style.background = ''; e.currentTarget.style.color = '#1dbf73'; }}
+                style={{ borderColor: '#7cb26e', color: '#7cb26e' }}
+                onMouseEnter={e => { e.currentTarget.style.background = '#7cb26e'; e.currentTarget.style.color = '#fff'; }}
+                onMouseLeave={e => { e.currentTarget.style.background = ''; e.currentTarget.style.color = '#7cb26e'; }}
               >
                 Fiverr
                 <FiArrowRight size={13} className="group-hover:translate-x-1 transition-transform" />
@@ -221,9 +221,9 @@ export default function Portfolio() {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="group inline-flex items-center gap-2 px-5 py-2.5 rounded-full border-2 font-bold text-sm transition-all duration-250 hover:scale-105 active:scale-95"
-                style={{ borderColor: '#14a800', color: '#14a800' }}
-                onMouseEnter={e => { e.currentTarget.style.background = '#14a800'; e.currentTarget.style.color = '#fff'; }}
-                onMouseLeave={e => { e.currentTarget.style.background = ''; e.currentTarget.style.color = '#14a800'; }}
+                style={{ borderColor: '#7cb26e', color: '#7cb26e' }}
+                onMouseEnter={e => { e.currentTarget.style.background = '#7cb26e'; e.currentTarget.style.color = '#fff'; }}
+                onMouseLeave={e => { e.currentTarget.style.background = ''; e.currentTarget.style.color = '#7cb26e'; }}
               >
                 Upwork
                 <FiArrowRight size={13} className="group-hover:translate-x-1 transition-transform" />

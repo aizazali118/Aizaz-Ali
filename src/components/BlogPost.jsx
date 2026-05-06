@@ -87,10 +87,10 @@ Download the full checklist to apply these to your own store.
 };
 
 const categoryColors = {
-  WordPress:   '#21759b',
-  Shopify:     '#96bf48',
+  WordPress:   '#7cb26e',
+  Shopify:     '#7cb26e',
   React:       '#7cb26e',
-  Freelancing: '#f97316',
+  Freelancing: '#7cb26e',
 };
 
 function MarkdownContent({ content }) {

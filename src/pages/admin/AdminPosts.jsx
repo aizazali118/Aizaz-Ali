@@ -101,7 +101,7 @@ export default function AdminPosts() {
                       {post.category && (
                         <span
                           className="text-[11px] font-bold uppercase px-2.5 py-1 rounded-full"
-                          style={{ background: `${post.category_color || '#7cb26e'}18`, color: post.category_color || '#7cb26e' }}
+                          style={{ background: 'rgba(124,178,110,0.12)', color: '#7cb26e' }}
                         >
                           {post.category}
                         </span>

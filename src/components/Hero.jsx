@@ -13,9 +13,9 @@ const roles = [
   'Freelance Dev',
 ];
 const badges = [
-  { icon: FaWordpress, label: 'WordPress', color: '#21759b' },
-  { icon: FaShopify,   label: 'Shopify',   color: '#96bf48' },
-  { icon: FaReact,     label: 'React',     color: '#61dafb' },
+  { icon: FaWordpress, label: 'WordPress', color: '#7cb26e' },
+  { icon: FaShopify,   label: 'Shopify',   color: '#7cb26e' },
+  { icon: FaReact,     label: 'React',     color: '#7cb26e' },
 ];
 
 function SplitWord({ word, delay = 0, className = '' }) {
@@ -181,7 +181,7 @@ export default function Hero() {
               target="_blank"
               rel="noopener noreferrer"
               data-cursor="HIRE"
-              className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full border-2 border-[#1dbf73]/50 text-[#1dbf73] font-bold text-sm hover:bg-[#1dbf73] hover:text-white hover:scale-105 active:scale-95 transition-all duration-200"
+              className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full border-2 border-accent/50 text-accent font-bold text-sm hover:bg-accent hover:text-white hover:scale-105 active:scale-95 transition-all duration-200"
             >
               <SiFiverr size={15} /> Hire on Fiverr
             </a>
@@ -191,9 +191,9 @@ export default function Hero() {
             <span className="text-xs font-semibold uppercase tracking-widest" style={{ color: 'rgba(255,255,255,0.3)' }}>Connect</span>
             <div className="flex gap-2.5">
               {[
-                { Icon: SiFiverr,   href: 'https://www.fiverr.com/s/dDa9lqa',                      label: 'Fiverr',   bg: '#1dbf73' },
-                { Icon: SiUpwork,   href: 'https://www.upwork.com/freelancers/~01db2b03b5a7f36be8', label: 'Upwork',   bg: '#14a800' },
-                { Icon: FaWhatsapp, href: 'https://wa.me/923359574017',                              label: 'WhatsApp', bg: '#25d366' },
+                { Icon: SiFiverr,   href: 'https://www.fiverr.com/s/dDa9lqa',                      label: 'Fiverr',   bg: '#7cb26e' },
+                { Icon: SiUpwork,   href: 'https://www.upwork.com/freelancers/~01db2b03b5a7f36be8', label: 'Upwork',   bg: '#7cb26e' },
+                { Icon: FaWhatsapp, href: 'https://wa.me/923359574017',                              label: 'WhatsApp', bg: '#7cb26e' },
               ].map(({ Icon, href, label, bg }) => (
                 <a
                   key={label}
@@ -259,16 +259,16 @@ export default function Hero() {
             <div className="mt-4 grid grid-cols-2 gap-2">
               <a href="https://www.fiverr.com/s/dDa9lqa" target="_blank" rel="noopener noreferrer"
                 className="flex items-center justify-center gap-2 py-2 rounded-xl text-xs font-bold transition-all"
-                style={{ background: 'rgba(29,191,115,0.12)', color: '#1dbf73' }}
-                onMouseEnter={e => { e.currentTarget.style.background = '#1dbf73'; e.currentTarget.style.color = '#fff'; }}
-                onMouseLeave={e => { e.currentTarget.style.background = 'rgba(29,191,115,0.12)'; e.currentTarget.style.color = '#1dbf73'; }}>
+                style={{ background: 'rgba(124,178,110,0.12)', color: '#7cb26e' }}
+                onMouseEnter={e => { e.currentTarget.style.background = '#7cb26e'; e.currentTarget.style.color = '#fff'; }}
+                onMouseLeave={e => { e.currentTarget.style.background = 'rgba(124,178,110,0.12)'; e.currentTarget.style.color = '#7cb26e'; }}>
                 <SiFiverr size={13} /> Fiverr
               </a>
               <a href="https://www.upwork.com/freelancers/~01db2b03b5a7f36be8" target="_blank" rel="noopener noreferrer"
                 className="flex items-center justify-center gap-2 py-2 rounded-xl text-xs font-bold transition-all"
-                style={{ background: 'rgba(20,168,0,0.12)', color: '#14a800' }}
-                onMouseEnter={e => { e.currentTarget.style.background = '#14a800'; e.currentTarget.style.color = '#fff'; }}
-                onMouseLeave={e => { e.currentTarget.style.background = 'rgba(20,168,0,0.12)'; e.currentTarget.style.color = '#14a800'; }}>
+                style={{ background: 'rgba(124,178,110,0.12)', color: '#7cb26e' }}
+                onMouseEnter={e => { e.currentTarget.style.background = '#7cb26e'; e.currentTarget.style.color = '#fff'; }}
+                onMouseLeave={e => { e.currentTarget.style.background = 'rgba(124,178,110,0.12)'; e.currentTarget.style.color = '#7cb26e'; }}>
                 <SiUpwork size={13} /> Upwork
               </a>
             </div>

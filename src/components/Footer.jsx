@@ -37,9 +37,9 @@ export default function Footer() {
             </a>
             <div className="flex gap-3 mt-5">
               {[
-                { icon: SiFiverr,   href: 'https://www.fiverr.com/s/dDa9lqa', bg: '#1dbf73' },
-                { icon: SiUpwork,   href: 'https://www.upwork.com/freelancers/~01db2b03b5a7f36be8', bg: '#14a800' },
-                { icon: FaWhatsapp, href: 'https://wa.me/923359574017', bg: '#25d366' },
+                { icon: SiFiverr,   href: 'https://www.fiverr.com/s/dDa9lqa', bg: '#7cb26e' },
+                { icon: SiUpwork,   href: 'https://www.upwork.com/freelancers/~01db2b03b5a7f36be8', bg: '#7cb26e' },
+                { icon: FaWhatsapp, href: 'https://wa.me/923359574017', bg: '#7cb26e' },
                 { icon: FiMail,     href: 'mailto:aaizaz519@gmail.com', bg: '#7cb26e' },
               ].map(({ icon: Icon, href, bg }, i) => (
                 <a
@@ -105,7 +105,7 @@ export default function Footer() {
                 href="https://www.fiverr.com/s/dDa9lqa"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-2 text-sm text-[#1dbf73] hover:text-[#1dbf73]/80 transition-colors"
+                className="flex items-center gap-2 text-sm text-accent hover:text-accent/80 transition-colors"
               >
                 <SiFiverr size={12} /> Fiverr Profile
               </a>
@@ -113,7 +113,7 @@ export default function Footer() {
                 href="https://www.upwork.com/freelancers/~01db2b03b5a7f36be8"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-2 text-sm text-[#14a800] hover:text-[#14a800]/80 transition-colors"
+                className="flex items-center gap-2 text-sm text-accent hover:text-accent/80 transition-colors"
               >
                 <SiUpwork size={12} /> Upwork Profile
               </a>
