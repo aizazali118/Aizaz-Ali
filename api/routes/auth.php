@@ -19,10 +19,8 @@ if ($method === 'POST' && $uri === '/auth/login') {
     }
 
     $token = jwt_encode(['id' => $user['id'], 'email' => $user['email']]);
-    respond([
-        'token' => $token,
-        'user'  => ['id' => $user['id'], 'email' => $user['email'], 'name' => $user['name']],
-    ]);
+    $admin = ['id' => $user['id'], 'email' => $user['email'], 'name' => $user['name']];
+    respond(['token' => $token, 'admin' => $admin]);
 }
 
 // GET /api/auth/me
@@ -32,7 +30,7 @@ if ($method === 'GET' && $uri === '/auth/me') {
     $stmt->execute([$auth_user['id']]);
     $user = $stmt->fetch();
     if (!$user) respond(['error' => 'User not found'], 404);
-    respond($user);
+    respond(['admin' => $user]);
 }
 
 respond(['error' => 'Not found'], 404);

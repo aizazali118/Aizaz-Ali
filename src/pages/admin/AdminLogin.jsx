@@ -80,7 +80,7 @@ export default function AdminLogin() {
                   value={email}
                   onChange={e => setEmail(e.target.value)}
                   required
-                  placeholder="aizaz.visiontact@gmail.com"
+                  placeholder="Email address"
                   autoComplete="email"
                   style={{
                     width: '100%',
@@ -117,7 +117,7 @@ export default function AdminLogin() {
                   value={password}
                   onChange={e => setPassword(e.target.value)}
                   required
-                  placeholder="••••••••"
+                  placeholder="Password"
                   autoComplete="current-password"
                   style={{
                     width: '100%',
@@ -164,7 +164,7 @@ export default function AdminLogin() {
         </p>
       </div>
 
-      {/* Autofill color fix */}
+      {/* Autofill + placeholder color fix */}
       <style>{`
         input:-webkit-autofill,
         input:-webkit-autofill:hover,
@@ -172,6 +172,11 @@ export default function AdminLogin() {
           -webkit-box-shadow: 0 0 0 1000px rgba(255,255,255,0.06) inset !important;
           -webkit-text-fill-color: #ffffff !important;
           caret-color: #ffffff;
+        }
+        #email::placeholder,
+        #password::placeholder {
+          color: rgba(255,255,255,0.3) !important;
+          opacity: 1;
         }
       `}</style>
     </div>
