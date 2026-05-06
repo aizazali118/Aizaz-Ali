@@ -27,6 +27,9 @@ const ContactPage   = lazy(() => import('./pages/ContactPage'));
 const BlogPage      = lazy(() => import('./pages/BlogPage'));
 const BlogPostPage  = lazy(() => import('./pages/BlogPostPage'));
 
+/* ── 404 page ── */
+const NotFoundPage = lazy(() => import('./pages/NotFoundPage'));
+
 /* ── Admin panel (code-split) ── */
 const AdminLogin        = lazy(() => import('./pages/admin/AdminLogin'));
 const AdminLayout       = lazy(() => import('./pages/admin/AdminLayout'));
@@ -132,6 +135,9 @@ function AppRoutes() {
               <Route path="/admin/testimonials" element={
                 <AdminLayout><AdminTestimonials /></AdminLayout>
               } />
+
+              {/* ══════════ 404 CATCH-ALL ══════════ */}
+              <Route path="*" element={<NotFoundPage />} />
             </Routes>
           </Suspense>
         </>

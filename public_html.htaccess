@@ -1,0 +1,14 @@
+Options -MultiViews
+RewriteEngine On
+RewriteBase /
+
+# Don't touch /api requests — let PHP handle them
+RewriteRule ^api/ - [L]
+
+# Serve existing files/dirs directly
+RewriteCond %{REQUEST_FILENAME} -f [OR]
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^ - [L]
+
+# Everything else → React SPA
+RewriteRule . /index.html [L]
