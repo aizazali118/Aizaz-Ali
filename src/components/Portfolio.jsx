@@ -1,167 +1,176 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FiExternalLink, FiArrowRight, FiShoppingCart, FiLayout, FiHome, FiBox, FiMonitor, FiCalendar, FiUser, FiStar, FiPackage, FiCode, FiWifi } from 'react-icons/fi';
+import { FiExternalLink, FiArrowRight } from 'react-icons/fi';
+import { portfolioApi } from '../lib/api';
 
-const categories = ['All', 'WordPress', 'Shopify', 'React'];
+const API_BASE = import.meta.env.VITE_API_URL?.replace('/api', '') || 'https://aizazaliafridi.com';
 
-const projects = [
-  {
-    id: 1,
-    title: 'Vision Tact',
-    cat: 'WordPress',
-    tech: ['WordPress', 'Elementor', 'SEO'],
-    desc: 'Corporate website for a digital marketing and web development agency.',
-    color: '#7cb26e',
-    icon: FiLayout,
-    liveUrl: 'https://visiontact.com',
-  },
-  {
-    id: 2,
-    title: 'Hexa IT Solutions',
-    cat: 'WordPress',
-    tech: ['WordPress', 'Custom Theme', 'ACF'],
-    desc: 'Full corporate website for an IT solutions and software development firm.',
-    color: '#7cb26e',
-    icon: FiMonitor,
-    liveUrl: 'https://hexaitsolutions.com',
-  },
-  {
-    id: 3,
-    title: 'Puravibra UAE',
-    cat: 'WordPress',
-    tech: ['WordPress', 'Elementor', 'Booking'],
-    desc: 'Dubai-based event management and entertainment website with booking integration.',
-    color: '#7cb26e',
-    icon: FiCalendar,
-    liveUrl: 'https://puravibrauae.com',
-  },
-  {
-    id: 4,
-    title: 'Hassan Mehmood',
-    cat: 'WordPress',
-    tech: ['WordPress', 'Custom Theme', 'Portfolio'],
-    desc: 'Elegant portfolio website for a professional UI/UX designer.',
-    color: '#7cb26e',
-    icon: FiUser,
-    liveUrl: 'https://hassan-mehmood.com',
-  },
-  {
-    id: 5,
-    title: 'Abdul Malik Fareed',
-    cat: 'WordPress',
-    tech: ['WordPress', 'Elementor', 'Portfolio'],
-    desc: 'Personal brand and portfolio site for a popular Pakistani YouTuber.',
-    color: '#7cb26e',
-    icon: FiStar,
-    liveUrl: 'https://www.abdulmalikfareed.com',
-  },
-  {
-    id: 6,
-    title: 'Oryx Nest',
-    cat: 'WordPress',
-    tech: ['WordPress', 'Custom Theme', 'Real Estate'],
-    desc: 'Professional company website with modern design and service showcase.',
-    color: '#7cb26e',
-    icon: FiHome,
-    liveUrl: 'https://oryxnest.com',
-  },
-  {
-    id: 7,
-    title: 'The Velvet Kitchen',
-    cat: 'WordPress',
-    tech: ['WordPress', 'WooCommerce', 'Custom Theme'],
-    desc: 'WooCommerce store for a premium food and catering brand.',
-    color: '#7cb26e',
-    icon: FiShoppingCart,
-    liveUrl: 'https://thevelvetkitchen.com',
-  },
-  {
-    id: 8,
-    title: 'Dara Scents',
-    cat: 'WordPress',
-    tech: ['WordPress', 'WooCommerce', 'Custom Design'],
-    desc: 'WooCommerce fragrance store with custom product pages and checkout flow.',
-    color: '#7cb26e',
-    icon: FiBox,
-    liveUrl: 'https://darascents.com',
-  },
-  {
-    id: 9,
-    title: 'PopSearch Live Plugin',
-    cat: 'WordPress',
-    tech: ['PHP', 'WooCommerce', 'WordPress API'],
-    desc: 'Custom live search plugin published on the official WordPress.org repository.',
-    color: '#7cb26e',
-    icon: FiCode,
-    liveUrl: 'https://wordpress.org/plugins/popsearch-live-for-woocommerce/',
-  },
-  {
-    id: 10,
-    title: 'Montiero',
-    cat: 'Shopify',
-    tech: ['Shopify', 'Liquid', 'Custom Theme'],
-    desc: 'Fashion e-commerce Shopify store with fully custom theme development.',
-    color: '#7cb26e',
-    icon: FiPackage,
-    liveUrl: 'https://montiero.pk',
-  },
-  {
-    id: 11,
-    title: 'Nabqa',
-    cat: 'Shopify',
-    tech: ['Shopify', 'Liquid', 'App Integration'],
-    desc: 'Full-featured Shopify store with custom design and conversion optimisation.',
-    color: '#7cb26e',
-    icon: FiShoppingCart,
-    liveUrl: 'https://nabqa.com',
-  },
-  {
-    id: 12,
-    title: 'Aoraki Telecom',
-    cat: 'React',
-    tech: ['React', 'Tailwind CSS', 'Responsive'],
-    desc: 'Modern ReactJS company website for a telecommunications provider.',
-    color: '#7cb26e',
-    icon: FiWifi,
-    liveUrl: 'https://aorakitelecom.com',
-  },
+const STATIC_PROJECTS = [
+  { id: 1,  title: 'Shangrila',               category: 'WordPress', image_url: null, description: 'Premium resort and hospitality website with elegant design and booking features.',       live_url: 'https://shangrila.pk',                                          tags: ['WordPress', 'Elementor', 'Booking'],         featured: true,  sort_order: 1 },
+  { id: 2,  title: 'The Velvet Kitchen',       category: 'WordPress', image_url: null, description: 'WooCommerce store for a premium food and catering brand.',                             live_url: 'https://thevelvetkitchen.com',                                   tags: ['WordPress', 'WooCommerce', 'Custom Theme'],  featured: false, sort_order: 2 },
+  { id: 3,  title: 'Soulease Physiotherapy',   category: 'WordPress', image_url: null, description: 'Professional physiotherapy clinic website with appointment booking system.',           live_url: 'https://souleasephysiotherapy.com',                             tags: ['WordPress', 'Elementor', 'Booking'],         featured: false, sort_order: 3 },
+  { id: 4,  title: 'Footsoul Clinic',          category: 'WordPress', image_url: null, description: 'UK-based podiatry clinic website with service showcase and online booking.',          live_url: 'https://footsoulclinic.co.uk',                                  tags: ['WordPress', 'Elementor', 'UK'],              featured: false, sort_order: 4 },
+  { id: 5,  title: 'Dara Scents',              category: 'WordPress', image_url: null, description: 'WooCommerce fragrance store with custom product pages and checkout flow.',            live_url: 'https://darascents.com',                                        tags: ['WordPress', 'WooCommerce', 'Custom Design'], featured: false, sort_order: 5 },
+  { id: 6,  title: 'Hexa IT Solutions',        category: 'WordPress', image_url: null, description: 'Full corporate website for an IT solutions and software development firm.',           live_url: 'https://hexaitsolutions.com',                                   tags: ['WordPress', 'Custom Theme', 'ACF'],          featured: false, sort_order: 6 },
+  { id: 7,  title: 'Oryx Nest',                category: 'WordPress', image_url: null, description: 'Professional company website with modern design and service showcase.',               live_url: 'https://oryxnest.com',                                          tags: ['WordPress', 'Custom Theme', 'Real Estate'],  featured: false, sort_order: 7 },
+  { id: 8,  title: 'Vision Tact',              category: 'WordPress', image_url: null, description: 'Corporate website for a digital marketing and web development agency.',               live_url: 'https://visiontact.com',                                        tags: ['WordPress', 'Elementor', 'SEO'],             featured: true,  sort_order: 8 },
+  { id: 9,  title: 'Galaxine Digital',         category: 'WordPress', image_url: null, description: 'Digital agency website with modern animations and service portfolio.',                live_url: 'https://galaxinedigital.com',                                   tags: ['WordPress', 'Elementor', 'Agency'],          featured: false, sort_order: 9 },
+  { id: 10, title: 'TK Saudi Arabia',          category: 'WordPress', image_url: null, description: 'Saudi Arabian corporate website with bilingual (Arabic/English) support.',           live_url: 'https://tk.sa',                                                 tags: ['WordPress', 'RTL', 'Bilingual'],             featured: false, sort_order: 10 },
+  { id: 11, title: 'Hassan Mehmood',           category: 'WordPress', image_url: null, description: 'Elegant portfolio website for a professional UI/UX designer.',                        live_url: 'https://hassan-mehmood.com',                                    tags: ['WordPress', 'Custom Theme', 'Portfolio'],    featured: false, sort_order: 11 },
+  { id: 12, title: 'My Muslim Mentors',        category: 'WordPress', image_url: null, description: 'Islamic mentorship platform with course management and community features.',         live_url: 'https://mymuslimmentors.com',                                   tags: ['WordPress', 'LMS', 'Community'],             featured: false, sort_order: 12 },
+  { id: 13, title: 'Melaina KSA',              category: 'WordPress', image_url: null, description: 'Saudi Arabian beauty and lifestyle brand website with bilingual content.',            live_url: 'https://melaina-ksa.com',                                       tags: ['WordPress', 'Elementor', 'RTL'],             featured: false, sort_order: 13 },
+  { id: 14, title: 'Puravibra UAE',            category: 'WordPress', image_url: null, description: 'Dubai-based event management and entertainment website with booking integration.',   live_url: 'https://puravibrauae.com',                                      tags: ['WordPress', 'Elementor', 'Events'],          featured: false, sort_order: 14 },
+  { id: 15, title: 'OTO Fulfilment',           category: 'WordPress', image_url: null, description: 'E-commerce fulfilment company website with logistics service showcase.',             live_url: 'https://otofulfilment.com',                                     tags: ['WordPress', 'Custom Theme', 'Logistics'],    featured: false, sort_order: 15 },
+  { id: 16, title: 'Moallim AI',               category: 'React',     image_url: null, description: 'AI-powered Islamic education platform built with React and modern web technologies.', live_url: 'https://moallim.ai',                                            tags: ['React', 'AI', 'EdTech'],                     featured: true,  sort_order: 16 },
+  { id: 17, title: 'Aoraki Telecom',           category: 'React',     image_url: null, description: 'Modern ReactJS company website for a telecommunications provider.',                   live_url: 'https://aorakitelecom.com',                                     tags: ['React', 'Tailwind CSS', 'Responsive'],       featured: false, sort_order: 17 },
+  { id: 18, title: 'Nabqa',                    category: 'Shopify',   image_url: null, description: 'Full-featured Shopify store with custom design and conversion optimisation.',         live_url: 'https://nabqa.com',                                             tags: ['Shopify', 'Liquid', 'App Integration'],      featured: false, sort_order: 18 },
+  { id: 19, title: 'Montiero',                 category: 'Shopify',   image_url: null, description: 'Fashion e-commerce Shopify store with fully custom theme development.',               live_url: 'https://montiero.pk',                                           tags: ['Shopify', 'Liquid', 'Custom Theme'],         featured: false, sort_order: 19 },
+  { id: 20, title: 'Al Jamilah Hair',          category: 'Shopify',   image_url: null, description: 'Premium hair care e-commerce store on Shopify with bespoke design.',                 live_url: 'https://aljamilahhair.com',                                     tags: ['Shopify', 'Liquid', 'Beauty'],               featured: false, sort_order: 20 },
 ];
 
-export default function Portfolio({ showHeading = true }) {
-  const [filter, setFilter] = useState('All');
+const CATEGORIES = ['All', 'WordPress', 'Shopify', 'React'];
 
-  const filtered = filter === 'All' ? projects : projects.filter(p => p.cat === filter);
+const ACCENT = '#7cb26e';
+
+function ProjectCard({ project, index }) {
+  const imgSrc = project.image_url
+    ? (project.image_url.startsWith('http') ? project.image_url : `${API_BASE}${project.image_url}`)
+    : null;
+
+  const tags = Array.isArray(project.tags) ? project.tags : [];
+
+  return (
+    <motion.div
+      layout
+      initial={{ opacity: 0, scale: 0.92 }}
+      animate={{ opacity: 1, scale: 1 }}
+      exit={{ opacity: 0, scale: 0.92 }}
+      transition={{ duration: 0.35, delay: index * 0.04, ease: [0.34, 1.56, 0.64, 1] }}
+      className="port-card group relative rounded-3xl overflow-hidden"
+      style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)' }}
+    >
+      {/* Thumbnail / cover */}
+      <div className="relative h-44 overflow-hidden flex items-center justify-center"
+        style={{ background: `linear-gradient(135deg, ${ACCENT}12 0%, rgba(255,255,255,0.02) 100%)` }}
+      >
+        <div className="absolute top-0 inset-x-0 h-0.5" style={{ background: ACCENT }} />
+
+        {imgSrc ? (
+          <img
+            src={imgSrc}
+            alt={project.title}
+            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+            loading="lazy"
+          />
+        ) : (
+          <div className="flex flex-col items-center gap-2">
+            <div className="w-14 h-14 rounded-2xl flex items-center justify-center text-2xl font-display font-black"
+              style={{ background: `${ACCENT}20`, border: `1px solid ${ACCENT}40`, color: ACCENT }}
+            >
+              {project.title.charAt(0)}
+            </div>
+          </div>
+        )}
+
+        {/* Hover overlay */}
+        <div className="port-overlay absolute inset-0 flex items-center justify-center gap-3"
+          style={{ background: 'rgba(0,0,0,0.75)' }}
+        >
+          <a
+            href={project.live_url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-bold transition-all"
+            style={{ background: ACCENT, color: '#fff' }}
+            onClick={e => e.stopPropagation()}
+          >
+            <FiExternalLink size={13} /> View Live
+          </a>
+          <Link
+            to={`/portfolio/${project.id}`}
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-bold transition-all"
+            style={{ background: 'rgba(255,255,255,0.15)', color: '#fff', border: '1px solid rgba(255,255,255,0.3)' }}
+          >
+            Details <FiArrowRight size={13} />
+          </Link>
+        </div>
+      </div>
+
+      {/* Card body */}
+      <div className="p-5" style={{ background: 'rgba(255,255,255,0.02)' }}>
+        <div className="flex items-start justify-between mb-2">
+          <h3 className="font-display font-bold text-white text-base leading-snug">{project.title}</h3>
+          <span
+            className="text-xs font-semibold px-2 py-0.5 rounded-full border ml-2 shrink-0"
+            style={{ color: ACCENT, borderColor: ACCENT + '40', backgroundColor: ACCENT + '10' }}
+          >
+            {project.category}
+          </span>
+        </div>
+        {project.description && (
+          <p className="text-xs leading-relaxed mb-4" style={{ color: 'rgba(255,255,255,0.5)' }}>
+            {project.description}
+          </p>
+        )}
+        <div className="flex flex-wrap gap-1.5">
+          {tags.map(t => (
+            <span
+              key={t}
+              className="text-xs px-2 py-0.5 rounded-md"
+              style={{ color: 'rgba(255,255,255,0.45)', background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.08)' }}
+            >
+              {t}
+            </span>
+          ))}
+        </div>
+      </div>
+    </motion.div>
+  );
+}
+
+export default function Portfolio({ showHeading = true }) {
+  const [filter, setFilter]     = useState('All');
+  const [projects, setProjects] = useState(STATIC_PROJECTS);
+
+  useEffect(() => {
+    portfolioApi.list()
+      .then(data => { if (Array.isArray(data) && data.length > 0) setProjects(data); })
+      .catch(() => {});
+  }, []);
+
+  const filtered = filter === 'All' ? projects : projects.filter(p => p.category === filter);
 
   return (
     <section id="portfolio" className="py-24 overflow-hidden" style={{ background: '#0a0a0a' }}>
       <div className="max-w-6xl mx-auto px-6">
-        {/* Header */}
+
         {showHeading && (
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.7 }}
-          className="text-center mb-12"
-        >
-          <p className="text-accent text-sm font-semibold tracking-widest uppercase mb-3">Recent Work</p>
-          <h2 className="text-4xl md:text-5xl font-display font-black text-white">
-            My <span className="gradient-text">Portfolio</span>
-          </h2>
-          <p className="mt-4 max-w-xl mx-auto" style={{ color: 'rgba(255,255,255,0.5)' }}>
-            A selection of projects I've built for clients across industries.
-          </p>
-          <div className="mt-4 mx-auto section-line animate" />
-        </motion.div>
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7 }}
+            className="text-center mb-12"
+          >
+            <p className="text-accent text-sm font-semibold tracking-widest uppercase mb-3">Recent Work</p>
+            <h2 className="text-4xl md:text-5xl font-display font-black text-white">
+              My <span className="gradient-text">Portfolio</span>
+            </h2>
+            <p className="mt-4 max-w-xl mx-auto" style={{ color: 'rgba(255,255,255,0.5)' }}>
+              A selection of projects I've built for clients across industries.
+            </p>
+            <div className="mt-4 mx-auto section-line animate" />
+          </motion.div>
         )}
 
         {/* Filter tabs */}
         <div className="flex flex-wrap justify-center gap-3 mb-10">
-          {categories.map((cat) => (
+          {CATEGORIES.map(cat => (
             <button
               key={cat}
               onClick={() => setFilter(cat)}
-              className={`px-5 py-2 rounded-full text-sm font-semibold transition-all duration-250 ${
+              className={`px-5 py-2 rounded-full text-sm font-semibold transition-all duration-200 ${
                 filter === cat
                   ? 'bg-accent text-white shadow-lg shadow-accent/30 scale-105'
                   : 'hover:text-white'
@@ -176,68 +185,8 @@ export default function Portfolio({ showHeading = true }) {
         {/* Grid */}
         <motion.div layout className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
           <AnimatePresence mode="popLayout">
-            {filtered.map((p) => (
-              <motion.div
-                key={p.id}
-                layout
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.9 }}
-                transition={{ duration: 0.35, ease: [0.34, 1.56, 0.64, 1] }}
-                className="port-card group relative rounded-3xl overflow-hidden transition-shadow duration-400 hover:shadow-xl"
-                style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)' }}
-              >
-                {/* Card thumbnail */}
-                <div
-                  className="relative h-44 flex items-center justify-center overflow-hidden"
-                  style={{ background: `linear-gradient(135deg, ${p.color}18 0%, rgba(255,255,255,0.03) 100%)` }}
-                >
-                  {/* Category colour bar at top */}
-                  <div className="absolute top-0 inset-x-0 h-0.5" style={{ background: p.color }} />
-
-                  {/* Icon */}
-                  <div
-                    className="w-16 h-16 rounded-2xl flex items-center justify-center"
-                    style={{ background: `${p.color}20`, border: `1px solid ${p.color}40` }}
-                  >
-                    <p.icon size={28} style={{ color: p.color }} />
-                  </div>
-
-                  {/* Hover overlay — view live */}
-                  <div className="port-overlay absolute inset-0 flex items-center justify-center gap-3" style={{ background: 'rgba(0,0,0,0.7)' }}>
-                    <a
-                      href={p.liveUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-bold transition-all"
-                      style={{ background: p.color, color: '#fff' }}
-                    >
-                      <FiExternalLink size={13} /> View Live
-                    </a>
-                  </div>
-                </div>
-
-                {/* Card body */}
-                <div className="p-5" style={{ background: 'rgba(255,255,255,0.03)' }}>
-                  <div className="flex items-start justify-between mb-2">
-                    <h3 className="font-display font-bold text-white text-base">{p.title}</h3>
-                    <span
-                      className="text-xs font-semibold px-2 py-0.5 rounded-full border"
-                      style={{ color: p.color, borderColor: p.color + '40', backgroundColor: p.color + '10' }}
-                    >
-                      {p.cat}
-                    </span>
-                  </div>
-                  <p className="text-xs leading-relaxed mb-4" style={{ color: 'rgba(255,255,255,0.5)' }}>{p.desc}</p>
-                  <div className="flex flex-wrap gap-1.5">
-                    {p.tech.map((t) => (
-                      <span key={t} className="text-xs px-2 py-0.5 rounded-md" style={{ color: 'rgba(255,255,255,0.5)', background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.08)' }}>
-                        {t}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              </motion.div>
+            {filtered.map((p, i) => (
+              <ProjectCard key={p.id} project={p} index={i} />
             ))}
           </AnimatePresence>
         </motion.div>
@@ -252,7 +201,6 @@ export default function Portfolio({ showHeading = true }) {
             Let's Work Together
           </button>
 
-          {/* Portfolio profile links */}
           <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
             <p className="text-xs uppercase tracking-widest font-semibold" style={{ color: 'rgba(255,255,255,0.3)' }}>View full portfolio on</p>
             <div className="flex items-center gap-3">
@@ -260,25 +208,23 @@ export default function Portfolio({ showHeading = true }) {
                 href="https://www.fiverr.com/s/gD71ldb"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group inline-flex items-center gap-2 px-5 py-2.5 rounded-full border-2 font-bold text-sm transition-all duration-250 hover:scale-105 active:scale-95"
-                style={{ borderColor: '#7cb26e', color: '#7cb26e' }}
-                onMouseEnter={e => { e.currentTarget.style.background = '#7cb26e'; e.currentTarget.style.color = '#fff'; }}
-                onMouseLeave={e => { e.currentTarget.style.background = ''; e.currentTarget.style.color = '#7cb26e'; }}
+                className="group inline-flex items-center gap-2 px-5 py-2.5 rounded-full border-2 font-bold text-sm transition-all duration-200 hover:scale-105 active:scale-95"
+                style={{ borderColor: ACCENT, color: ACCENT }}
+                onMouseEnter={e => { e.currentTarget.style.background = ACCENT; e.currentTarget.style.color = '#fff'; }}
+                onMouseLeave={e => { e.currentTarget.style.background = ''; e.currentTarget.style.color = ACCENT; }}
               >
-                Fiverr
-                <FiArrowRight size={13} className="group-hover:translate-x-1 transition-transform" />
+                Fiverr <FiArrowRight size={13} className="group-hover:translate-x-1 transition-transform" />
               </a>
               <a
                 href="https://www.upwork.com/freelancers/~01db2b03b5a7f36be8"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group inline-flex items-center gap-2 px-5 py-2.5 rounded-full border-2 font-bold text-sm transition-all duration-250 hover:scale-105 active:scale-95"
-                style={{ borderColor: '#7cb26e', color: '#7cb26e' }}
-                onMouseEnter={e => { e.currentTarget.style.background = '#7cb26e'; e.currentTarget.style.color = '#fff'; }}
-                onMouseLeave={e => { e.currentTarget.style.background = ''; e.currentTarget.style.color = '#7cb26e'; }}
+                className="group inline-flex items-center gap-2 px-5 py-2.5 rounded-full border-2 font-bold text-sm transition-all duration-200 hover:scale-105 active:scale-95"
+                style={{ borderColor: ACCENT, color: ACCENT }}
+                onMouseEnter={e => { e.currentTarget.style.background = ACCENT; e.currentTarget.style.color = '#fff'; }}
+                onMouseLeave={e => { e.currentTarget.style.background = ''; e.currentTarget.style.color = ACCENT; }}
               >
-                Upwork
-                <FiArrowRight size={13} className="group-hover:translate-x-1 transition-transform" />
+                Upwork <FiArrowRight size={13} className="group-hover:translate-x-1 transition-transform" />
               </a>
             </div>
           </div>

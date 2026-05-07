@@ -22,7 +22,8 @@ import Blog         from './components/Blog';
 /* ── Proper pages (code-split) ── */
 const AboutPage     = lazy(() => import('./pages/AboutPage'));
 const ServicesPage  = lazy(() => import('./pages/ServicesPage'));
-const PortfolioPage = lazy(() => import('./pages/PortfolioPage'));
+const PortfolioPage     = lazy(() => import('./pages/PortfolioPage'));
+const PortfolioItemPage = lazy(() => import('./pages/PortfolioItemPage'));
 const ContactPage   = lazy(() => import('./pages/ContactPage'));
 const BlogPage      = lazy(() => import('./pages/BlogPage'));
 const BlogPostPage  = lazy(() => import('./pages/BlogPostPage'));
@@ -101,6 +102,9 @@ function AppRoutes() {
               } />
               <Route path="/portfolio" element={
                 <><Navbar /><main className="relative z-10 min-h-screen"><PortfolioPage /></main><Footer /></>
+              } />
+              <Route path="/portfolio/:id" element={
+                <><Navbar /><main className="relative z-10 min-h-screen"><PortfolioItemPage /></main><Footer /></>
               } />
               <Route path="/contact" element={
                 <><Navbar /><main className="relative z-10 min-h-screen"><ContactPage /></main><Footer /></>

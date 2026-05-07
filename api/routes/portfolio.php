@@ -13,6 +13,15 @@ if ($method === 'GET' && $uri === '/portfolio') {
     respond($items);
 }
 
+// GET /api/portfolio/:id
+if ($method === 'GET' && preg_match('#^/portfolio/(\d+)$#', $uri, $m)) {
+    $stmt = $pdo->prepare('SELECT * FROM portfolio_items WHERE id = ? LIMIT 1');
+    $stmt->execute([(int)$m[1]]);
+    $item = $stmt->fetch();
+    if (!$item) respond(['error' => 'Not found'], 404);
+    respond(portfolio_decode($item));
+}
+
 // POST /api/portfolio
 if ($method === 'POST' && $uri === '/portfolio') {
     require_auth();

@@ -42,10 +42,11 @@ export const adminPostsApi = {
 
 /* ── Portfolio ── */
 export const portfolioApi = {
-  list:   ()        => request('/portfolio'),
-  create: (data)    => request('/portfolio',    { method: 'POST',   body: JSON.stringify(data) }),
-  update: (id, data)=> request(`/portfolio/${id}`, { method: 'PUT', body: JSON.stringify(data) }),
-  delete: (id)      => request(`/portfolio/${id}`, { method: 'DELETE' }),
+  list:   ()         => request('/portfolio'),
+  get:    (id)       => request(`/portfolio/${id}`),
+  create: (data)     => request('/portfolio',       { method: 'POST',   body: JSON.stringify(data) }),
+  update: (id, data) => request(`/portfolio/${id}`, { method: 'PUT',    body: JSON.stringify(data) }),
+  delete: (id)       => request(`/portfolio/${id}`, { method: 'DELETE' }),
 };
 
 /* ── Site Services ── */
