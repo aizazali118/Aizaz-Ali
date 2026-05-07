@@ -11,10 +11,8 @@ body {
   background: #0a0a0a;
   color: #e8e8e8;
   overflow-x: hidden;
-  cursor: none;
+  cursor: auto;
 }
-/* Re-enable normal cursor on touch devices and admin pages */
-@media (pointer: coarse) { body { cursor: auto; } }
 body.admin-page { cursor: auto; }
 
 /* ══════════════════════════════════════════

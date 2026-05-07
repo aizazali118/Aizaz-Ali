@@ -87,7 +87,8 @@ export default function BlogPostPage() {
         {/* Back link */}
         <Link
           to="/blog"
-          className="inline-flex items-center gap-2 text-sm font-semibold text-gray-400 hover:text-accent transition-colors mb-8"
+          className="inline-flex items-center gap-2 text-sm font-semibold hover:text-accent transition-colors mb-8"
+          style={{ color: 'rgba(255,255,255,0.5)' }}
         >
           <FiArrowLeft size={14} /> Back to Blog
         </Link>
@@ -115,14 +116,14 @@ export default function BlogPostPage() {
               <FiTag size={10} /> {post.category}
             </Link>
           )}
-          <span className="flex items-center gap-1 text-sm text-gray-400">
+          <span className="flex items-center gap-1 text-sm" style={{ color: 'rgba(255,255,255,0.45)' }}>
             <FiCalendar size={12} />
             <time dateTime={post.published_at} itemProp="datePublished">
               {new Date(post.published_at).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })}
             </time>
           </span>
           {post.read_time && (
-            <span className="flex items-center gap-1 text-sm text-gray-400">
+            <span className="flex items-center gap-1 text-sm" style={{ color: 'rgba(255,255,255,0.45)' }}>
               <FiClock size={12} /> {post.read_time}
             </span>
           )}
@@ -130,7 +131,7 @@ export default function BlogPostPage() {
 
         {/* Title */}
         <h1
-          className="text-3xl md:text-4xl font-display font-black text-primary leading-tight mb-4"
+          className="text-3xl md:text-4xl font-display font-black text-white leading-tight mb-4"
           itemProp="headline"
         >
           {post.title}
@@ -146,7 +147,7 @@ export default function BlogPostPage() {
           </div>
           <div>
             <p className="text-sm font-bold text-white" itemProp="name">Aizaz Ali Afridi</p>
-            <p className="text-xs text-gray-500">WordPress · Shopify · React Developer</p>
+            <p className="text-xs" style={{ color: 'rgba(255,255,255,0.4)' }}>WordPress · Shopify · React Developer</p>
           </div>
         </div>
 
@@ -169,7 +170,7 @@ export default function BlogPostPage() {
                   </div>
                   <div className="flex-1 min-w-0">
                     <p className="text-sm font-semibold text-white truncate">{dl.label}</p>
-                    {dl.file_size && <p className="text-xs text-gray-500">{formatFileSize(dl.file_size)}</p>}
+                    {dl.file_size && <p className="text-xs" style={{ color: 'rgba(255,255,255,0.4)' }}>{formatFileSize(dl.file_size)}</p>}
                   </div>
                   <span className="text-xs font-bold text-accent shrink-0">Download</span>
                 </a>
@@ -182,12 +183,13 @@ export default function BlogPostPage() {
         <div
           className="prose prose-sm sm:prose max-w-none
             prose-headings:font-display prose-headings:font-bold prose-headings:text-white
-            prose-p:text-gray-400 prose-p:leading-relaxed
+            prose-p:leading-relaxed
             prose-a:text-accent prose-a:no-underline hover:prose-a:underline
             prose-img:rounded-xl prose-img:shadow-md
             prose-code:text-accent prose-code:bg-accent/10 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded
-            prose-pre:bg-gray-900 prose-pre:text-gray-100
-            prose-strong:text-white prose-li:text-gray-400"
+            prose-pre:bg-white/5 prose-pre:text-white/80
+            prose-strong:text-white"
+          style={{ '--tw-prose-body': 'rgba(255,255,255,0.6)', color: 'rgba(255,255,255,0.6)' }}
           dangerouslySetInnerHTML={{ __html: post.content }}
           itemProp="articleBody"
         />

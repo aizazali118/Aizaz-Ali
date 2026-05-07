@@ -48,14 +48,14 @@ function PostCard({ post, index }) {
           >
             <FiTag size={10} /> {post.category}
           </span>
-          <span className="flex items-center gap-1 text-xs text-gray-500">
+          <span className="flex items-center gap-1 text-xs" style={{ color: 'rgba(255,255,255,0.4)' }}>
             <FiCalendar size={11} />
             <time dateTime={post.published_at} itemProp="datePublished">
               {new Date(post.published_at).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })}
             </time>
           </span>
           {post.read_time && (
-            <span className="flex items-center gap-1 text-xs text-gray-500">
+            <span className="flex items-center gap-1 text-xs" style={{ color: 'rgba(255,255,255,0.4)' }}>
               <FiClock size={11} /> {post.read_time}
             </span>
           )}
@@ -66,7 +66,7 @@ function PostCard({ post, index }) {
         </h2>
 
         {post.excerpt && (
-          <p className="text-sm text-gray-400 leading-relaxed mb-4" itemProp="description">{post.excerpt}</p>
+          <p className="text-sm leading-relaxed mb-4" style={{ color: 'rgba(255,255,255,0.5)' }} itemProp="description">{post.excerpt}</p>
         )}
 
         <div className="flex items-center justify-between gap-3 flex-wrap">
@@ -77,7 +77,7 @@ function PostCard({ post, index }) {
             Read More <FiArrowRight size={14} />
           </Link>
           {post.downloads?.length > 0 && (
-            <span className="inline-flex items-center gap-1 text-xs text-gray-500">
+            <span className="inline-flex items-center gap-1 text-xs" style={{ color: 'rgba(255,255,255,0.4)' }}>
               <FiDownload size={11} /> {post.downloads.length} download{post.downloads.length > 1 ? 's' : ''}
             </span>
           )}
@@ -121,13 +121,13 @@ export default function BlogPage() {
       {/* Page hero */}
       <section className="pt-32 pb-12 text-center px-6" style={{ background: '#0a0a0a' }} aria-labelledby="blog-page-heading">
         <p className="text-accent text-sm font-semibold tracking-widest uppercase mb-3">Resources & Insights</p>
-        <h1 id="blog-page-heading" className="text-4xl md:text-6xl font-display font-black text-primary">
+        <h1 id="blog-page-heading" className="text-4xl md:text-6xl font-display font-black text-white">
           Dev <span className="gradient-text">Blog</span>
         </h1>
-        <p className="mt-4 text-gray-400 max-w-xl mx-auto leading-relaxed">
+        <p className="mt-4 max-w-xl mx-auto leading-relaxed" style={{ color: 'rgba(255,255,255,0.5)' }}>
           Practical guides on WordPress, Shopify and React — with free downloadable resources in many articles.
         </p>
-        <nav className="mt-4 flex items-center justify-center gap-2 text-xs text-gray-400" aria-label="Breadcrumb">
+        <nav className="mt-4 flex items-center justify-center gap-2 text-xs" style={{ color: 'rgba(255,255,255,0.4)' }} aria-label="Breadcrumb">
           <Link to="/" className="hover:text-accent transition-colors">Home</Link>
           <span>/</span>
           <span className="text-accent font-semibold">Blog</span>
@@ -152,7 +152,8 @@ export default function BlogPage() {
           <div className="flex flex-wrap gap-2" role="group" aria-label="Filter by category">
             <button
               onClick={() => setFilter('All')}
-              className={`px-4 py-2 rounded-full text-sm font-semibold transition-all ${filter === 'All' ? 'bg-accent text-white shadow-lg shadow-accent/30' : 'text-gray-500 hover:text-accent'}`}
+              className={`px-4 py-2 rounded-full text-sm font-semibold transition-all ${filter === 'All' ? 'bg-accent text-white shadow-lg shadow-accent/30' : 'hover:text-accent'}`}
+                style={filter !== 'All' ? { color: 'rgba(255,255,255,0.4)' } : {}}
               style={filter !== 'All' ? { background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.08)' } : {}}
               aria-pressed={filter === 'All'}
             >
@@ -162,7 +163,8 @@ export default function BlogPage() {
               <button
                 key={cat.id}
                 onClick={() => setFilter(cat.name)}
-                className={`px-4 py-2 rounded-full text-sm font-semibold transition-all ${filter === cat.name ? 'bg-accent text-white shadow-lg shadow-accent/30' : 'text-gray-500 hover:text-accent'}`}
+                className={`px-4 py-2 rounded-full text-sm font-semibold transition-all ${filter === cat.name ? 'bg-accent text-white shadow-lg shadow-accent/30' : 'hover:text-accent'}`}
+                style={filter !== cat.name ? { color: 'rgba(255,255,255,0.4)' } : {}}
                 style={filter !== cat.name ? { background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.08)' } : {}}
                 aria-pressed={filter === cat.name}
               >
@@ -191,13 +193,13 @@ export default function BlogPage() {
 
         {error && (
           <div className="text-center py-20">
-            <p className="text-gray-500 text-sm">Could not load posts. Make sure the API server is running.</p>
-            <p className="text-xs text-gray-600 mt-1 font-mono">{error}</p>
+            <p className="text-sm" style={{ color: 'rgba(255,255,255,0.4)' }}>Could not load posts. Make sure the API server is running.</p>
+            <p className="text-xs mt-1 font-mono" style={{ color: 'rgba(255,255,255,0.3)' }}>{error}</p>
           </div>
         )}
 
         {!loading && !error && filtered.length === 0 && (
-          <p className="text-center text-gray-500 py-20">No articles found.</p>
+          <p className="text-center py-20" style={{ color: 'rgba(255,255,255,0.4)' }}>No articles found.</p>
         )}
 
         {!loading && !error && filtered.length > 0 && (

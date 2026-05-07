@@ -1,12 +1,8 @@
-import { useEffect, useRef, useState } from 'react';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { FiMail, FiPhone, FiMapPin, FiSend, FiCheck } from 'react-icons/fi';
+import { FiMail, FiPhone, FiMapPin, FiSend, FiCheck, FiZap, FiMessageSquare, FiRefreshCw, FiShield } from 'react-icons/fi';
 import { FaWhatsapp } from 'react-icons/fa';
 import { SiFiverr, SiUpwork, SiLinkedin } from 'react-icons/si';
-
-gsap.registerPlugin(ScrollTrigger);
 
 const contactInfo = [
   { icon: FiMail,    label: 'Email',              value: 'aaizaz519@gmail.com',          href: 'mailto:aaizaz519@gmail.com', color: '#7cb26e' },
@@ -35,24 +31,10 @@ const inputStyle = {
 };
 
 export default function Contact() {
-  const sectionRef = useRef(null);
-  const headRef    = useRef(null);
-  const formRef    = useRef(null);
-  const infoRef    = useRef(null);
-
   const [form, setForm]       = useState({ name: '', email: '', subject: '', message: '' });
   const [sending, setSending] = useState(false);
   const [sent, setSent]       = useState(false);
   const [error, setError]     = useState('');
-
-  useEffect(() => {
-    const ctx = gsap.context(() => {
-      gsap.from(headRef.current, { scrollTrigger: { trigger: headRef.current, start: 'top 85%' }, y: 50, opacity: 0, duration: 0.9, ease: 'power4.out' });
-      gsap.from(formRef.current, { scrollTrigger: { trigger: formRef.current, start: 'top 80%' }, x: -50, opacity: 0, duration: 0.9, ease: 'power3.out' });
-      gsap.from(infoRef.current, { scrollTrigger: { trigger: infoRef.current, start: 'top 80%' }, x: 50, opacity: 0, duration: 0.9, ease: 'power3.out' });
-    }, sectionRef);
-    return () => ctx.revert();
-  }, []);
 
   const handleChange = (e) => { setForm({ ...form, [e.target.name]: e.target.value }); setError(''); };
 
@@ -70,10 +52,16 @@ export default function Contact() {
   const blurStyle  = (e) => { e.target.style.borderColor = D.border; };
 
   return (
-    <section id="contact" ref={sectionRef} className="py-24 overflow-hidden" style={{ background: '#0d0d0d' }}>
+    <section id="contact" className="py-24 overflow-hidden" style={{ background: '#0d0d0d' }}>
       <div className="max-w-6xl mx-auto px-6">
 
-        <div ref={headRef} className="text-center mb-16">
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.7 }}
+          className="text-center mb-16"
+        >
           <p className="text-accent text-sm font-semibold tracking-widest uppercase mb-3">Get In Touch</p>
           <h2 className="text-4xl md:text-5xl font-display font-black text-white">
             Let's <span className="gradient-text">Talk</span>
@@ -82,11 +70,17 @@ export default function Contact() {
             Have a project in mind? I'd love to hear about it. Send me a message and I'll get back to you within 24 hours.
           </p>
           <div className="mt-4 mx-auto section-line animate" />
-        </div>
+        </motion.div>
 
         <div className="grid lg:grid-cols-5 gap-10">
           {/* Form */}
-          <div ref={formRef} className="lg:col-span-3">
+          <motion.div
+            initial={{ opacity: 0, x: -40 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7, delay: 0.1 }}
+            className="lg:col-span-3"
+          >
             <div className="rounded-3xl p-8 border" style={{ background: D.card, borderColor: D.border }}>
               <h3 className="text-xl font-display font-bold text-white mb-6">Send a Message</h3>
               <form onSubmit={handleSubmit} className="space-y-5">
@@ -126,10 +120,16 @@ export default function Contact() {
                 </button>
               </form>
             </div>
-          </div>
+          </motion.div>
 
           {/* Info panel */}
-          <div ref={infoRef} className="lg:col-span-2 flex flex-col gap-4">
+          <motion.div
+            initial={{ opacity: 0, x: 40 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7, delay: 0.15 }}
+            className="lg:col-span-2 flex flex-col gap-4"
+          >
             {contactInfo.map(({ icon: Icon, label, value, href, color }) => (
               <div key={label} className="rounded-2xl p-5 border transition-all duration-300" style={{ background: D.card, borderColor: D.border }}
                 onMouseEnter={e => e.currentTarget.style.borderColor = 'rgba(124,178,110,0.3)'}
@@ -168,14 +168,24 @@ export default function Contact() {
             </div>
 
             <div className="rounded-2xl p-5 border" style={{ background: 'rgba(124,178,110,0.06)', borderColor: 'rgba(124,178,110,0.2)' }}>
-              <h4 className="font-bold text-white text-sm mb-3">Why Work With Me?</h4>
-              <ul className="space-y-2">
-                {['⚡ Fast turnaround & delivery','💬 Clear, transparent communication','🔄 Unlimited revisions until satisfied','🔒 NDA & privacy respected'].map(item => (
-                  <li key={item} className="text-sm" style={{ color: D.text }}>{item}</li>
+              <h4 className="font-bold text-white text-sm mb-4">Why Work With Me?</h4>
+              <ul className="space-y-3">
+                {[
+                  { icon: FiZap,           text: 'Fast turnaround & delivery'          },
+                  { icon: FiMessageSquare, text: 'Clear, transparent communication'    },
+                  { icon: FiRefreshCw,     text: 'Unlimited revisions until satisfied' },
+                  { icon: FiShield,        text: 'NDA & privacy respected'             },
+                ].map(({ icon: Icon, text }) => (
+                  <li key={text} className="flex items-center gap-3 text-sm" style={{ color: D.text }}>
+                    <div className="w-7 h-7 rounded-lg flex items-center justify-center flex-shrink-0" style={{ background: 'rgba(124,178,110,0.15)' }}>
+                      <Icon size={13} style={{ color: '#7cb26e' }} />
+                    </div>
+                    {text}
+                  </li>
                 ))}
               </ul>
             </div>
-          </div>
+          </motion.div>
         </div>
       </div>
     </section>

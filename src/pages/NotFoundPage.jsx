@@ -33,7 +33,7 @@ export default function NotFoundPage() {
         </h1>
 
         {/* Description */}
-        <p className="text-gray-400 mb-10 leading-relaxed">
+        <p className="mb-10 leading-relaxed" style={{ color: 'rgba(255,255,255,0.5)' }}>
           The page you are looking for doesn't exist or has been moved.
         </p>
 

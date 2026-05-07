@@ -11,30 +11,23 @@ export default function PortfolioPage() {
       description="Browse Aizaz Ali Afridi's portfolio — 50+ WordPress, Shopify and React projects delivered for clients worldwide. View case studies and live sites."
       canonical="/portfolio"
     >
-      {/* Page hero */}
-      <section className="pt-32 pb-8 bg-[#0a0a0a] text-center px-6" aria-labelledby="portfolio-page-heading">
-        <p className="text-accent text-sm font-semibold tracking-widest uppercase mb-3">My Work</p>
-        <h1 id="portfolio-page-heading" className="text-4xl md:text-6xl font-display font-black text-primary">
-          Project <span className="gradient-text">Portfolio</span>
-        </h1>
-        <p className="mt-4 text-gray-400 max-w-xl mx-auto leading-relaxed">
-          50+ projects completed. WordPress stores, Shopify e-commerce sites and React applications.
-        </p>
-        <nav className="mt-4 flex items-center justify-center gap-2 text-xs text-gray-400" aria-label="Breadcrumb">
+      {/* Breadcrumb only — Portfolio component has its own heading */}
+      <div className="pt-28 pb-2 bg-[#0a0a0a] text-center px-6">
+        <nav className="flex items-center justify-center gap-2 text-xs" style={{ color: 'rgba(255,255,255,0.4)' }} aria-label="Breadcrumb">
           <Link to="/" className="hover:text-accent transition-colors">Home</Link>
           <span>/</span>
           <span className="text-accent font-semibold">Portfolio</span>
         </nav>
-      </section>
+      </div>
 
       <Portfolio />
 
       {/* CTA strip */}
       <section className="py-16 bg-[#0a0a0a] text-center px-6">
-        <h2 className="text-2xl md:text-3xl font-display font-black text-primary mb-4">
+        <h2 className="text-2xl md:text-3xl font-display font-black text-white mb-4">
           Like what you see?
         </h2>
-        <p className="text-gray-400 mb-6 max-w-md mx-auto">
+        <p className="mb-6 max-w-md mx-auto" style={{ color: 'rgba(255,255,255,0.5)' }}>
           Hire me on Fiverr or Upwork, or contact me directly to discuss your project.
         </p>
         <div className="flex flex-wrap gap-4 justify-center">

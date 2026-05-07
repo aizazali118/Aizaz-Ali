@@ -102,9 +102,9 @@ function MarkdownContent({ content }) {
     const trimmed = line.trim();
     if (!trimmed) { elements.push(<br key={key++} />); continue; }
     if (trimmed.startsWith('## ')) {
-      elements.push(<h2 key={key++} className="text-2xl font-display font-bold text-primary mt-8 mb-3">{trimmed.slice(3)}</h2>);
+      elements.push(<h2 key={key++} className="text-2xl font-display font-bold text-white mt-8 mb-3">{trimmed.slice(3)}</h2>);
     } else if (trimmed.startsWith('### ')) {
-      elements.push(<h3 key={key++} className="text-lg font-display font-bold text-primary mt-6 mb-2">{trimmed.slice(4)}</h3>);
+      elements.push(<h3 key={key++} className="text-lg font-display font-bold text-white mt-6 mb-2">{trimmed.slice(4)}</h3>);
     } else {
       elements.push(<p key={key++} className="text-gray-600 leading-relaxed mb-3">{trimmed}</p>);
     }
@@ -189,7 +189,7 @@ export default function BlogPost() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
-          className="text-3xl md:text-4xl font-display font-black text-primary leading-tight mb-4"
+          className="text-3xl md:text-4xl font-display font-black text-white leading-tight mb-4"
           itemProp="headline"
         >
           {post.title}
@@ -209,7 +209,7 @@ export default function BlogPost() {
             <img src="/profile.png" alt="Aizaz Ali Afridi" className="w-full h-full object-cover object-top" />
           </div>
           <div>
-            <p className="text-sm font-bold text-primary" itemProp="name">Aizaz Ali Afridi</p>
+            <p className="text-sm font-bold text-white" itemProp="name">Aizaz Ali Afridi</p>
             <p className="text-xs text-gray-400">WordPress · Shopify · React Developer</p>
           </div>
         </motion.div>
@@ -223,7 +223,7 @@ export default function BlogPost() {
             className="mb-8 p-4 rounded-2xl border-2 border-accent/20 bg-accent/5 flex flex-col sm:flex-row items-start sm:items-center gap-3"
           >
             <div className="flex-1">
-              <p className="text-sm font-bold text-primary">Free Resource</p>
+              <p className="text-sm font-bold text-white">Free Resource</p>
               <p className="text-xs text-gray-500 mt-0.5">{post.download.label}</p>
             </div>
             <a
@@ -250,7 +250,7 @@ export default function BlogPost() {
         {/* Download CTA (bottom) */}
         {post.download && (
           <div className="mt-10 p-5 rounded-2xl border border-accent/20 bg-accent/5 text-center">
-            <p className="text-sm font-bold text-primary mb-1">Get the free resource</p>
+            <p className="text-sm font-bold text-white mb-1">Get the free resource</p>
             <p className="text-xs text-gray-500 mb-3">{post.download.label}</p>
             <a
               href={post.download.url}

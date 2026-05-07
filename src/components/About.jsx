@@ -1,12 +1,8 @@
 import { useEffect, useRef } from 'react';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { motion } from 'framer-motion';
 import { FiCode, FiLayers, FiMonitor, FiSmartphone } from 'react-icons/fi';
 import { FaWordpress, FaShopify, FaReact, FaJs } from 'react-icons/fa';
 import { SiFigma, SiTailwindcss } from 'react-icons/si';
-
-gsap.registerPlugin(ScrollTrigger);
 
 const skills = [
   { name: 'WordPress / WooCommerce', pct: 95 },
@@ -42,53 +38,51 @@ const D = {
 };
 
 export default function About() {
-  const sectionRef   = useRef(null);
-  const headRef      = useRef(null);
-  const textRef      = useRef(null);
-  const skillsRef    = useRef(null);
-  const cardsRef     = useRef(null);
-  const imageWrapRef = useRef(null);
-  const glowRef      = useRef(null);
+  const skillsRef = useRef(null);
 
   useEffect(() => {
-    const ctx = gsap.context(() => {
-      gsap.fromTo(imageWrapRef.current,
-        { y: '-65vh', x: '8vw', scale: 0.32, opacity: 0, rotateZ: 8 },
-        { y: 0, x: 0, scale: 1, opacity: 1, rotateZ: 0, ease: 'power3.out',
-          scrollTrigger: { trigger: sectionRef.current, start: 'top 90%', end: 'top 15%', scrub: 2 } }
-      );
-      gsap.fromTo(glowRef.current, { scale: 0, opacity: 0 },
-        { scale: 1, opacity: 1, ease: 'power2.out',
-          scrollTrigger: { trigger: sectionRef.current, start: 'top 60%', end: 'top 20%', scrub: 1 } }
-      );
-      gsap.from(headRef.current, { scrollTrigger: { trigger: headRef.current, start: 'top 85%' }, y: 60, opacity: 0, duration: 0.9, ease: 'power4.out' });
-      gsap.from(textRef.current, { scrollTrigger: { trigger: textRef.current, start: 'top 85%' }, x: -50, opacity: 0, duration: 0.9, ease: 'power3.out' });
-      skillsRef.current?.querySelectorAll('.skill-fill').forEach((bar, i) => {
-        gsap.to(bar, { scrollTrigger: { trigger: bar, start: 'top 90%' }, scaleX: 1, duration: 1.2, delay: i * 0.12, ease: 'power3.out' });
-      });
-      gsap.from(cardsRef.current?.querySelectorAll('.h-card'), {
-        scrollTrigger: { trigger: cardsRef.current, start: 'top 85%' }, y: 40, opacity: 0, duration: 0.7, ease: 'power3.out', stagger: 0.12,
-      });
-    }, sectionRef);
-    return () => ctx.revert();
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.style.transform = 'scaleX(1)';
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.3 }
+    );
+    skillsRef.current?.querySelectorAll('.skill-fill').forEach((bar) => observer.observe(bar));
+    return () => observer.disconnect();
   }, []);
 
   return (
-    <section id="about" ref={sectionRef} className="py-24 overflow-hidden" style={{ background: '#0a0a0a' }}>
+    <section id="about" className="py-24 overflow-hidden" style={{ background: '#0a0a0a' }}>
       <div className="max-w-6xl mx-auto px-6">
 
-        <div ref={headRef} className="text-center mb-16">
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.7 }}
+          className="text-center mb-16"
+        >
           <p className="text-accent text-sm font-semibold tracking-widest uppercase mb-3">Who I Am</p>
           <h2 className="text-4xl md:text-5xl font-display font-black text-white">
             About <span className="gradient-text">Me</span>
           </h2>
           <div className="mt-4 mx-auto section-line animate" />
-        </div>
+        </motion.div>
 
         <div className="grid lg:grid-cols-[1fr_1fr_300px] gap-6 lg:gap-10 lg:items-end">
 
           {/* Col 1: Bio + skills */}
-          <div ref={textRef}>
+          <motion.div
+            initial={{ opacity: 0, x: -40 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7 }}
+          >
             <div className="mb-8">
               <h3 className="text-xl font-bold text-white">Aizaz Ali Afridi</h3>
               <p className="text-accent text-sm font-medium">Freelance Developer &amp; Designer</p>
@@ -141,11 +135,11 @@ export default function About() {
                 </div>
               </div>
             </div>
-          </div>
+          </motion.div>
 
           {/* Col 2: Highlight cards + experience */}
           <div>
-            <div ref={cardsRef} className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-2 gap-4">
               {highlights.map(({ icon: Icon, title, desc }) => (
                 <div key={title}
                   className="h-card group rounded-2xl p-5 border transition-all duration-300 cursor-default"
@@ -192,8 +186,14 @@ export default function About() {
           </div>
 
           {/* Col 3: Image + floating icons */}
-          <div ref={imageWrapRef} className="relative hidden lg:block">
-            <div ref={glowRef} className="absolute bottom-0 left-1/2 -translate-x-1/2 pointer-events-none rounded-full" style={{
+          <motion.div
+            initial={{ opacity: 0, x: 40 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+            className="relative hidden lg:block"
+          >
+            <div className="absolute bottom-0 left-1/2 -translate-x-1/2 pointer-events-none rounded-full" style={{
               width: 340, height: 340,
               background: 'radial-gradient(circle, rgba(124,178,110,0.25) 0%, rgba(163,200,154,0.10) 45%, transparent 70%)',
               filter: 'blur(36px)', zIndex: 0,
@@ -234,7 +234,7 @@ export default function About() {
               <p className="gradient-text text-xl font-black leading-none">50+</p>
               <p className="text-[10px] mt-0.5" style={{ color: 'rgba(255,255,255,0.45)' }}>Projects Done</p>
             </motion.div>
-          </div>
+          </motion.div>
         </div>
       </div>
     </section>

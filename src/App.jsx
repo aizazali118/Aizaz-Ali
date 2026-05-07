@@ -4,20 +4,20 @@ import { HelmetProvider } from 'react-helmet-async';
 import { AuthProvider } from './context/AuthContext';
 
 import Preloader   from './components/Preloader';
-import Cursor      from './components/Cursor';
 import ProgressBar from './components/ProgressBar';
-import ParallaxBg  from './components/ParallaxBg';
 import Navbar      from './components/Navbar';
 import Footer      from './components/Footer';
 
 /* ── Homepage section components (eager — used on first load) ── */
-import Hero      from './components/Hero';
-import About     from './components/About';
-import Services  from './components/Services';
-import Pricing   from './components/Pricing';
-import Portfolio from './components/Portfolio';
-import Contact   from './components/Contact';
-import Blog      from './components/Blog';
+import Hero         from './components/Hero';
+import StatsBar     from './components/StatsBar';
+import About        from './components/About';
+import Services     from './components/Services';
+import Experience   from './components/Experience';
+import Portfolio    from './components/Portfolio';
+import Testimonials from './components/Testimonials';
+import Contact      from './components/Contact';
+import Blog         from './components/Blog';
 
 /* ── Proper pages (code-split) ── */
 const AboutPage     = lazy(() => import('./pages/AboutPage'));
@@ -29,6 +29,7 @@ const BlogPostPage  = lazy(() => import('./pages/BlogPostPage'));
 
 /* ── 404 page ── */
 const NotFoundPage = lazy(() => import('./pages/NotFoundPage'));
+const CvPage       = lazy(() => import('./pages/CvPage'));
 
 /* ── Admin panel (code-split) ── */
 const AdminLogin        = lazy(() => import('./pages/admin/AdminLogin'));
@@ -69,9 +70,7 @@ function AppRoutes() {
       {loaded && (
         <>
           {/* Decorative layers — public site only, never on admin */}
-          {!isAdmin && <Cursor />}
           {!isAdmin && <ProgressBar />}
-          {!isAdmin && <ParallaxBg />}
 
           <Suspense fallback={<Spinner />}>
             <Routes>
@@ -81,10 +80,12 @@ function AppRoutes() {
                   <Navbar />
                   <main className="relative z-10">
                     <Hero />
+                    <StatsBar />
                     <About />
                     <Services />
-                    <Pricing />
+                    <Experience />
                     <Portfolio />
+                    <Testimonials />
                     <Blog />
                     <Contact />
                   </main>
@@ -135,6 +136,9 @@ function AppRoutes() {
               <Route path="/admin/testimonials" element={
                 <AdminLayout><AdminTestimonials /></AdminLayout>
               } />
+
+              {/* ══════════ CV PAGE ══════════ */}
+              <Route path="/cv" element={<CvPage />} />
 
               {/* ══════════ 404 CATCH-ALL ══════════ */}
               <Route path="*" element={<NotFoundPage />} />
