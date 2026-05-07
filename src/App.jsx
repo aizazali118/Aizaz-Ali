@@ -43,6 +43,7 @@ const AdminPortfolio         = lazy(() => import('./pages/admin/AdminPortfolio')
 const AdminPortfolioEditor   = lazy(() => import('./pages/admin/AdminPortfolioEditor'));
 const AdminServices     = lazy(() => import('./pages/admin/AdminServices'));
 const AdminTestimonials = lazy(() => import('./pages/admin/AdminTestimonials'));
+const AdminSettings     = lazy(() => import('./pages/admin/AdminSettings'));
 
 function Spinner() {
   return (
@@ -147,6 +148,9 @@ function AppRoutes() {
               } />
               <Route path="/admin/testimonials" element={
                 <AdminLayout><AdminTestimonials /></AdminLayout>
+              } />
+              <Route path="/admin/settings" element={
+                <AdminLayout><AdminSettings /></AdminLayout>
               } />
 
               {/* ══════════ CV PAGE ══════════ */}

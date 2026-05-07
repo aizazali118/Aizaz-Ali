@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { portfolioApi, uploadsApi } from '../../lib/api';
 import { FiArrowLeft, FiUpload, FiX, FiExternalLink } from 'react-icons/fi';
+import AdminSelect from './AdminSelect';
 
 const API_BASE = import.meta.env.VITE_API_URL?.replace('/api', '') || '';
 
@@ -222,19 +223,19 @@ export default function AdminPortfolioEditor() {
           <div className="grid grid-cols-2 gap-4">
             <div>
               <label className="block text-xs font-semibold mb-1.5" style={{ color: D.label }}>Category</label>
-              <select style={{ ...inputBase, cursor: 'pointer' }} value={form.category}
-                onChange={e => set('category', e.target.value)}
-              >
-                {CATS.map(c => <option key={c} value={c}>{c}</option>)}
-              </select>
+              <AdminSelect
+                value={form.category}
+                onChange={v => set('category', v)}
+                options={CATS}
+              />
             </div>
             <div>
               <label className="block text-xs font-semibold mb-1.5" style={{ color: D.label }}>Status</label>
-              <select style={{ ...inputBase, cursor: 'pointer' }} value={form.status}
-                onChange={e => set('status', e.target.value)}
-              >
-                {STATUSES.map(s => <option key={s.value} value={s.value}>{s.label}</option>)}
-              </select>
+              <AdminSelect
+                value={form.status}
+                onChange={v => set('status', v)}
+                options={STATUSES}
+              />
             </div>
           </div>
 

@@ -5,25 +5,20 @@ import { FiX } from 'react-icons/fi';
 import { SiFiverr, SiUpwork } from 'react-icons/si';
 import { FaWhatsapp, FaLinkedinIn } from 'react-icons/fa';
 import Logo from './Logo';
-import { useLang } from '../context/LanguageContext';
 
-const links = {
-  en: [
-    { label: 'Home',      ar: 'الرئيسية',  to: '/',          num: '01' },
-    { label: 'About',     ar: 'عني',        to: '/about',     num: '02' },
-    { label: 'Services',  ar: 'خدماتي',    to: '/services',  num: '03' },
-    { label: 'Portfolio', ar: 'أعمالي',    to: '/portfolio', num: '04' },
-    { label: 'Blog',      ar: 'المدونة',   to: '/blog',      num: '05' },
-    { label: 'Contact',   ar: 'تواصل',     to: '/contact',   num: '06' },
-  ],
-};
+const links = [
+  { label: 'Home',      to: '/',          num: '01' },
+  { label: 'About',     to: '/about',     num: '02' },
+  { label: 'Services',  to: '/services',  num: '03' },
+  { label: 'Portfolio', to: '/portfolio', num: '04' },
+  { label: 'Blog',      to: '/blog',      num: '05' },
+  { label: 'Contact',   to: '/contact',   num: '06' },
+];
 
 export default function Navbar() {
   const [open,     setOpen]     = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const { lang, toggleLang }    = useLang();
   const location = useLocation();
-  const navLinks = links.en;
 
   useEffect(() => {
     document.body.style.overflow = open ? 'hidden' : '';
@@ -64,17 +59,20 @@ export default function Navbar() {
 
           {/* ── Desktop Links ── */}
           <ul className="hidden md:flex items-center gap-7 list-none">
-            {navLinks.map((l) => (
+            {links.map((l) => (
               <li key={l.to}>
                 <Link
                   to={l.to}
                   className={`relative text-sm font-semibold transition-colors duration-200 pb-1 ${
-                    isActive(l.to) ? 'text-accent' : 'text-gray-500 hover:text-gray-900'
+                    isActive(l.to)
+                      ? 'text-accent'
+                      : scrolled
+                        ? 'text-gray-500 hover:text-gray-900'
+                        : 'text-white/70 hover:text-white'
                   }`}
                   aria-current={isActive(l.to) ? 'page' : undefined}
-                  dir={lang === 'ar' ? 'rtl' : 'ltr'}
                 >
-                  {lang === 'ar' ? l.ar : l.label}
+                  {l.label}
                   {isActive(l.to) && (
                     <motion.span
                       layoutId="nav-underline"
@@ -89,21 +87,11 @@ export default function Navbar() {
 
           {/* ── Desktop CTA + Mobile Hamburger ── */}
           <div className="flex items-center gap-3">
-            {/* Arabic / English toggle */}
-            <button
-              onClick={() => toggleLang()}
-              className="hidden md:inline-flex items-center gap-1 px-3 py-1.5 rounded-full text-xs font-bold border transition-all duration-200 hover:scale-105"
-              style={{ borderColor: 'rgba(124,178,110,0.4)', color: '#7cb26e', background: 'rgba(124,178,110,0.06)' }}
-              title={lang === 'en' ? 'Switch to Arabic' : 'Switch to English'}
-            >
-              {lang === 'en' ? 'عربي' : 'EN'}
-            </button>
-
             <Link
               to="/contact"
               className="hidden md:inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-accent text-white text-sm font-bold shadow-lg shadow-accent/30 hover:bg-accent/90 hover:scale-105 active:scale-95 transition-all duration-200"
             >
-              {lang === 'ar' ? 'وظّفني' : 'Hire Me'}
+              Hire Me
             </Link>
 
             <button
@@ -164,7 +152,7 @@ export default function Navbar() {
               </div>
 
               <nav className="relative flex-1 flex flex-col justify-center px-8 gap-1" aria-label="Mobile navigation">
-                {navLinks.map((l, i) => (
+                {links.map((l, i) => (
                   <motion.div
                     key={l.to}
                     initial={{ x: 60, opacity: 0 }}
@@ -190,7 +178,7 @@ export default function Navbar() {
                           backgroundClip: 'text',
                         } : {}}
                       >
-                        {lang === 'ar' ? l.ar : l.label}
+                        {l.label}
                       </span>
                       <span className="ml-auto text-accent/0 group-hover:text-accent/80 transition-colors text-xl">→</span>
                     </Link>
@@ -205,42 +193,31 @@ export default function Navbar() {
                 transition={{ delay: 0.38, duration: 0.4 }}
                 className="relative px-8 py-8 border-t border-white/10"
               >
-                <div className="flex items-center justify-between mb-4">
-                  <button
-                    onClick={() => toggleLang()}
-                    className="flex items-center gap-1.5 text-xs font-bold px-3 py-1.5 rounded-full border transition-colors"
-                    style={{ borderColor: 'rgba(124,178,110,0.4)', color: '#7cb26e', background: 'rgba(124,178,110,0.08)' }}
-                  >
-                    {lang === 'en' ? '🌐 عربي' : '🌐 EN'}
-                  </button>
-                </div>
                 <Link
                   to="/contact"
                   onClick={() => setOpen(false)}
                   className="block w-full py-4 rounded-2xl text-white font-bold text-base text-center shadow-xl mb-6 transition-all active:scale-95"
                   style={{ background: 'linear-gradient(135deg, #5a9a4a, #7cb26e)' }}
                 >
-                  {lang === 'ar' ? 'وظّفني ←' : 'Hire Me →'}
+                  Hire Me →
                 </Link>
 
                 <div className="flex items-center justify-between">
                   <p className="text-xs text-white/30 font-medium uppercase tracking-widest">Find me on</p>
                   <div className="flex gap-3">
                     {[
-                      { Icon: SiFiverr,   href: 'https://www.fiverr.com/s/gD71ldb',                        bg: '#7cb26e', label: 'Fiverr'   },
-                      { Icon: SiUpwork,   href: 'https://www.upwork.com/freelancers/~01db2b03b5a7f36be8', bg: '#7cb26e', label: 'Upwork'   },
-                      { Icon: FaLinkedinIn, href: 'https://www.linkedin.com/in/aizaz-ali-afridi/',           bg: '#7cb26e', label: 'LinkedIn' },
-                      { Icon: FaWhatsapp, href: 'https://wa.me/923359574017',                              bg: '#7cb26e', label: 'WhatsApp' },
-                    ].map(({ Icon, href, bg, label }) => (
+                      { Icon: SiFiverr,     href: 'https://www.fiverr.com/s/gD71ldb',                        label: 'Fiverr'   },
+                      { Icon: SiUpwork,     href: 'https://www.upwork.com/freelancers/~01db2b03b5a7f36be8', label: 'Upwork'   },
+                      { Icon: FaLinkedinIn, href: 'https://www.linkedin.com/in/aizaz-ali-afridi/',           label: 'LinkedIn' },
+                      { Icon: FaWhatsapp,   href: 'https://wa.me/923359574017',                              label: 'WhatsApp' },
+                    ].map(({ Icon, href, label }) => (
                       <a
                         key={label}
                         href={href}
                         target="_blank"
                         rel="noopener noreferrer"
                         aria-label={label}
-                        className="w-9 h-9 rounded-full bg-white/10 flex items-center justify-center text-white/60 hover:text-white transition-all"
-                        onMouseEnter={e => { e.currentTarget.style.backgroundColor = bg; }}
-                        onMouseLeave={e => { e.currentTarget.style.backgroundColor = ''; }}
+                        className="w-9 h-9 rounded-full bg-white/10 flex items-center justify-center text-white/60 hover:bg-accent hover:text-white transition-all"
                       >
                         <Icon size={14} />
                       </a>

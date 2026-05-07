@@ -1,7 +1,30 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { portfolioApi } from '../../lib/api';
-import { FiPlus, FiEdit2, FiTrash2, FiExternalLink, FiStar, FiCheckCircle, FiClock } from 'react-icons/fi';
+import { FiPlus, FiEdit2, FiTrash2, FiExternalLink, FiStar, FiCheckCircle, FiClock, FiDownload } from 'react-icons/fi';
+
+const DEFAULT_PROJECTS = [
+  { title: 'Shangrila',             category: 'WordPress', description: 'Premium resort and hospitality website with elegant design and booking features.',        live_url: 'https://shangrila.pk',               tags: ['WordPress', 'Elementor', 'Booking'],          status: 'completed', featured: true  },
+  { title: 'The Velvet Kitchen',    category: 'WordPress', description: 'WooCommerce store for a premium food and catering brand.',                              live_url: 'https://thevelvetkitchen.com',        tags: ['WordPress', 'WooCommerce', 'Custom Theme'],   status: 'completed', featured: false },
+  { title: 'Soulease Physiotherapy',category: 'WordPress', description: 'Professional physiotherapy clinic website with appointment booking system.',            live_url: 'https://souleasephysiotherapy.com',   tags: ['WordPress', 'Elementor', 'Booking'],          status: 'completed', featured: false },
+  { title: 'Footsoul Clinic',       category: 'WordPress', description: 'UK-based podiatry clinic website with service showcase and online booking.',           live_url: 'https://footsoulclinic.co.uk',        tags: ['WordPress', 'Elementor', 'UK'],               status: 'completed', featured: false },
+  { title: 'Dara Scents',           category: 'WordPress', description: 'WooCommerce fragrance store with custom product pages and checkout flow.',             live_url: 'https://darascents.com',              tags: ['WordPress', 'WooCommerce', 'Custom Design'],  status: 'completed', featured: false },
+  { title: 'Hexa IT Solutions',     category: 'WordPress', description: 'Full corporate website for an IT solutions and software development firm.',            live_url: 'https://hexaitsolutions.com',         tags: ['WordPress', 'Custom Theme', 'ACF'],           status: 'completed', featured: false },
+  { title: 'Oryx Nest',             category: 'WordPress', description: 'Professional company website with modern design and service showcase.',                live_url: 'https://oryxnest.com',                tags: ['WordPress', 'Custom Theme', 'Real Estate'],   status: 'completed', featured: false },
+  { title: 'Vision Tact',           category: 'WordPress', description: 'Corporate website for a digital marketing and web development agency.',                live_url: 'https://visiontact.com',              tags: ['WordPress', 'Elementor', 'SEO'],              status: 'completed', featured: true  },
+  { title: 'Galaxine Digital',      category: 'WordPress', description: 'Digital agency website with modern animations and service portfolio.',                 live_url: 'https://galaxinedigital.com',         tags: ['WordPress', 'Elementor', 'Agency'],           status: 'completed', featured: false },
+  { title: 'TK Saudi Arabia',       category: 'WordPress', description: 'Saudi Arabian corporate website with bilingual Arabic/English support.',               live_url: 'https://tk.sa',                       tags: ['WordPress', 'RTL', 'Bilingual'],              status: 'completed', featured: false },
+  { title: 'Hassan Mehmood',        category: 'WordPress', description: 'Elegant portfolio website for a professional UI/UX designer.',                        live_url: 'https://hassan-mehmood.com',          tags: ['WordPress', 'Custom Theme', 'Portfolio'],     status: 'completed', featured: false },
+  { title: 'My Muslim Mentors',     category: 'WordPress', description: 'Islamic mentorship platform with course management and community features.',           live_url: 'https://mymuslimmentors.com',         tags: ['WordPress', 'LMS', 'Community'],              status: 'completed', featured: false },
+  { title: 'Melaina KSA',           category: 'WordPress', description: 'Saudi Arabian beauty and lifestyle brand website with bilingual content.',             live_url: 'https://melaina-ksa.com',             tags: ['WordPress', 'Elementor', 'RTL'],              status: 'completed', featured: false },
+  { title: 'Puravibra UAE',         category: 'WordPress', description: 'Dubai-based event management and entertainment website with booking integration.',     live_url: 'https://puravibrauae.com',            tags: ['WordPress', 'Elementor', 'Events'],           status: 'completed', featured: false },
+  { title: 'OTO Fulfilment',        category: 'WordPress', description: 'E-commerce fulfilment company website with logistics service showcase.',              live_url: 'https://otofulfilment.com',           tags: ['WordPress', 'Custom Theme', 'Logistics'],     status: 'completed', featured: false },
+  { title: 'Moallim AI',            category: 'React',     description: 'AI-powered Islamic education platform built with React and modern web technologies.',  live_url: 'https://moallim.ai',                  tags: ['React', 'AI', 'EdTech'],                      status: 'completed', featured: true  },
+  { title: 'Aoraki Telecom',        category: 'React',     description: 'Modern ReactJS company website for a telecommunications provider.',                    live_url: 'https://aorakitelecom.com',           tags: ['React', 'Tailwind CSS', 'Responsive'],        status: 'completed', featured: false },
+  { title: 'Nabqa',                 category: 'Shopify',   description: 'Full-featured Shopify store with custom design and conversion optimisation.',          live_url: 'https://nabqa.com',                   tags: ['Shopify', 'Liquid', 'App Integration'],       status: 'completed', featured: false },
+  { title: 'Montiero',              category: 'Shopify',   description: 'Fashion e-commerce Shopify store with fully custom theme development.',                live_url: 'https://montiero.pk',                 tags: ['Shopify', 'Liquid', 'Custom Theme'],          status: 'completed', featured: false },
+  { title: 'Al Jamilah Hair',       category: 'Shopify',   description: 'Premium hair care e-commerce store on Shopify with bespoke design.',                  live_url: 'https://aljamilahhair.com',            tags: ['Shopify', 'Liquid', 'Beauty'],                status: 'completed', featured: false },
+];
 
 const D = {
   card: 'rgba(255,255,255,0.04)',
@@ -13,9 +36,11 @@ const D = {
 const API_BASE = import.meta.env.VITE_API_URL?.replace('/api', '') || '';
 
 export default function AdminPortfolio() {
-  const [items,   setItems]   = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [filter,  setFilter]  = useState('all');
+  const [items,    setItems]    = useState([]);
+  const [loading,  setLoading]  = useState(true);
+  const [filter,   setFilter]   = useState('all');
+  const [seeding,  setSeeding]  = useState(false);
+  const [seedDone, setSeedDone] = useState('');
 
   const load = () => {
     setLoading(true);
@@ -32,6 +57,19 @@ export default function AdminPortfolio() {
     load();
   };
 
+  const seedDefaults = async () => {
+    if (!window.confirm(`This will import ${DEFAULT_PROJECTS.length} default projects into your database. Continue?`)) return;
+    setSeeding(true);
+    setSeedDone('');
+    let created = 0;
+    for (const p of DEFAULT_PROJECTS) {
+      try { await portfolioApi.create(p); created++; } catch {}
+    }
+    setSeedDone(`✓ Imported ${created} projects`);
+    setSeeding(false);
+    load();
+  };
+
   const filtered = filter === 'all' ? items : items.filter(i => i.category === filter);
   const cats = ['all', ...Array.from(new Set(items.map(i => i.category)))];
 
@@ -42,12 +80,25 @@ export default function AdminPortfolio() {
           <h1 className="text-2xl font-display font-black text-white">Portfolio</h1>
           <p className="text-sm mt-0.5" style={{ color: D.muted }}>{items.length} projects</p>
         </div>
-        <Link
-          to="/admin/portfolio/new"
-          className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-accent text-white text-sm font-bold shadow-lg shadow-accent/25 hover:bg-accent/90 transition-all"
-        >
-          <FiPlus size={16} /> Add Project
-        </Link>
+        <div className="flex items-center gap-2 flex-wrap">
+          {items.length === 0 && (
+            <button
+              onClick={seedDefaults}
+              disabled={seeding}
+              className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-bold border transition-all disabled:opacity-60"
+              style={{ color: '#7cb26e', background: 'rgba(124,178,110,0.08)', borderColor: 'rgba(124,178,110,0.3)' }}
+            >
+              <FiDownload size={15} /> {seeding ? 'Importing…' : 'Import Default Projects'}
+            </button>
+          )}
+          {seedDone && <span className="text-xs font-semibold" style={{ color: '#7cb26e' }}>{seedDone}</span>}
+          <Link
+            to="/admin/portfolio/new"
+            className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-accent text-white text-sm font-bold shadow-lg shadow-accent/25 hover:bg-accent/90 transition-all"
+          >
+            <FiPlus size={16} /> Add Project
+          </Link>
+        </div>
       </div>
 
       {/* Category filter */}

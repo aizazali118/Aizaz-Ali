@@ -3,12 +3,13 @@ import { useAuth } from '../../context/AuthContext';
 import Logo from '../../components/Logo';
 import {
   FiHome, FiFileText, FiPlusCircle, FiLogOut, FiMenu, FiExternalLink,
-  FiGrid, FiLayers, FiStar,
+  FiGrid, FiLayers, FiStar, FiSettings,
 } from 'react-icons/fi';
 import { useState } from 'react';
 
 const nav = [
   { to: '/admin/dashboard',    Icon: FiHome,       label: 'Dashboard',    group: 'main'    },
+  { to: '/admin/settings',     Icon: FiSettings,   label: 'Settings',     group: 'main'    },
   { to: '/admin/posts',        Icon: FiFileText,   label: 'Blog Posts',   group: 'content' },
   { to: '/admin/posts/new',    Icon: FiPlusCircle, label: 'New Post',     group: 'content' },
   { to: '/admin/portfolio',    Icon: FiGrid,       label: 'Portfolio',    group: 'content' },

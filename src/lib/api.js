@@ -22,6 +22,8 @@ export const authApi = {
   login: (email, password) =>
     request('/auth/login', { method: 'POST', body: JSON.stringify({ email, password }) }),
   me: () => request('/auth/me'),
+  changePassword: (current_password, new_password) =>
+    request('/auth/password', { method: 'PUT', body: JSON.stringify({ current_password, new_password }) }),
 };
 
 /* ── Public posts ── */

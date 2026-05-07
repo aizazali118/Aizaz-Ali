@@ -27,7 +27,7 @@ export default function AboutPage() {
         </nav>
       </section>
 
-      <About showHeading={false} />
+      <About showHeading={false} showImage={true} />
 
       {/* CTA */}
       <section className="py-16 bg-[#0a0a0a] text-center px-6">

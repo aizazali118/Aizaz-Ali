@@ -5,6 +5,17 @@ import {
   FiSave, FiArrowLeft, FiUpload, FiTrash2, FiDownload,
   FiEye, FiImage, FiBold, FiItalic, FiList, FiCode,
 } from 'react-icons/fi';
+import AdminSelect from './AdminSelect';
+
+const POST_STATUS_OPTIONS = [
+  { value: 'draft',     label: 'Draft' },
+  { value: 'published', label: 'Published' },
+];
+
+const VISIBILITY_OPTIONS = [
+  { value: 'draft',     label: 'Draft (not visible)' },
+  { value: 'published', label: 'Published (live)' },
+];
 
 const API_BASE = import.meta.env.VITE_API_URL?.replace('/api', '') || 'http://localhost:5000';
 
@@ -231,15 +242,12 @@ export default function AdminPostEditor() {
           </div>
         </div>
         <div className="flex gap-3">
-          <select
+          <AdminSelect
             value={form.status}
-            onChange={set('status')}
-            style={{ background: 'rgba(255,255,255,0.07)', border: '1px solid rgba(255,255,255,0.12)', color: '#e8e8e8' }}
-            className="px-3 py-2.5 rounded-xl text-sm font-semibold focus:outline-none transition"
-          >
-            <option value="draft">Draft</option>
-            <option value="published">Published</option>
-          </select>
+            onChange={v => set('status')({ target: { value: v } })}
+            options={POST_STATUS_OPTIONS}
+            style={{ width: '140px' }}
+          />
           <button
             type="submit"
             disabled={saving}
@@ -387,30 +395,24 @@ export default function AdminPostEditor() {
 
             <div>
               <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5">Category</label>
-              <select
-                value={form.category_id}
-                onChange={set('category_id')}
-                style={{ background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.1)', color: '#e8e8e8' }}
-                className="w-full px-3 py-2.5 rounded-xl text-sm focus:outline-none transition"
-              >
-                <option value="">— Select category —</option>
-                {categories.map(cat => (
-                  <option key={cat.id} value={cat.id}>{cat.name}</option>
-                ))}
-              </select>
+              <AdminSelect
+                value={String(form.category_id)}
+                onChange={v => setForm(f => ({ ...f, category_id: v }))}
+                options={[
+                  { value: '', label: '— Select category —' },
+                  ...categories.map(cat => ({ value: String(cat.id), label: cat.name })),
+                ]}
+                placeholder="— Select category —"
+              />
             </div>
 
             <div>
               <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5">Visibility</label>
-              <select
+              <AdminSelect
                 value={form.status}
-                onChange={set('status')}
-                style={{ background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.1)', color: '#e8e8e8' }}
-                className="w-full px-3 py-2.5 rounded-xl text-sm focus:outline-none transition"
-              >
-                <option value="draft">Draft (not visible)</option>
-                <option value="published">Published (live)</option>
-              </select>
+                onChange={v => setForm(f => ({ ...f, status: v }))}
+                options={VISIBILITY_OPTIONS}
+              />
             </div>
           </div>
 

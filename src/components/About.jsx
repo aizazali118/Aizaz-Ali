@@ -15,7 +15,7 @@ const D = {
   muted:  'rgba(255,255,255,0.35)',
 };
 
-export default function About({ showHeading = true }) {
+export default function About({ showHeading = true, showImage = false }) {
   return (
     <section id="about" className="py-24 overflow-hidden" style={{ background: '#0a0a0a' }}>
       <div className="max-w-6xl mx-auto px-6">
@@ -36,7 +36,31 @@ export default function About({ showHeading = true }) {
           </motion.div>
         )}
 
-        <div className="grid lg:grid-cols-[1fr_1fr_260px] gap-10 lg:items-center">
+        {/* Mobile image — only on About page */}
+        {showImage && (
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+            className="flex lg:hidden justify-center mb-8"
+          >
+            <div className="relative">
+              <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-56 h-56 rounded-full pointer-events-none"
+                style={{ background: 'radial-gradient(circle, rgba(124,178,110,0.22) 0%, transparent 70%)', filter: 'blur(32px)' }} />
+              <div className="relative z-10 w-44 h-56 overflow-hidden rounded-2xl">
+                <img
+                  src="/about-us.png"
+                  alt="Aizaz Ali Afridi"
+                  className="w-full h-auto select-none"
+                  style={{ objectFit: 'cover', objectPosition: 'top center' }}
+                />
+              </div>
+            </div>
+          </motion.div>
+        )}
+
+        <div className={`grid gap-10 lg:items-center ${showImage ? 'lg:grid-cols-[1fr_1fr_260px]' : 'lg:grid-cols-2'}`}>
 
           {/* Col 1: Bio + stats */}
           <motion.div
@@ -93,27 +117,35 @@ export default function About({ showHeading = true }) {
             </div>
           </motion.div>
 
-          {/* Col 3: Profile image */}
-          <motion.div
-            initial={{ opacity: 0, x: 40 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
-            className="hidden lg:flex justify-center items-end"
-          >
-            <div className="relative">
-              <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-64 h-64 rounded-full pointer-events-none"
-                style={{ background: 'radial-gradient(circle, rgba(124,178,110,0.22) 0%, transparent 70%)', filter: 'blur(32px)' }} />
-              <motion.img
-                src="/about-us.png"
-                alt="Aizaz Ali Afridi"
-                className="relative z-10 w-full max-w-[240px] select-none"
-                style={{ filter: 'drop-shadow(0 16px 40px rgba(124,178,110,0.28))' }}
-                whileHover={{ scale: 1.04 }}
-                transition={{ type: 'spring', stiffness: 180, damping: 20 }}
-              />
-            </div>
-          </motion.div>
+          {/* Col 3: Profile image — desktop, About page only */}
+          {showImage && (
+            <motion.div
+              initial={{ opacity: 0, x: 40 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
+              className="hidden lg:flex justify-center items-end"
+            >
+              <div className="relative">
+                <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-64 h-64 rounded-full pointer-events-none"
+                  style={{ background: 'radial-gradient(circle, rgba(124,178,110,0.22) 0%, transparent 70%)', filter: 'blur(32px)' }} />
+                <div className="relative z-10 w-[240px] h-[320px] overflow-hidden rounded-3xl">
+                  <motion.img
+                    src="/about-us.png"
+                    alt="Aizaz Ali Afridi"
+                    className="w-full h-auto select-none"
+                    style={{
+                      objectFit: 'cover',
+                      objectPosition: 'top center',
+                      filter: 'drop-shadow(0 16px 40px rgba(124,178,110,0.28))',
+                    }}
+                    whileHover={{ scale: 1.04 }}
+                    transition={{ type: 'spring', stiffness: 180, damping: 20 }}
+                  />
+                </div>
+              </div>
+            </motion.div>
+          )}
 
         </div>
       </div>

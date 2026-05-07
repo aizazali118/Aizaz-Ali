@@ -1,13 +1,22 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { adminPostsApi } from '../../lib/api';
-import { FiEdit2, FiTrash2, FiPlusCircle, FiEye, FiEyeOff, FiSearch } from 'react-icons/fi';
+import { FiEdit2, FiTrash2, FiPlusCircle, FiEye, FiEyeOff, FiSearch, FiDownload } from 'react-icons/fi';
+
+const DEFAULT_POSTS = [
+  { title: 'How to Speed Up Your WordPress Site in 2025',             slug: 'how-to-speed-up-wordpress-site',            excerpt: 'A step-by-step guide covering caching, image optimisation, CDN setup and Core Web Vitals improvements that cut load times by 70%.', category: 'WordPress',   read_time: '8 min read',  status: 'published' },
+  { title: "Shopify CRO: 12 Tweaks That Boosted My Client's Sales",   slug: 'shopify-conversion-rate-optimization',      excerpt: 'Real case study covering product page layout, trust signals, upsells and checkout flow optimisation for a UK health store.',          category: 'Shopify',     read_time: '10 min read', status: 'published' },
+  { title: 'React Performance Tips Every Freelancer Should Know',      slug: 'react-performance-tips',                    excerpt: 'Memoisation, code splitting, lazy loading, and virtual scrolling techniques that keep your React apps lightning fast.',              category: 'React',       read_time: '7 min read',  status: 'published' },
+  { title: 'My 2025 Freelance Web Dev Toolkit — Tools I Use Every Day',slug: 'freelance-web-dev-toolkit',                excerpt: 'From project management to design handoffs, here are the exact tools and workflows I use to deliver projects on time and budget.',   category: 'Freelancing', read_time: '6 min read',  status: 'published' },
+];
 
 export default function AdminPosts() {
-  const [posts,   setPosts]   = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [search,  setSearch]  = useState('');
+  const [posts,    setPosts]    = useState([]);
+  const [loading,  setLoading]  = useState(true);
+  const [search,   setSearch]   = useState('');
   const [deleting, setDeleting] = useState(null);
+  const [seeding,  setSeeding]  = useState(false);
+  const [seedDone, setSeedDone] = useState('');
 
   const load = () => {
     setLoading(true);
@@ -18,6 +27,19 @@ export default function AdminPosts() {
   };
 
   useEffect(load, []);
+
+  const seedDefaults = async () => {
+    if (!window.confirm(`Import ${DEFAULT_POSTS.length} default blog posts? Continue?`)) return;
+    setSeeding(true);
+    setSeedDone('');
+    let created = 0;
+    for (const p of DEFAULT_POSTS) {
+      try { await adminPostsApi.create(p); created++; } catch {}
+    }
+    setSeedDone(`✓ Imported ${created} posts`);
+    setSeeding(false);
+    load();
+  };
 
   const handleDelete = async (post) => {
     if (!window.confirm(`Delete "${post.title}"? This cannot be undone.`)) return;
@@ -43,12 +65,25 @@ export default function AdminPosts() {
           <h1 className="text-2xl font-display font-black text-white">All Posts</h1>
           <p className="text-gray-500 text-sm mt-1">{posts.length} total · {posts.filter(p=>p.status==='published').length} published</p>
         </div>
-        <Link
-          to="/admin/posts/new"
-          className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-accent text-white text-sm font-bold shadow-lg shadow-accent/25 hover:bg-accent/90 transition-all"
-        >
-          <FiPlusCircle size={16} /> New Post
-        </Link>
+        <div className="flex items-center gap-2 flex-wrap">
+          {posts.length === 0 && (
+            <button
+              onClick={seedDefaults}
+              disabled={seeding}
+              className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-bold border transition-all disabled:opacity-60"
+              style={{ color: '#7cb26e', background: 'rgba(124,178,110,0.08)', borderColor: 'rgba(124,178,110,0.3)' }}
+            >
+              <FiDownload size={15} /> {seeding ? 'Importing…' : 'Import Default Posts'}
+            </button>
+          )}
+          {seedDone && <span className="text-xs font-semibold" style={{ color: '#7cb26e' }}>{seedDone}</span>}
+          <Link
+            to="/admin/posts/new"
+            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-accent text-white text-sm font-bold shadow-lg shadow-accent/25 hover:bg-accent/90 transition-all"
+          >
+            <FiPlusCircle size={16} /> New Post
+          </Link>
+        </div>
       </div>
 
       {/* Search */}

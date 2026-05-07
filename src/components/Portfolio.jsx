@@ -100,7 +100,7 @@ function ProjectCard({ project }) {
           </span>
         </div>
         {project.description && (
-          <p className="text-xs leading-relaxed mb-4 flex-1" style={{ color: 'rgba(255,255,255,0.5)' }}>
+          <p className="text-xs leading-relaxed mb-4 line-clamp-2" style={{ color: 'rgba(255,255,255,0.5)' }}>
             {project.description}
           </p>
         )}

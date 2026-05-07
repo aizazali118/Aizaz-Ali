@@ -1,6 +1,13 @@
 import { useState, useEffect } from 'react';
 import { siteServicesApi } from '../../lib/api';
 import { FiPlus, FiEdit2, FiTrash2, FiX, FiToggleLeft, FiToggleRight } from 'react-icons/fi';
+import AdminSelect from './AdminSelect';
+
+const BADGE_OPTIONS = [
+  { value: '',             label: 'None'         },
+  { value: 'Most Popular', label: 'Most Popular' },
+  { value: 'New',          label: 'New'          },
+];
 
 const D = { card: 'rgba(255,255,255,0.04)', border: 'rgba(255,255,255,0.08)', input: 'rgba(255,255,255,0.06)', muted: 'rgba(255,255,255,0.4)', dim: 'rgba(255,255,255,0.25)' };
 const inputCls = { background: D.input, border: `1px solid ${D.border}`, color: '#fff', borderRadius: '0.75rem', padding: '0.7rem 1rem', width: '100%', fontSize: '0.875rem', outline: 'none' };
@@ -128,11 +135,12 @@ export default function AdminServices() {
                 </div>
                 <div>
                   <label className="block text-xs font-bold uppercase tracking-wider mb-1.5" style={{ color: D.muted }}>Badge</label>
-                  <select style={{ ...inputCls, cursor: 'pointer' }} value={form.badge} onChange={e => setForm(f => ({...f, badge: e.target.value}))}>
-                    <option value="">None</option>
-                    <option value="Most Popular">Most Popular</option>
-                    <option value="New">New</option>
-                  </select>
+                  <AdminSelect
+                    value={form.badge}
+                    onChange={v => setForm(f => ({ ...f, badge: v }))}
+                    options={BADGE_OPTIONS}
+                    placeholder="None"
+                  />
                 </div>
               </div>
               <div className="flex items-center gap-3">
