@@ -1,10 +1,6 @@
-import { useEffect, useRef, useState } from 'react';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FiExternalLink, FiArrowRight, FiShoppingCart, FiLayout, FiHome, FiBox, FiMonitor, FiCalendar, FiUser, FiStar, FiPackage, FiCode, FiWifi } from 'react-icons/fi';
-
-gsap.registerPlugin(ScrollTrigger);
 
 const categories = ['All', 'WordPress', 'Shopify', 'React'];
 
@@ -131,28 +127,23 @@ const projects = [
   },
 ];
 
-export default function Portfolio() {
-  const sectionRef = useRef(null);
-  const headRef    = useRef(null);
+export default function Portfolio({ showHeading = true }) {
   const [filter, setFilter] = useState('All');
 
   const filtered = filter === 'All' ? projects : projects.filter(p => p.cat === filter);
 
-  useEffect(() => {
-    const ctx = gsap.context(() => {
-      gsap.from(headRef.current, {
-        scrollTrigger: { trigger: headRef.current, start: 'top 85%' },
-        y: 50, opacity: 0, duration: 0.9, ease: 'power4.out',
-      });
-    }, sectionRef);
-    return () => ctx.revert();
-  }, []);
-
   return (
-    <section id="portfolio" ref={sectionRef} className="py-24 overflow-hidden" style={{ background: '#0a0a0a' }}>
+    <section id="portfolio" className="py-24 overflow-hidden" style={{ background: '#0a0a0a' }}>
       <div className="max-w-6xl mx-auto px-6">
         {/* Header */}
-        <div ref={headRef} className="text-center mb-12">
+        {showHeading && (
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.7 }}
+          className="text-center mb-12"
+        >
           <p className="text-accent text-sm font-semibold tracking-widest uppercase mb-3">Recent Work</p>
           <h2 className="text-4xl md:text-5xl font-display font-black text-white">
             My <span className="gradient-text">Portfolio</span>
@@ -161,7 +152,8 @@ export default function Portfolio() {
             A selection of projects I've built for clients across industries.
           </p>
           <div className="mt-4 mx-auto section-line animate" />
-        </div>
+        </motion.div>
+        )}
 
         {/* Filter tabs */}
         <div className="flex flex-wrap justify-center gap-3 mb-10">

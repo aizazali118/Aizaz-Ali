@@ -20,7 +20,7 @@ export default function PortfolioPage() {
         </nav>
       </div>
 
-      <Portfolio />
+      <Portfolio showHeading={false} />
 
       {/* CTA strip */}
       <section className="py-16 bg-[#0a0a0a] text-center px-6">

@@ -20,7 +20,7 @@ export default function AboutPage() {
       </div>
 
       {/* Reuse the existing About section (already has all content + animations) */}
-      <About />
+      <About showHeading={false} />
 
       {/* CTA strip */}
       <section className="py-16 bg-[#0a0a0a] text-center px-6">

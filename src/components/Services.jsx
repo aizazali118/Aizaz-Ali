@@ -180,28 +180,30 @@ function MobileServiceCard({ s }) {
   );
 }
 
-export default function Services() {
+export default function Services({ showHeading = true }) {
   const isTouch = typeof window !== 'undefined' && window.matchMedia('(pointer: coarse)').matches;
 
   return (
     <section id="services" className="py-24" style={{ background: '#0d0d0d' }}>
 
-      <motion.div
-        initial={{ opacity: 0, y: 40 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.8, ease: [0.33, 1, 0.68, 1] }}
-        className="text-center mb-14 px-6"
-      >
-        <p className="text-accent text-sm font-semibold tracking-widest uppercase mb-3">What I Offer</p>
-        <h2 className="text-4xl md:text-5xl font-display font-black text-white">
-          My <span className="gradient-text">Services</span>
-        </h2>
-        <p className="mt-3 text-sm max-w-sm mx-auto" style={{ color: 'rgba(255,255,255,0.4)' }}>
-          Full-stack digital solutions built to perform
-        </p>
-        <div className="mt-4 mx-auto section-line animate" />
-      </motion.div>
+      {showHeading && (
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, ease: [0.33, 1, 0.68, 1] }}
+          className="text-center mb-14 px-6"
+        >
+          <p className="text-accent text-sm font-semibold tracking-widest uppercase mb-3">What I Offer</p>
+          <h2 className="text-4xl md:text-5xl font-display font-black text-white">
+            My <span className="gradient-text">Services</span>
+          </h2>
+          <p className="mt-3 text-sm max-w-sm mx-auto" style={{ color: 'rgba(255,255,255,0.4)' }}>
+            Full-stack digital solutions built to perform
+          </p>
+          <div className="mt-4 mx-auto section-line animate" />
+        </motion.div>
+      )}
 
       {/* ══ MOBILE: accordion ══ */}
       {isTouch ? (

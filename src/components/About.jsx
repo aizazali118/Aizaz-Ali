@@ -37,7 +37,7 @@ const D = {
   muted:  'rgba(255,255,255,0.35)',
 };
 
-export default function About() {
+export default function About({ showHeading = true }) {
   const skillsRef = useRef(null);
 
   useEffect(() => {
@@ -60,19 +60,21 @@ export default function About() {
     <section id="about" className="py-24 overflow-hidden" style={{ background: '#0a0a0a' }}>
       <div className="max-w-6xl mx-auto px-6">
 
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.7 }}
-          className="text-center mb-16"
-        >
-          <p className="text-accent text-sm font-semibold tracking-widest uppercase mb-3">Who I Am</p>
-          <h2 className="text-4xl md:text-5xl font-display font-black text-white">
-            About <span className="gradient-text">Me</span>
-          </h2>
-          <div className="mt-4 mx-auto section-line animate" />
-        </motion.div>
+        {showHeading && (
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7 }}
+            className="text-center mb-16"
+          >
+            <p className="text-accent text-sm font-semibold tracking-widest uppercase mb-3">Who I Am</p>
+            <h2 className="text-4xl md:text-5xl font-display font-black text-white">
+              About <span className="gradient-text">Me</span>
+            </h2>
+            <div className="mt-4 mx-auto section-line animate" />
+          </motion.div>
+        )}
 
         <div className="grid lg:grid-cols-[1fr_1fr_300px] gap-6 lg:gap-10 lg:items-end">
 

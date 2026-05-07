@@ -30,7 +30,7 @@ const inputStyle = {
   color: '#ffffff', fontSize: '0.875rem', outline: 'none',
 };
 
-export default function Contact() {
+export default function Contact({ showHeading = true }) {
   const [form, setForm]       = useState({ name: '', email: '', subject: '', message: '' });
   const [sending, setSending] = useState(false);
   const [sent, setSent]       = useState(false);
@@ -55,22 +55,24 @@ export default function Contact() {
     <section id="contact" className="py-24 overflow-hidden" style={{ background: '#0d0d0d' }}>
       <div className="max-w-6xl mx-auto px-6">
 
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.7 }}
-          className="text-center mb-16"
-        >
-          <p className="text-accent text-sm font-semibold tracking-widest uppercase mb-3">Get In Touch</p>
-          <h2 className="text-4xl md:text-5xl font-display font-black text-white">
-            Let's <span className="gradient-text">Talk</span>
-          </h2>
-          <p className="mt-4 max-w-xl mx-auto" style={{ color: D.text }}>
-            Have a project in mind? I'd love to hear about it. Send me a message and I'll get back to you within 24 hours.
-          </p>
-          <div className="mt-4 mx-auto section-line animate" />
-        </motion.div>
+        {showHeading && (
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7 }}
+            className="text-center mb-16"
+          >
+            <p className="text-accent text-sm font-semibold tracking-widest uppercase mb-3">Get In Touch</p>
+            <h2 className="text-4xl md:text-5xl font-display font-black text-white">
+              Let's <span className="gradient-text">Talk</span>
+            </h2>
+            <p className="mt-4 max-w-xl mx-auto" style={{ color: D.text }}>
+              Have a project in mind? I'd love to hear about it. Send me a message and I'll get back to you within 24 hours.
+            </p>
+            <div className="mt-4 mx-auto section-line animate" />
+          </motion.div>
+        )}
 
         <div className="grid lg:grid-cols-5 gap-10">
           {/* Form */}

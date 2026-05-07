@@ -27,7 +27,7 @@ export default function ContactPage() {
         </nav>
       </div>
 
-      <Contact />
+      <Contact showHeading={false} />
     </PageWrapper>
   );
 }

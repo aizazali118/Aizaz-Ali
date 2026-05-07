@@ -122,7 +122,7 @@ export default function BlogPage() {
       <section className="pt-32 pb-12 text-center px-6" style={{ background: '#0a0a0a' }} aria-labelledby="blog-page-heading">
         <p className="text-accent text-sm font-semibold tracking-widest uppercase mb-3">Resources & Insights</p>
         <h1 id="blog-page-heading" className="text-4xl md:text-6xl font-display font-black text-white">
-          Dev <span className="gradient-text">Blog</span>
+          My <span className="gradient-text">Blog</span>
         </h1>
         <p className="mt-4 max-w-xl mx-auto leading-relaxed" style={{ color: 'rgba(255,255,255,0.5)' }}>
           Practical guides on WordPress, Shopify and React — with free downloadable resources in many articles.

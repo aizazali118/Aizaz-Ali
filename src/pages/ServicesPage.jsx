@@ -20,7 +20,7 @@ export default function ServicesPage() {
         </nav>
       </div>
 
-      <Services />
+      <Services showHeading={false} />
       <Pricing />
 
       {/* CTA */}

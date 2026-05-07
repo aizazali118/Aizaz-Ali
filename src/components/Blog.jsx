@@ -1,12 +1,8 @@
-import { useRef, useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { motion } from 'framer-motion';
 import { FiArrowRight, FiDownload, FiClock, FiCalendar, FiTag } from 'react-icons/fi';
-
-gsap.registerPlugin(ScrollTrigger);
 
 /* ── Sample blog posts (replace with Supabase API calls in production) ── */
 const posts = [
@@ -145,28 +141,15 @@ function PostCard({ post, index }) {
 }
 
 export default function Blog({ standalone = false }) {
-  const sectionRef = useRef(null);
-  const headRef    = useRef(null);
-  const [filter,   setFilter] = useState('All');
+  const [filter, setFilter] = useState('All');
 
   const categories = ['All', ...Array.from(new Set(posts.map(p => p.category)))];
   const filtered   = filter === 'All' ? posts : posts.filter(p => p.category === filter);
 
-  useEffect(() => {
-    const ctx = gsap.context(() => {
-      gsap.from(headRef.current, {
-        scrollTrigger: { trigger: headRef.current, start: 'top 85%' },
-        y: 60, opacity: 0, duration: 0.9, ease: 'power4.out',
-      });
-    }, sectionRef);
-    return () => ctx.revert();
-  }, []);
-
   return (
     <section
       id="blog"
-      ref={sectionRef}
-      className={`py-24 ${standalone ? '' : ''}`}
+      className="py-24"
       style={{ background: '#0d0d0d' }}
       aria-labelledby="blog-heading"
     >
@@ -181,7 +164,7 @@ export default function Blog({ standalone = false }) {
       <div className="max-w-6xl mx-auto px-6">
 
         {/* Section heading */}
-        <div ref={headRef} className="text-center mb-12">
+        <div className="text-center mb-12">
           <p className="text-accent text-sm font-semibold tracking-widest uppercase mb-3">Resources & Insights</p>
           <h2 id="blog-heading" className="text-4xl md:text-5xl font-display font-black text-white">
             Latest <span className="gradient-text">Articles</span>
