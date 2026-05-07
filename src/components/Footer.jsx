@@ -1,5 +1,5 @@
-import { FaWordpress, FaShopify, FaReact, FaWhatsapp } from 'react-icons/fa';
-import { SiFiverr, SiUpwork, SiLinkedin } from 'react-icons/si';
+import { FaWordpress, FaShopify, FaReact, FaWhatsapp, FaLinkedinIn } from 'react-icons/fa';
+import { SiFiverr, SiUpwork } from 'react-icons/si';
 import { FiArrowUp, FiMail } from 'react-icons/fi';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
@@ -39,7 +39,7 @@ export default function Footer() {
               {[
                 { icon: SiFiverr,   href: 'https://www.fiverr.com/s/gD71ldb',                       bg: '#7cb26e' },
                 { icon: SiUpwork,   href: 'https://www.upwork.com/freelancers/~01db2b03b5a7f36be8', bg: '#7cb26e' },
-                { icon: SiLinkedin, href: 'https://www.linkedin.com/in/aizaz-ali-afridi/',           bg: '#7cb26e' },
+                { icon: FaLinkedinIn, href: 'https://www.linkedin.com/in/aizaz-ali-afridi/',           bg: '#7cb26e' },
                 { icon: FaWhatsapp, href: 'https://wa.me/923359574017',                              bg: '#7cb26e' },
                 { icon: FiMail,     href: 'mailto:aaizaz519@gmail.com', bg: '#7cb26e' },
               ].map(({ icon: Icon, href, bg }, i) => (
@@ -124,7 +124,7 @@ export default function Footer() {
                 rel="noopener noreferrer"
                 className="flex items-center gap-2 text-sm text-accent hover:text-accent/80 transition-colors"
               >
-                <SiLinkedin size={12} /> LinkedIn Profile
+                <FaLinkedinIn size={12} /> LinkedIn Profile
               </a>
             </div>
           </div>

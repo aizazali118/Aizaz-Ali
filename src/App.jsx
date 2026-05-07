@@ -2,6 +2,7 @@ import { useState, Suspense, lazy, useEffect } from 'react';
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
 import { AuthProvider } from './context/AuthContext';
+import { LanguageProvider } from './context/LanguageContext';
 
 import Preloader   from './components/Preloader';
 import ProgressBar from './components/ProgressBar';
@@ -38,7 +39,8 @@ const AdminLayout       = lazy(() => import('./pages/admin/AdminLayout'));
 const AdminDashboard    = lazy(() => import('./pages/admin/AdminDashboard'));
 const AdminPosts        = lazy(() => import('./pages/admin/AdminPosts'));
 const AdminPostEditor   = lazy(() => import('./pages/admin/AdminPostEditor'));
-const AdminPortfolio    = lazy(() => import('./pages/admin/AdminPortfolio'));
+const AdminPortfolio         = lazy(() => import('./pages/admin/AdminPortfolio'));
+const AdminPortfolioEditor   = lazy(() => import('./pages/admin/AdminPortfolioEditor'));
 const AdminServices     = lazy(() => import('./pages/admin/AdminServices'));
 const AdminTestimonials = lazy(() => import('./pages/admin/AdminTestimonials'));
 
@@ -103,7 +105,7 @@ function AppRoutes() {
               <Route path="/portfolio" element={
                 <><Navbar /><main className="relative z-10 min-h-screen"><PortfolioPage /></main><Footer /></>
               } />
-              <Route path="/portfolio/:id" element={
+              <Route path="/portfolio/:slug" element={
                 <><Navbar /><main className="relative z-10 min-h-screen"><PortfolioItemPage /></main><Footer /></>
               } />
               <Route path="/contact" element={
@@ -134,6 +136,12 @@ function AppRoutes() {
               <Route path="/admin/portfolio" element={
                 <AdminLayout><AdminPortfolio /></AdminLayout>
               } />
+              <Route path="/admin/portfolio/new" element={
+                <AdminLayout><AdminPortfolioEditor /></AdminLayout>
+              } />
+              <Route path="/admin/portfolio/:id/edit" element={
+                <AdminLayout><AdminPortfolioEditor /></AdminLayout>
+              } />
               <Route path="/admin/services" element={
                 <AdminLayout><AdminServices /></AdminLayout>
               } />
@@ -158,9 +166,11 @@ export default function App() {
   return (
     <HelmetProvider>
       <AuthProvider>
-        <BrowserRouter>
-          <AppRoutes />
-        </BrowserRouter>
+        <LanguageProvider>
+          <BrowserRouter>
+            <AppRoutes />
+          </BrowserRouter>
+        </LanguageProvider>
       </AuthProvider>
     </HelmetProvider>
   );

@@ -1,7 +1,8 @@
 import { useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { FiDownload, FiMail, FiPhone, FiMapPin, FiGlobe } from 'react-icons/fi';
-import { SiFiverr, SiUpwork, SiLinkedin } from 'react-icons/si';
+import { SiFiverr, SiUpwork } from 'react-icons/si';
+import { FaLinkedinIn } from 'react-icons/fa';
 
 const skills = [
   { name: 'WordPress / WooCommerce', pct: 95 },

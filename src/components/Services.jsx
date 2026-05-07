@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { FaWordpress, FaShopify, FaReact } from 'react-icons/fa';
-import { FiCheck, FiArrowRight, FiCode, FiChevronDown } from 'react-icons/fi';
+import { FiCheck, FiArrowRight, FiCode, FiChevronLeft, FiChevronRight } from 'react-icons/fi';
 import { MdOutlineDesignServices, MdSpeed, MdSupportAgent } from 'react-icons/md';
 import { FiLayers } from 'react-icons/fi';
 
@@ -65,124 +65,186 @@ const extras = [
   { icon: MdSupportAgent, title: 'Ongoing Support',   desc: 'Post-launch maintenance, updates, and dedicated support.'    },
 ];
 
-/* ── Desktop grid card ── */
-function ServiceCard({ s, index }) {
+const ACCENT = '#7cb26e';
+
+function ServiceCarousel() {
+  const [current, setCurrent] = useState(0);
+  const total = services.length;
+
+  const prev = () => setCurrent(c => (c - 1 + total) % total);
+  const next = () => setCurrent(c => (c + 1) % total);
+
+  const s = services[current];
+
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.55, delay: index * 0.08 }}
-      whileHover={{ y: -8 }}
-      className="relative flex flex-col rounded-3xl p-7 border h-full transition-all duration-300"
-      style={{
-        background: 'rgba(255,255,255,0.03)',
-        borderColor: s.accent + '35',
-        boxShadow: 'none',
-      }}
-      onMouseEnter={e => { e.currentTarget.style.boxShadow = `0 20px 50px ${s.accent}22, 0 0 0 1px ${s.accent}50`; e.currentTarget.style.borderColor = s.accent + '60'; }}
-      onMouseLeave={e => { e.currentTarget.style.boxShadow = 'none'; e.currentTarget.style.borderColor = s.accent + '35'; }}
-    >
-      {s.badge && (
-        <span
-          className="absolute -top-3 left-6 text-white text-[10px] font-bold px-3 py-0.5 rounded-full shadow-lg"
-          style={{ background: 'linear-gradient(135deg,#5a9a4a,#7cb26e)' }}
-        >
-          {s.badge}
-        </span>
-      )}
-
-      <div className="w-14 h-14 rounded-2xl flex items-center justify-center mb-5 flex-shrink-0"
-        style={{ background: s.iconColor + '18' }}>
-        <s.icon size={26} color={s.iconColor} />
-      </div>
-
-      <h3 className="text-lg font-display font-black text-white mb-1">{s.title}</h3>
-      <p className="text-[10px] font-bold uppercase tracking-widest mb-3" style={{ color: s.accent }}>{s.tagline}</p>
-      <p className="text-sm leading-relaxed mb-5 flex-1" style={{ color: 'rgba(255,255,255,0.5)' }}>{s.desc}</p>
-
-      <ul className="space-y-2 mb-6">
-        {s.features.map((f) => (
-          <li key={f} className="flex items-center gap-2 text-xs" style={{ color: 'rgba(255,255,255,0.6)' }}>
-            <FiCheck size={11} style={{ color: s.accent }} className="flex-shrink-0" />
-            {f}
-          </li>
-        ))}
-      </ul>
-
-      <Link
-        to="/contact"
-        className="inline-flex items-center gap-1.5 text-xs font-bold mt-auto group hover:gap-3 transition-all duration-200"
-        style={{ color: s.accent }}
-      >
-        Get a Quote <FiArrowRight className="group-hover:translate-x-1 transition-transform" size={12} />
-      </Link>
-    </motion.div>
-  );
-}
-
-/* ── Mobile accordion card ── */
-function MobileServiceCard({ s }) {
-  const [open, setOpen] = useState(false);
-  return (
-    <div className="rounded-2xl overflow-hidden border" style={{ background: 'rgba(255,255,255,0.03)', borderColor: s.accent + '30' }}>
-      <button
-        className="w-full flex items-center gap-3 p-4 text-left"
-        onClick={() => setOpen(!open)}
-        aria-expanded={open}
-      >
-        <div className="w-11 h-11 rounded-xl flex items-center justify-center flex-shrink-0"
-          style={{ background: s.iconColor + '20' }}>
-          <s.icon size={22} color={s.iconColor} />
-        </div>
-        <div className="flex-1 min-w-0">
-          <h3 className="font-black text-white text-sm leading-tight">{s.title}</h3>
-          <p className="text-[10px] font-bold uppercase tracking-wider mt-0.5" style={{ color: s.accent }}>{s.tagline}</p>
-        </div>
-        <FiChevronDown
-          size={18}
-          className="flex-shrink-0 transition-transform duration-300"
-          style={{ color: s.accent, transform: open ? 'rotate(180deg)' : 'rotate(0deg)' }}
-        />
-      </button>
-
-      <AnimatePresence initial={false}>
-        {open && (
+    <div className="max-w-3xl mx-auto px-6">
+      <div className="relative">
+        <AnimatePresence mode="wait">
           <motion.div
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: 'auto', opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.3, ease: [0.33, 1, 0.68, 1] }}
-            className="overflow-hidden"
+            key={current}
+            initial={{ opacity: 0, x: 40 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: -40 }}
+            transition={{ duration: 0.35, ease: [0.33, 1, 0.68, 1] }}
+            className="relative rounded-3xl p-8 border"
+            style={{ background: 'rgba(255,255,255,0.03)', borderColor: ACCENT + '40' }}
           >
-            <div className="px-4 pb-5 pt-1" style={{ borderTop: `1px solid ${s.accent}20` }}>
-              <p className="text-xs leading-relaxed mb-3" style={{ color: 'rgba(255,255,255,0.5)' }}>{s.desc}</p>
-              <ul className="space-y-1.5 mb-4">
-                {s.features.map((f) => (
-                  <li key={f} className="flex items-center gap-2 text-xs" style={{ color: 'rgba(255,255,255,0.6)' }}>
-                    <FiCheck size={11} style={{ color: s.accent }} className="flex-shrink-0" />
-                    {f}
-                  </li>
-                ))}
-              </ul>
-              <Link
-                to="/contact"
-                className="inline-flex items-center gap-1.5 text-xs font-bold py-2 px-4 rounded-full text-white"
-                style={{ background: s.accent }}
-              >
-                Get a Quote <FiArrowRight size={12} />
-              </Link>
+            {s.badge && (
+              <span className="absolute -top-3 left-8 text-white text-[10px] font-bold px-3 py-0.5 rounded-full shadow-lg"
+                style={{ background: 'linear-gradient(135deg,#5a9a4a,#7cb26e)' }}>
+                {s.badge}
+              </span>
+            )}
+
+            <div className="flex flex-col sm:flex-row gap-8">
+              {/* Left */}
+              <div className="flex-1">
+                <div className="w-14 h-14 rounded-2xl flex items-center justify-center mb-5"
+                  style={{ background: ACCENT + '18' }}>
+                  <s.icon size={26} color={ACCENT} />
+                </div>
+                <h3 className="text-2xl font-display font-black text-white mb-1">{s.title}</h3>
+                <p className="text-[11px] font-bold uppercase tracking-widest mb-4" style={{ color: ACCENT }}>{s.tagline}</p>
+                <p className="text-sm leading-relaxed mb-6" style={{ color: 'rgba(255,255,255,0.5)' }}>{s.desc}</p>
+                <Link
+                  to="/contact"
+                  className="inline-flex items-center gap-1.5 text-sm font-bold group hover:gap-3 transition-all duration-200"
+                  style={{ color: ACCENT }}
+                >
+                  Get a Quote <FiArrowRight className="group-hover:translate-x-1 transition-transform" size={14} />
+                </Link>
+              </div>
+
+              {/* Right — features */}
+              <div className="sm:w-56 shrink-0">
+                <p className="text-xs font-bold uppercase tracking-wider mb-3" style={{ color: 'rgba(255,255,255,0.3)' }}>Includes</p>
+                <ul className="space-y-2.5">
+                  {s.features.map(f => (
+                    <li key={f} className="flex items-center gap-2 text-sm" style={{ color: 'rgba(255,255,255,0.65)' }}>
+                      <FiCheck size={12} style={{ color: ACCENT }} className="flex-shrink-0" />
+                      {f}
+                    </li>
+                  ))}
+                </ul>
+              </div>
             </div>
           </motion.div>
-        )}
-      </AnimatePresence>
+        </AnimatePresence>
+      </div>
+
+      {/* Controls */}
+      <div className="flex items-center justify-center gap-6 mt-8">
+        <button
+          onClick={prev}
+          className="w-11 h-11 rounded-full flex items-center justify-center border transition-all hover:border-accent hover:text-accent"
+          style={{ background: 'rgba(255,255,255,0.04)', borderColor: 'rgba(255,255,255,0.12)', color: 'rgba(255,255,255,0.5)' }}
+          aria-label="Previous service"
+        >
+          <FiChevronLeft size={18} />
+        </button>
+
+        <span className="text-sm font-bold tabular-nums" style={{ color: 'rgba(255,255,255,0.5)' }}>
+          <span className="text-white">{current + 1}</span>
+          <span className="mx-1.5" style={{ color: 'rgba(255,255,255,0.2)' }}>/</span>
+          {total}
+        </span>
+
+        <button
+          onClick={next}
+          className="w-11 h-11 rounded-full flex items-center justify-center border transition-all hover:border-accent hover:text-accent"
+          style={{ background: 'rgba(255,255,255,0.04)', borderColor: 'rgba(255,255,255,0.12)', color: 'rgba(255,255,255,0.5)' }}
+          aria-label="Next service"
+        >
+          <FiChevronRight size={18} />
+        </button>
+      </div>
     </div>
   );
 }
 
-export default function Services({ showHeading = true }) {
-  const isTouch = typeof window !== 'undefined' && window.matchMedia('(pointer: coarse)').matches;
+function ServiceGrid() {
+  return (
+    <div className="max-w-6xl mx-auto px-6">
+      <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5 mb-5">
+        {services.slice(0, 4).map((s, i) => (
+          <motion.div
+            key={s.title}
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: i * 0.07 }}
+            className="relative flex flex-col rounded-3xl p-6 border h-full transition-all duration-300"
+            style={{ background: 'rgba(255,255,255,0.03)', borderColor: s.accent + '35' }}
+            onMouseEnter={e => { e.currentTarget.style.boxShadow = `0 20px 50px ${s.accent}22, 0 0 0 1px ${s.accent}50`; e.currentTarget.style.borderColor = s.accent + '60'; }}
+            onMouseLeave={e => { e.currentTarget.style.boxShadow = 'none'; e.currentTarget.style.borderColor = s.accent + '35'; }}
+          >
+            {s.badge && (
+              <span className="absolute -top-3 left-5 text-white text-[10px] font-bold px-3 py-0.5 rounded-full shadow-lg"
+                style={{ background: 'linear-gradient(135deg,#5a9a4a,#7cb26e)' }}>{s.badge}</span>
+            )}
+            <div className="w-12 h-12 rounded-2xl flex items-center justify-center mb-4 shrink-0"
+              style={{ background: s.iconColor + '18' }}>
+              <s.icon size={22} color={s.iconColor} />
+            </div>
+            <h3 className="text-base font-display font-black text-white mb-1">{s.title}</h3>
+            <p className="text-[10px] font-bold uppercase tracking-widest mb-3" style={{ color: s.accent }}>{s.tagline}</p>
+            <p className="text-xs leading-relaxed mb-4 flex-1" style={{ color: 'rgba(255,255,255,0.5)' }}>{s.desc}</p>
+            <ul className="space-y-1.5 mb-5">
+              {s.features.map(f => (
+                <li key={f} className="flex items-center gap-1.5 text-xs" style={{ color: 'rgba(255,255,255,0.6)' }}>
+                  <FiCheck size={10} style={{ color: s.accent }} className="flex-shrink-0" />{f}
+                </li>
+              ))}
+            </ul>
+            <Link to="/contact" className="inline-flex items-center gap-1 text-xs font-bold mt-auto group hover:gap-2 transition-all" style={{ color: s.accent }}>
+              Get a Quote <FiArrowRight size={11} className="group-hover:translate-x-1 transition-transform" />
+            </Link>
+          </motion.div>
+        ))}
+      </div>
+      {/* 5th service — full width row centered */}
+      <div className="flex justify-center">
+        {services.slice(4).map((s, i) => (
+          <motion.div
+            key={s.title}
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.28 }}
+            className="relative flex flex-col rounded-3xl p-6 border transition-all duration-300 w-full sm:max-w-sm"
+            style={{ background: 'rgba(255,255,255,0.03)', borderColor: s.accent + '35' }}
+            onMouseEnter={e => { e.currentTarget.style.boxShadow = `0 20px 50px ${s.accent}22, 0 0 0 1px ${s.accent}50`; e.currentTarget.style.borderColor = s.accent + '60'; }}
+            onMouseLeave={e => { e.currentTarget.style.boxShadow = 'none'; e.currentTarget.style.borderColor = s.accent + '35'; }}
+          >
+            {s.badge && (
+              <span className="absolute -top-3 left-5 text-white text-[10px] font-bold px-3 py-0.5 rounded-full shadow-lg"
+                style={{ background: 'linear-gradient(135deg,#5a9a4a,#7cb26e)' }}>{s.badge}</span>
+            )}
+            <div className="w-12 h-12 rounded-2xl flex items-center justify-center mb-4"
+              style={{ background: s.iconColor + '18' }}>
+              <s.icon size={22} color={s.iconColor} />
+            </div>
+            <h3 className="text-base font-display font-black text-white mb-1">{s.title}</h3>
+            <p className="text-[10px] font-bold uppercase tracking-widest mb-3" style={{ color: s.accent }}>{s.tagline}</p>
+            <p className="text-xs leading-relaxed mb-4" style={{ color: 'rgba(255,255,255,0.5)' }}>{s.desc}</p>
+            <ul className="space-y-1.5 mb-5">
+              {s.features.map(f => (
+                <li key={f} className="flex items-center gap-1.5 text-xs" style={{ color: 'rgba(255,255,255,0.6)' }}>
+                  <FiCheck size={10} style={{ color: s.accent }} className="flex-shrink-0" />{f}
+                </li>
+              ))}
+            </ul>
+            <Link to="/contact" className="inline-flex items-center gap-1 text-xs font-bold group hover:gap-2 transition-all" style={{ color: s.accent }}>
+              Get a Quote <FiArrowRight size={11} className="group-hover:translate-x-1 transition-transform" />
+            </Link>
+          </motion.div>
+        ))}
+      </div>
+    </div>
+  );
+}
 
+export default function Services({ showHeading = true, variant = 'carousel' }) {
   return (
     <section id="services" className="py-24" style={{ background: '#0d0d0d' }}>
 
@@ -205,25 +267,9 @@ export default function Services({ showHeading = true }) {
         </motion.div>
       )}
 
-      {/* ══ MOBILE: accordion ══ */}
-      {isTouch ? (
-        <div className="px-5 space-y-3 max-w-lg mx-auto">
-          {services.map((s) => (
-            <MobileServiceCard key={s.title} s={s} />
-          ))}
-        </div>
-      ) : (
-        /* ══ DESKTOP: grid ══ */
-        <div className="max-w-6xl mx-auto px-6">
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {services.map((s, i) => (
-              <ServiceCard key={s.title} s={s} index={i} />
-            ))}
-          </div>
-        </div>
-      )}
+      {variant === 'grid' ? <ServiceGrid /> : <ServiceCarousel />}
 
-      {/* ── Extras strip ── */}
+      {/* Extras strip */}
       <div className="max-w-6xl mx-auto px-6 mt-16">
         <div className="grid sm:grid-cols-3 gap-4">
           {extras.map(({ icon: Icon, title, desc }, i) => (

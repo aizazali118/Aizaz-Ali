@@ -33,4 +33,24 @@ if ($method === 'GET' && $uri === '/auth/me') {
     respond(['admin' => $user]);
 }
 
+// PUT /api/auth/password — change password
+if ($method === 'PUT' && $uri === '/auth/password') {
+    $auth_user = require_auth();
+    $d = body();
+    $current  = $d['current_password'] ?? '';
+    $newpass  = $d['new_password']     ?? '';
+    if (!$current || !$newpass) respond(['error' => 'Both fields required'], 400);
+    if (strlen($newpass) < 6) respond(['error' => 'New password must be at least 6 characters'], 400);
+
+    $stmt = $pdo->prepare('SELECT password FROM users WHERE id = ? LIMIT 1');
+    $stmt->execute([$auth_user['id']]);
+    $user = $stmt->fetch();
+    if (!$user || !password_verify($current, $user['password'])) {
+        respond(['error' => 'Current password is incorrect'], 401);
+    }
+    $hash = password_hash($newpass, PASSWORD_DEFAULT);
+    $pdo->prepare('UPDATE users SET password = ? WHERE id = ?')->execute([$hash, $auth_user['id']]);
+    respond(['message' => 'Password updated successfully']);
+}
+
 respond(['error' => 'Not found'], 404);

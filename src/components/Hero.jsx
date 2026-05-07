@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { FiArrowRight } from 'react-icons/fi';
-import { FaWhatsapp } from 'react-icons/fa';
-import { SiFiverr, SiUpwork, SiLinkedin } from 'react-icons/si';
+import { FaWhatsapp, FaLinkedinIn } from 'react-icons/fa';
+import { SiFiverr, SiUpwork } from 'react-icons/si';
 
 const roles = [
   'WordPress Developer',
@@ -154,7 +154,7 @@ export default function Hero() {
             {[
               { Icon: SiFiverr,   href: 'https://www.fiverr.com/s/gD71ldb',                       label: 'Fiverr'   },
               { Icon: SiUpwork,   href: 'https://www.upwork.com/freelancers/~01db2b03b5a7f36be8', label: 'Upwork'   },
-              { Icon: SiLinkedin, href: 'https://www.linkedin.com/in/aizaz-ali-afridi/',          label: 'LinkedIn' },
+              { Icon: FaLinkedinIn, href: 'https://www.linkedin.com/in/aizaz-ali-afridi/',          label: 'LinkedIn' },
               { Icon: FaWhatsapp, href: 'https://wa.me/923359574017',                             label: 'WhatsApp' },
             ].map(({ Icon, href, label }) => (
               <a

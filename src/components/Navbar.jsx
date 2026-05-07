@@ -2,9 +2,10 @@ import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link, useLocation } from 'react-router-dom';
 import { FiX } from 'react-icons/fi';
-import { SiFiverr, SiUpwork, SiLinkedin } from 'react-icons/si';
-import { FaWhatsapp } from 'react-icons/fa';
+import { SiFiverr, SiUpwork } from 'react-icons/si';
+import { FaWhatsapp, FaLinkedinIn } from 'react-icons/fa';
 import Logo from './Logo';
+import { useLang } from '../context/LanguageContext';
 
 const links = {
   en: [
@@ -20,7 +21,7 @@ const links = {
 export default function Navbar() {
   const [open,     setOpen]     = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [lang,     setLang]     = useState('en');
+  const { lang, toggleLang }    = useLang();
   const location = useLocation();
   const navLinks = links.en;
 
@@ -90,7 +91,7 @@ export default function Navbar() {
           <div className="flex items-center gap-3">
             {/* Arabic / English toggle */}
             <button
-              onClick={() => setLang(l => l === 'en' ? 'ar' : 'en')}
+              onClick={() => toggleLang()}
               className="hidden md:inline-flex items-center gap-1 px-3 py-1.5 rounded-full text-xs font-bold border transition-all duration-200 hover:scale-105"
               style={{ borderColor: 'rgba(124,178,110,0.4)', color: '#7cb26e', background: 'rgba(124,178,110,0.06)' }}
               title={lang === 'en' ? 'Switch to Arabic' : 'Switch to English'}
@@ -206,7 +207,7 @@ export default function Navbar() {
               >
                 <div className="flex items-center justify-between mb-4">
                   <button
-                    onClick={() => setLang(l => l === 'en' ? 'ar' : 'en')}
+                    onClick={() => toggleLang()}
                     className="flex items-center gap-1.5 text-xs font-bold px-3 py-1.5 rounded-full border transition-colors"
                     style={{ borderColor: 'rgba(124,178,110,0.4)', color: '#7cb26e', background: 'rgba(124,178,110,0.08)' }}
                   >
@@ -228,7 +229,7 @@ export default function Navbar() {
                     {[
                       { Icon: SiFiverr,   href: 'https://www.fiverr.com/s/gD71ldb',                        bg: '#7cb26e', label: 'Fiverr'   },
                       { Icon: SiUpwork,   href: 'https://www.upwork.com/freelancers/~01db2b03b5a7f36be8', bg: '#7cb26e', label: 'Upwork'   },
-                      { Icon: SiLinkedin, href: 'https://www.linkedin.com/in/aizaz-ali-afridi/',           bg: '#7cb26e', label: 'LinkedIn' },
+                      { Icon: FaLinkedinIn, href: 'https://www.linkedin.com/in/aizaz-ali-afridi/',           bg: '#7cb26e', label: 'LinkedIn' },
                       { Icon: FaWhatsapp, href: 'https://wa.me/923359574017',                              bg: '#7cb26e', label: 'WhatsApp' },
                     ].map(({ Icon, href, bg, label }) => (
                       <a
